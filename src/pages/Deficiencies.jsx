@@ -133,7 +133,7 @@ export default function Deficiencies() {
   if (!isAuthenticated) {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-        <div className="glass-card" style={{ padding: '3rem', maxWidth: '420px', width: '100%', textAlign: 'center' }}>
+        <div className="glass-card modal-inner" style={{ padding: '3rem', maxWidth: '420px', width: '100%', textAlign: 'center' }}>
           <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'color-mix(in srgb, var(--accent-crimson) 15%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
             <Lock size={28} style={{ color: 'var(--accent-crimson)' }} />
           </div>

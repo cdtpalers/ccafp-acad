@@ -192,6 +192,7 @@ h3 { font-size: 1.25rem; }
   border-radius: var(--radius-md);
   font-family: inherit;
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  max-width: 100%;
 }
 
 .input-field:focus {
@@ -245,6 +246,29 @@ h3 { font-size: 1.25rem; }
   h1 { font-size: 1.75rem; }
   h2 { font-size: 1.25rem; }
   h3 { font-size: 1.1rem; }
+  
+  /* Mobile Modals */
+  .modal-inner {
+    padding: 1.5rem !important;
+    max-width: 95% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Ultra Mobile Adjustments */
+  .modal-inner {
+    padding: 1rem !important;
+  }
+  
+  .data-table th, .data-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Modal Helper */
+.modal-inner {
+  transition: padding 0.3s ease;
 }
 
 /* Table Utilities */
@@ -268,12 +292,14 @@ h3 { font-size: 1.25rem; }
   text-transform: uppercase;
   letter-spacing: 0.05em;
   border-bottom: 1px solid var(--surface-border);
+  white-space: nowrap;
 }
 
 .data-table td {
   padding: 1rem;
   border-bottom: 1px solid var(--surface-border);
   color: var(--text-primary);
+  white-space: nowrap;
 }
 
 .data-table tr:hover td {

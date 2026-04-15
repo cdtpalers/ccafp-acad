@@ -111,8 +111,8 @@ export default function Requirements() {
           </div>
 
           <div className="flex-between">
-            <div style={{ display: 'flex', gap: '1rem' }}>
-              <select className="input-field" style={{ width: '200px' }} value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+            <div style={{ flex: 1, maxWidth: '200px' }}>
+              <select className="input-field" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                 <option value="Status: All">Status: All</option>
                 <option value="Pending">Pending</option>
                 <option value="Active">Active</option>
@@ -217,7 +217,7 @@ export default function Requirements() {
 
       {selectedReq && (
         <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={() => setSelectedReq(null)}>
-          <div className="glass-panel" style={{ background: 'var(--bg-color)', width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto', position: 'relative', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)' }} onClick={e => e.stopPropagation()}>
+          <div className="glass-panel modal-inner" style={{ background: 'var(--bg-color)', width: '100%', maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto', position: 'relative', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)' }} onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedReq(null)} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'var(--surface-overlay)', border: '1px solid var(--surface-border)', color: 'var(--text-primary)', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background 0.2s' }}>
               <X size={18} />
             </button>

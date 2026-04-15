@@ -143,8 +143,8 @@ export default function Dashboard() {
         const todayIdx = new Date().getDate() % ACADEMIC_QUOTES.length;
         const dailyQuote = ACADEMIC_QUOTES[todayIdx];
         return (
-          <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem', display: 'flex', gap: '2rem', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: '-20px', right: '-10px', opacity: 0.05, transform: 'rotate(-20deg)' }}>
+          <div className="glass-panel modal-inner" style={{ padding: '2rem', marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: '-15px', right: '-15px', opacity: 0.05, transform: 'rotate(-20deg)' }}>
               <Quote size={120} weight="fill" />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-color)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--surface-border)', flexShrink: 0 }}>
