@@ -1,51 +1,67 @@
 import { Users, User, Medal, Star } from 'lucide-react';
 
+import rAcadImg from '../assets/r_acad.png';
+import aCoImg from '../assets/a_co.png';
+import aSgtImg from '../assets/a_sgt.png';
+import bCoImg from '../assets/b_co.png';
+import bSgtImg from '../assets/b_sgt.png';
+import cCoImg from '../assets/c_co.png';
+import cSgtImg from '../assets/c_sgt.png';
+import dCoImg from '../assets/d_co.png';
+import dSgtImg from '../assets/d_sgt.png';
+import eCoImg from '../assets/e_co.png';
+import eSgtImg from '../assets/e_sgt.png';
+import fCoImg from '../assets/f_co.png';
+import fSgtImg from '../assets/f_sgt.png';
+import gCoImg from '../assets/g_co.png';
+import hCoImg from '../assets/h_co.png';
+
 const companies = [
   {
     id: 'A', name: 'Alpha Company',
-    officer: { name: "AERO CDT 1CL CARLOS JOSE REONAL", imageUrl: "/src/assets/a_co.png" },
-    sgt: { name: "CDT 2CL JOYCE RAMOS", imageUrl: "/src/assets/a_sgt.png" },
+    officer: { name: "AERO CDT 1CL CARLOS JOSE REONAL", imageUrl: aCoImg },
+    sgt: { name: "CDT 2CL JOYCE RAMOS", imageUrl: aSgtImg },
     cpl: { name: "[Co. A Cpl Name]", imageUrl: "" }
   },
   {
     id: 'B', name: 'Bravo Company',
-    officer: { name: "MIDN 1CL ALADDIN CAYAGO", imageUrl: "/src/assets/b_co.png" },
-    sgt: { name: "CDT 2CL KARL RIGOR UY DIAZ", imageUrl: "/src/assets/b_sgt.png" },
+    officer: { name: "MIDN 1CL ALADDIN CAYAGO", imageUrl: bCoImg },
+    sgt: { name: "CDT 2CL KARL RIGOR UY DIAZ", imageUrl: bSgtImg },
     cpl: { name: "[Co. B Cpl Name]", imageUrl: "" }
   },
   {
     id: 'C', name: 'Charlie Company',
-    officer: { name: "MIDN 1CL ALEXANDER NULUD", imageUrl: "/src/assets/c_co.png" },
-    sgt: { name: "CDT 2CL AJIJUL MAADIL", imageUrl: "/src/assets/c_sgt.png" },
+    officer: { name: "MIDN 1CL ALEXANDER NULUD", imageUrl: cCoImg },
+    sgt: { name: "CDT 2CL AJIJUL MAADIL", imageUrl: cSgtImg },
     cpl: { name: "[Co. C Cpl Name]", imageUrl: "" }
   },
   {
     id: 'D', name: 'Delta Company',
-    officer: { name: "ARMY CDT 1CL VIENNE IRA CELAJES", imageUrl: "/src/assets/d_co.png" },
-    sgt: { name: "CDT 2CL IANNA JHONS GRY DABALOS", imageUrl: "/src/assets/d_sgt.png" },
+    officer: { name: "ARMY CDT 1CL VIENNE IRA CELAJES", imageUrl: dCoImg },
+    sgt: { name: "CDT 2CL IANNA JHONS GRY DABALOS", imageUrl: dSgtImg },
     cpl: { name: "[Co. D Cpl Name]", imageUrl: "" }
   },
   {
     id: 'E', name: 'Echo Company',
-    officer: { name: "AERO CDT 1CL DANLOUIE VILLANUEVA", imageUrl: "/src/assets/e_co.png" },
-    sgt: { name: "CDT 2CL SANDESLUV OTTAO", imageUrl: "/src/assets/e_sgt.png" },
+    officer: { name: "AERO CDT 1CL DANLOUIE VILLANUEVA", imageUrl: eCoImg },
+    sgt: { name: "CDT 2CL SANDESLUV OTTAO", imageUrl: eSgtImg },
     cpl: { name: "[Co. E Cpl Name]", imageUrl: "" }
   },
   {
     id: 'F', name: 'Foxtrot Company',
-    officer: { name: "AERO CDT 1CL EROLL VILLANUEVA", imageUrl: "/src/assets/f_co.png" },
-    sgt: { name: "CDT 2CL XYDENT MERJ REGIS", imageUrl: "/src/assets/f_sgt.png" },
+    officer: { name: "AERO CDT 1CL EROLL VILLANUEVA", imageUrl: fCoImg },
+    sgt: { name: "CDT 2CL XYDENT MERJ REGIS", imageUrl: fSgtImg },
     cpl: { name: "[Co. F Cpl Name]", imageUrl: "" }
   },
   {
     id: 'G', name: 'Golf Company',
-    officer: { name: "MIDN 1CL ARIES CHIRISTIAN BAROY", imageUrl: "/src/assets/g_co.png" },
+    officer: { name: "MIDN 1CL ARIES CHIRISTIAN BAROY", imageUrl: gCoImg },
     sgt: { name: "[Co. G Sgt Name]", imageUrl: "" },
     cpl: { name: "[Co. G Cpl Name]", imageUrl: "" }
   },
   {
     id: 'H', name: 'Hawk Company',
-    officer: { name: "AERO CDT 1CL LEAH BEAH CANSINO", imageUrl: "/src/assets/h_co.png" },
+    officer: { name: "AERO CDT 1CL LEAH BEAH CANSINO", imageUrl: hCoImg },
     sgt: { name: "[Co. H Sgt Name]", imageUrl: "" },
     cpl: { name: "[Co. H Cpl Name]", imageUrl: "" }
   },
@@ -123,7 +139,7 @@ export default function About() {
             role="Regimental Academic Officer"
             name="CDT CPT 1CL MARTIN SIMON S PALERO C-27274 'A' Co"
             isTopLevel={true}
-            imageUrl="/src/assets/r_acad.png"
+            imageUrl={rAcadImg}
           />
         </div>
       </div>
