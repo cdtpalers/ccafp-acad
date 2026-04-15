@@ -36,7 +36,7 @@ function DateTimeWidget({ isCollapsed }) {
       margin: '0.5rem 1rem 1.5rem 1rem',
       background: 'var(--surface-glass)',
       backdropFilter: 'blur(var(--blur-md))',
-      webKitBackdropFilter: 'blur(var(--blur-md))',
+      WebkitBackdropFilter: 'blur(var(--blur-md))',
       borderRadius: 'var(--radius-lg)',
       padding: '1.25rem',
       boxShadow: 'var(--shadow-sm)',

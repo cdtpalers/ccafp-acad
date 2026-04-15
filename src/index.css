@@ -98,8 +98,8 @@ a:hover {
 /* Glassmorphism Panels */
 .glass-panel {
   background: var(--surface-glass);
-  backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
+  backdrop-filter: blur(var(--blur-lg));
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
@@ -107,8 +107,8 @@ a:hover {
 
 .glass-card {
   background: var(--surface-glass);
-  backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -135,8 +135,8 @@ a:hover {
   border: none;
   transition: all 0.2s ease;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
 }
 
 .btn-primary {
@@ -154,8 +154,8 @@ a:hover {
 
 .btn-secondary {
   background: var(--surface-highlight);
-  backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
   color: var(--text-primary);
   border: 1px solid var(--surface-border);
 }
@@ -184,8 +184,8 @@ h3 { font-size: 1.25rem; }
 .input-field {
   width: 100%;
   background: var(--surface-overlay);
-  backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   border: 1px solid var(--surface-border);
   color: var(--text-primary);
   padding: 0.75rem 1rem;
@@ -278,8 +278,8 @@ h3 { font-size: 1.25rem; }
 
 .data-table tr:hover td {
   background: var(--surface-highlight);
-  backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
 }
 
 .badge {
@@ -307,8 +307,8 @@ h3 { font-size: 1.25rem; }
 .sidebar {
   width: 280px;
   background: var(--sidebar-glass);
-  backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
+  backdrop-filter: blur(var(--blur-lg));
   border-right: 1px solid var(--surface-border);
   display: flex;
   flex-direction: column;
@@ -390,15 +390,15 @@ h3 { font-size: 1.25rem; }
 
 .nav-link:hover {
   background: var(--surface-highlight);
-  backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   color: var(--text-primary);
 }
 
 .nav-link.active {
   background: var(--surface-highlight-strong);
-  backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
   color: var(--text-primary);
   font-weight: 600;
 }
@@ -427,8 +427,8 @@ h3 { font-size: 1.25rem; }
   padding: 0.75rem;
   border-radius: var(--radius-md);
   background: var(--surface-glass);
-  backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(var(--blur-md));
   border: 1px solid var(--surface-border);
 }
 
@@ -485,8 +485,8 @@ h3 { font-size: 1.25rem; }
   display: none;
   padding: 1rem 1.5rem;
   background: var(--surface-glass);
-  backdrop-filter: blur(var(--blur-lg));
   -webkit-backdrop-filter: blur(var(--blur-lg));
+  backdrop-filter: blur(var(--blur-lg));
   border-bottom: 1px solid var(--surface-border);
   position: sticky;
   top: 0;
@@ -510,8 +510,8 @@ h3 { font-size: 1.25rem; }
   display: flex;
   gap: 0.25rem;
   background: var(--surface-overlay);
-  backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  backdrop-filter: blur(var(--blur-sm));
   padding: 0.4rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--surface-border);
