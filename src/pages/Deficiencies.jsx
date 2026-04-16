@@ -194,7 +194,7 @@ export default function Deficiencies() {
             {topCompany}
           </h3>
           <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span>Company with Most Deficiencies</span>
+            <span>Company with Most Deficienct Cadets</span>
             <span className="badge badge-warning" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{topCompanyCount}</span>
           </p>
         </div>
