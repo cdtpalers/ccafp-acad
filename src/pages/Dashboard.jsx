@@ -1,5 +1,6 @@
 import { Bell, BookOpen, AlertCircle, TrendingUp, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ACADEMIC_QUOTES = [
   { text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
@@ -94,11 +95,13 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
+  const navigate = useNavigate();
+
   const stats = [
-    { label: 'Active Announcements', value: announcements.length || '0', icon: <Bell size={18} />, trend: 'View Schedule' },
-    { label: 'Pending Requirements', value: requirements.length || '0', icon: <BookOpen size={18} />, trend: 'View All' },
-    { label: 'Total Deficiencies', value: new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size || '0', icon: <AlertCircle size={18} />, trend: 'View Board' },
-    { label: 'Overall Compliance', value: 'N/A', icon: <TrendingUp size={18} />, trend: 'View Analytics' },
+    { label: 'Active Announcements', value: announcements.length || '0', icon: <Bell size={18} />, trend: 'View Feed', path: '/announcements' },
+    { label: 'Pending Requirements', value: requirements.length || '0', icon: <BookOpen size={18} />, trend: 'View All', path: '/requirements' },
+    { label: 'Total Deficiencies', value: new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size || '0', icon: <AlertCircle size={18} />, trend: 'View Board', path: '/deficiencies' },
+    { label: 'Upcoming Classes', value: '4CL-1CL', icon: <TrendingUp size={18} />, trend: 'View Schedule', path: '/schedule' },
   ];
 
   return (
@@ -110,9 +113,20 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="grid-cols-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginBottom: '2rem' }}>
+      <div className="grid-cols-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginBottom: '2rem', gap: '1.5rem' }}>
         {stats.map((stat, i) => (
-          <div key={i} className="glass-card" style={{ display: 'flex', flexDirection: 'column', padding: '1.25rem' }}>
+          <div 
+            key={i} 
+            className="glass-card stat-card-interactive" 
+            onClick={() => navigate(stat.path)}
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              padding: '1.25rem',
+              cursor: 'pointer',
+              transition: 'transform 0.2s ease, background 0.2s ease'
+            }}
+          >
             <div className="flex-between" style={{ alignItems: 'center', marginBottom: '1.5rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <div style={{ border: '1px solid var(--surface-border)', padding: '0.4rem', borderRadius: 'var(--radius-sm)', display: 'flex', background: 'var(--bg-color)', color: 'var(--text-primary)' }}>
@@ -125,7 +139,7 @@ export default function Dashboard() {
             
             <h3 style={{ fontSize: '2.5rem', fontWeight: 600, margin: 0, lineHeight: 1 }}>{stat.value}</h3>
             
-            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--surface-border)', fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between', cursor: 'pointer' }}>
+            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--surface-border)', fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
               <span>{stat.trend}</span>
               <span style={{ fontSize: '1rem', lineHeight: 1 }}>→</span>
             </div>
