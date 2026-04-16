@@ -47,13 +47,11 @@ function parseCSV(csv) {
 // Helper to convert Google Drive share links to direct image URLs
 function resolveImageUrl(url) {
   if (!url) return null;
-  const driveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (driveMatch && driveMatch[1]) {
-    return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
-  }
-  const driveOpenMatch = url.match(/id=([a-zA-Z0-9_-]+)/);
-  if (url.includes('drive.google.com') && driveOpenMatch && driveOpenMatch[1]) {
-    return `https://drive.google.com/uc?export=view&id=${driveOpenMatch[1]}`;
+  // This captures the file ID from standard /file/d/... and ?id=... patterns
+  const driveMatch = url.match(/(?:\/file\/d\/|id=)([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1] && url.includes('drive.google.com')) {
+    // Using lh3.googleusercontent.com is much more reliable for embedding than drive.google.com/uc
+    return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
   }
   return url.trim();
 }
