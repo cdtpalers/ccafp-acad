@@ -170,7 +170,12 @@ export default function Requirements() {
                     <div style={{ width: '6px', height: '22px', background: 'var(--accent-gold)', borderRadius: '3px' }}></div>
                     {course}
                   </h2>
-                  <span className="badge badge-info">{grouped[course].length} {grouped[course].length === 1 ? 'Requirement' : 'Requirements'}</span>
+                  {(() => {
+                    const pendingCount = grouped[course].filter(r => (r.status || '').toLowerCase() === 'pending').length;
+                    return pendingCount > 0
+                      ? <span className="badge badge-warning">{pendingCount} Pending</span>
+                      : <span className="badge badge-success">All Clear</span>;
+                  })()}
                 </div>
 
                 <div className="glass-panel" style={{ padding: 0, overflow: 'hidden' }}>
