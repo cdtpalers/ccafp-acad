@@ -69,23 +69,17 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       try {
-        let annData = [];
-        if (ANNOUNCEMENTS_CSV_URL) {
-          const res = await fetch(ANNOUNCEMENTS_CSV_URL);
-          annData = parseCSV(await res.text());
-        }
+        const fetchCSV = async (url) => {
+          if (!url) return [];
+          const res = await fetch(url);
+          return parseCSV(await res.text());
+        };
 
-        let reqData = [];
-        if (REQUIREMENTS_CSV_URL) {
-          const res = await fetch(REQUIREMENTS_CSV_URL);
-          reqData = parseCSV(await res.text());
-        }
-
-        let defData = [];
-        if (DEFICIENCIES_CSV_URL) {
-          const res = await fetch(DEFICIENCIES_CSV_URL);
-          defData = parseCSV(await res.text());
-        }
+        const [annData, reqData, defData] = await Promise.all([
+          fetchCSV(ANNOUNCEMENTS_CSV_URL),
+          fetchCSV(REQUIREMENTS_CSV_URL),
+          fetchCSV(DEFICIENCIES_CSV_URL)
+        ]);
 
         setAnnouncements(annData);
         setRequirements(reqData);

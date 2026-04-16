@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Home, Bell, BookOpen, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react';
-import acadLogo from './assets/acad_logo.png';
-import { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+import { Home, Bell, BookOpen, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, Loader } from 'lucide-react';
+import acadLogo from './assets/acad_logo.webp';
 
-import Dashboard from './pages/Dashboard';
-import Announcements from './pages/Announcements';
-import Requirements from './pages/Requirements';
-import Deficiencies from './pages/Deficiencies';
-import About from './pages/About';
-import ClassSchedule from './pages/ClassSchedule';
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Announcements = lazy(() => import('./pages/Announcements'));
+const Requirements = lazy(() => import('./pages/Requirements'));
+const Deficiencies = lazy(() => import('./pages/Deficiencies'));
+const About = lazy(() => import('./pages/About'));
+const ClassSchedule = lazy(() => import('./pages/ClassSchedule'));
 
 function DateTimeWidget({ isCollapsed }) {
   const [time, setTime] = useState(new Date());
@@ -194,14 +194,21 @@ function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/announcements" element={<Announcements />} />
-          <Route path="/requirements" element={<Requirements />} />
-          <Route path="/deficiencies" element={<Deficiencies />} />
-          <Route path="/schedule" element={<ClassSchedule />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
+        <Suspense fallback={
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '50vh', color: 'var(--text-secondary)' }}>
+            <Loader size={36} style={{ marginBottom: '1rem', opacity: 0.5 }} />
+            <h3 style={{ margin: 0, fontWeight: 500 }}>Loading Module...</h3>
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/announcements" element={<Announcements />} />
+            <Route path="/requirements" element={<Requirements />} />
+            <Route path="/deficiencies" element={<Deficiencies />} />
+            <Route path="/schedule" element={<ClassSchedule />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </Suspense>
       </Layout>
     </BrowserRouter>
   );

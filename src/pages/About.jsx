@@ -1,20 +1,20 @@
 import { Users, User, Medal, Star } from 'lucide-react';
 
-import rAcadImg from '../assets/r_acad.png';
-import aCoImg from '../assets/a_co.png';
-import aSgtImg from '../assets/a_sgt.png';
-import bCoImg from '../assets/b_co.png';
-import bSgtImg from '../assets/b_sgt.png';
-import cCoImg from '../assets/c_co.png';
-import cSgtImg from '../assets/c_sgt.png';
-import dCoImg from '../assets/d_co.png';
-import dSgtImg from '../assets/d_sgt.png';
-import eCoImg from '../assets/e_co.png';
-import eSgtImg from '../assets/e_sgt.png';
-import fCoImg from '../assets/f_co.png';
-import fSgtImg from '../assets/f_sgt.png';
-import gCoImg from '../assets/g_co.png';
-import hCoImg from '../assets/h_co.png';
+import rAcadImg from '../assets/r_acad.webp';
+import aCoImg from '../assets/a_co.webp';
+import aSgtImg from '../assets/a_sgt.webp';
+import bCoImg from '../assets/b_co.webp';
+import bSgtImg from '../assets/b_sgt.webp';
+import cCoImg from '../assets/c_co.webp';
+import cSgtImg from '../assets/c_sgt.webp';
+import dCoImg from '../assets/d_co.webp';
+import dSgtImg from '../assets/d_sgt.webp';
+import eCoImg from '../assets/e_co.webp';
+import eSgtImg from '../assets/e_sgt.webp';
+import fCoImg from '../assets/f_co.webp';
+import fSgtImg from '../assets/f_sgt.webp';
+import gCoImg from '../assets/g_co.webp';
+import hCoImg from '../assets/h_co.webp';
 
 const companies = [
   {
