@@ -249,9 +249,33 @@ export default function Requirements() {
               </div>
             </div>
 
-            <div style={{ color: 'var(--text-primary)', lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '1rem' }}>
-              {selectedReq.details || selectedReq.description || "No additional details or description provided for this requirement in the database."}
-            </div>
+            {(() => {
+              const text = selectedReq.details || selectedReq.description || "No additional details or description provided for this requirement in the database.";
+              const urlRegex = /(https?:\/\/[^\s]+)/g;
+              const parts = text.split(urlRegex);
+              
+              return (
+                <div style={{ color: 'var(--text-primary)', lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '1rem' }}>
+                  {parts.map((part, i) => {
+                    if (part.match(urlRegex)) {
+                      return (
+                        <a 
+                          key={i} 
+                          href={part} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          style={{ color: 'var(--accent-gold)', textDecoration: 'underline', wordBreak: 'break-all' }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {part}
+                        </a>
+                      );
+                    }
+                    return part;
+                  })}
+                </div>
+              );
+            })()}
 
             <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
               <button className="btn btn-secondary" onClick={() => setSelectedReq(null)}>Close</button>
