@@ -9,7 +9,11 @@
   --surface-highlight: rgba(255, 255, 255, 0.35);
   --surface-highlight-strong: rgba(255, 255, 255, 0.5);
   --surface-overlay: rgba(255, 255, 255, 0.25);
-  --sidebar-glass: rgba(255, 255, 255, 0.45);
+  --sidebar-glass: rgba(255, 255, 255, 0.25);
+  --sidebar-glass-border-top: rgba(255, 255, 255, 0.8);
+  --sidebar-glass-border: rgba(255, 255, 255, 0.35);
+  --sidebar-inner-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.08);
+  --sidebar-shadow: 4px 0 24px rgba(16, 24, 40, 0.06), 1px 0 8px rgba(16, 24, 40, 0.03);
   --text-primary: #101828;
   --text-secondary: #667085;
   --accent-gold: #f79009;
@@ -42,7 +46,11 @@
   --surface-highlight: rgba(205, 214, 244, 0.06);
   --surface-highlight-strong: rgba(205, 214, 244, 0.12);
   --surface-overlay: rgba(205, 214, 244, 0.04);
-  --sidebar-glass: rgba(24, 24, 37, 0.55);
+  --sidebar-glass: rgba(17, 17, 27, 0.45);
+  --sidebar-glass-border-top: rgba(205, 214, 244, 0.15);
+  --sidebar-glass-border: rgba(205, 214, 244, 0.06);
+  --sidebar-inner-glow: inset 0 1px 0 0 rgba(205, 214, 244, 0.1), inset 0 0 20px rgba(205, 214, 244, 0.02);
+  --sidebar-shadow: 4px 0 24px rgba(0, 0, 0, 0.3), 1px 0 8px rgba(0, 0, 0, 0.15);
   --text-primary: #cdd6f4;
   --text-secondary: #a6adc8;
   --accent-gold: #f9e2af;
@@ -333,9 +341,11 @@ h3 { font-size: 1.25rem; }
 .sidebar {
   width: 280px;
   background: var(--sidebar-glass);
-  -webkit-backdrop-filter: blur(var(--blur-lg));
-  backdrop-filter: blur(var(--blur-lg));
-  border-right: 1px solid var(--surface-border);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  backdrop-filter: blur(32px) saturate(180%);
+  border-right: 1px solid var(--sidebar-glass-border);
+  border-top: 1px solid var(--sidebar-glass-border-top);
+  box-shadow: var(--sidebar-shadow), var(--sidebar-inner-glow);
   display: flex;
   flex-direction: column;
   position: fixed;
