@@ -1,4 +1,4 @@
-import { Download, Filter, X } from 'lucide-react';
+import { Download, Filter, X, Paperclip, ExternalLink } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 // A lightweight CSV parser to handle quotes and commas properly
@@ -188,6 +188,7 @@ export default function Requirements() {
                           <th>Due Date</th>
                           <th>Submission Type</th>
                           <th>Status</th>
+                          <th style={{ textAlign: 'center' }}>Attachment</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -202,6 +203,22 @@ export default function Requirements() {
                               <span className={`badge ${['Active', 'Submitted', 'Completed', 'Done'].includes(req.status) ? 'badge-success' : 'badge-warning'}`}>
                                 {req.status}
                               </span>
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              {req.attachment && req.attachment.trim() ? (
+                                <a
+                                  href={req.attachment.trim().split(/[,\n]/)[0].trim()}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-gold)', transition: 'transform 0.2s' }}
+                                  title="View Attachment"
+                                >
+                                  <Paperclip size={16} />
+                                </a>
+                              ) : (
+                                <span style={{ color: 'var(--text-secondary)', opacity: 0.3 }}>—</span>
+                              )}
                             </td>
                             <td>
                               <button className="btn btn-secondary" style={{ padding: '0.5rem 1rem', fontSize: '0.75rem' }} onClick={() => setSelectedReq(req)}>
@@ -276,6 +293,47 @@ export default function Requirements() {
                 </div>
               );
             })()}
+
+            {/* Attachments Section */}
+            {selectedReq.attachment && selectedReq.attachment.trim() && (
+              <div style={{ marginTop: '2rem' }}>
+                <p className="text-muted" style={{ fontSize: '0.75rem', textTransform: 'uppercase', marginBottom: '0.75rem', fontWeight: 600, letterSpacing: '0.05em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Paperclip size={14} /> Attachments
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {selectedReq.attachment.split(/[,\n]/).filter(link => link.trim()).map((link, i) => (
+                    <a
+                      key={i}
+                      href={link.trim()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        padding: '0.85rem 1rem',
+                        background: 'var(--surface-highlight)',
+                        border: '1px solid var(--surface-border)',
+                        borderRadius: 'var(--radius-md)',
+                        color: 'var(--accent-gold)',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        textDecoration: 'none',
+                        transition: 'all 0.2s ease'
+                      }}
+                      onMouseOver={(e) => { e.currentTarget.style.background = 'var(--surface-highlight-strong)'; e.currentTarget.style.transform = 'translateX(4px)'; }}
+                      onMouseOut={(e) => { e.currentTarget.style.background = 'var(--surface-highlight)'; e.currentTarget.style.transform = 'translateX(0)'; }}
+                    >
+                      <ExternalLink size={16} style={{ flexShrink: 0 }} />
+                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        {link.trim().length > 60 ? link.trim().substring(0, 60) + '…' : link.trim()}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
               <button className="btn btn-secondary" onClick={() => setSelectedReq(null)}>Close</button>
