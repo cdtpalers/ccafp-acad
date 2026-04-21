@@ -106,14 +106,10 @@ export default function Deficiencies() {
     return acc;
   }, {});
 
-  let topCourse = "N/A";
-  let topCourseCount = 0;
-  Object.entries(courseCounts).forEach(([crs, count]) => {
-    if (count > topCourseCount) {
-      topCourse = crs;
-      topCourseCount = count;
-    }
-  });
+  const sortedCourses = Object.entries(courseCounts).sort((a, b) => b[1] - a[1]);
+  const topCourse = sortedCourses.length > 0 ? sortedCourses[0][0] : "N/A";
+  const topCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1] : 0;
+  const maxCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1] : 1;
 
   const companyCounts = deficiencies.reduce((acc, def) => {
     const coy = def.company || def.coy || 'Unspecified';
@@ -121,14 +117,10 @@ export default function Deficiencies() {
     return acc;
   }, {});
 
-  let topCompany = "N/A";
-  let topCompanyCount = 0;
-  Object.entries(companyCounts).forEach(([coy, count]) => {
-    if (count > topCompanyCount) {
-      topCompany = coy;
-      topCompanyCount = count;
-    }
-  });
+  const sortedCompanies = Object.entries(companyCounts).sort((a, b) => b[1] - a[1]);
+  const topCompany = sortedCompanies.length > 0 ? sortedCompanies[0][0] : "N/A";
+  const topCompanyCount = sortedCompanies.length > 0 ? sortedCompanies[0][1] : 0;
+  const maxCompanyCount = sortedCompanies.length > 0 ? sortedCompanies[0][1] : 1;
 
   if (!isAuthenticated) {
     return (
@@ -206,6 +198,44 @@ export default function Deficiencies() {
             <span>Course with the Most Deficient Cadets</span>
             <span className="badge badge-warning" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{topCourseCount}</span>
           </p>
+        </div>
+      </div>
+
+      <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
+        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+          <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Company</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sortedCompanies.slice(0, 5).map(([coy, count]) => (
+              <div key={coy}>
+                <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
+                  <span>{coy}</span>
+                  <span style={{ fontWeight: 600 }}>{count}</span>
+                </div>
+                <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'var(--accent-gold)', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+                </div>
+              </div>
+            ))}
+            {sortedCompanies.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
+          </div>
+        </div>
+
+        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+          <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {sortedCourses.slice(0, 5).map(([crs, count]) => (
+              <div key={crs}>
+                <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
+                  <span style={{ fontWeight: 600 }}>{count}</span>
+                </div>
+                <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden' }}>
+                  <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'var(--accent-crimson)', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+                </div>
+              </div>
+            ))}
+            {sortedCourses.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
+          </div>
         </div>
       </div>
 
