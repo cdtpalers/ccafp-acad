@@ -137,31 +137,66 @@ export default function Announcements() {
           return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No announcements match your filters.</div>;
         }
 
+        const columns = ['Urgent', 'Warning', 'Info', 'Other'];
+        
+        // Categorize announcements
+        const categorizedAnns = columns.reduce((acc, col) => {
+          acc[col] = filtered.filter(ann => {
+             const type = (ann.type || 'info').toLowerCase();
+             if (col.toLowerCase() === 'other') {
+               return !['urgent', 'warning', 'info'].includes(type);
+             }
+             return type === col.toLowerCase();
+          });
+          return acc;
+        }, {});
+
+        // Render Kanban Board
         return (
-          <div style={{ display: 'grid', gap: '1.5rem' }}>
-            {filtered.map((ann, i) => (
-              <div key={i} className="glass-card" style={{ padding: '2rem', cursor: 'pointer' }} onClick={() => setSelectedAnn(ann)}>
-                <div className="flex-between" style={{ marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <span className={`badge badge-${ann.type?.toLowerCase() || 'info'}`}>{ann.type?.toUpperCase() || 'INFO'}</span>
-                    {ann.class && <span className="badge badge-secondary" style={{ background: 'var(--surface-overlay)', border: '1px solid var(--surface-border)' }}>{ann.class}</span>}
-                  </div>
-                  <span className="text-muted" style={{ fontSize: '0.875rem' }}>{ann.date}</span>
-                </div>
-                <h2 style={{ marginBottom: '1rem' }}>{ann.title}</h2>
-                {ann.image && (
-                  <div style={{ marginBottom: '1rem', width: '100%', maxHeight: '300px', overflow: 'hidden', borderRadius: 'var(--radius-md)' }}>
-                    <img src={resolveImageUrl(ann.image)} alt={ann.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  </div>
-                )}
-                <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
-                  {ann.content && ann.content.length > 150 ? ann.content.substring(0, 150) + '...' : ann.content}
-                </p>
-                <div style={{ marginTop: '1rem', color: 'var(--accent-gold)', fontSize: '0.875rem', fontWeight: 500 }}>
-                  Read full announcement →
-                </div>
-              </div>
-            ))}
+          <div style={{ display: 'flex', gap: '1.5rem', overflowX: 'auto', paddingBottom: '1rem' }}>
+            {columns.map(col => {
+               const colAnns = categorizedAnns[col];
+               if (colAnns.length === 0 && (searchTerm || typeFilter !== 'All Types') && col === 'Other') return null;
+
+               return (
+                 <div key={col} style={{ flex: '0 0 350px', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                   <div className="flex-between" style={{ padding: '0 0.5rem', marginBottom: '0.5rem' }}>
+                     <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.15rem' }}>
+                       <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: `var(--badge-${col.toLowerCase()}-color, var(--text-secondary))` }}></div>
+                       {col}
+                     </h3>
+                     <span className="badge" style={{ background: 'var(--surface-overlay)', color: 'var(--text-secondary)' }}>{colAnns.length}</span>
+                   </div>
+                   
+                   <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+                     {colAnns.length === 0 ? (
+                       <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', opacity: 0.5, borderStyle: 'dashed' }}>
+                         <p style={{ fontSize: '0.85rem' }}>No announcements</p>
+                       </div>
+                     ) : (
+                       colAnns.map((ann, i) => (
+                         <div key={i} className="glass-card" style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', flexDirection: 'column', position: 'relative' }} onClick={() => setSelectedAnn(ann)}>
+                            <div className="flex-between" style={{ marginBottom: '0.75rem' }}>
+                              <span className={`badge badge-${ann.type?.toLowerCase() || 'info'}`} style={{ fontSize: '0.65rem' }}>{ann.type?.toUpperCase() || 'INFO'}</span>
+                              <span className="text-muted" style={{ fontSize: '0.7rem' }}>{ann.date}</span>
+                            </div>
+                            <h4 style={{ marginBottom: '0.5rem', fontSize: '1.05rem', lineHeight: '1.4' }}>{ann.title}</h4>
+                            {ann.class && <span className="badge badge-secondary" style={{ background: 'var(--surface-overlay)', border: '1px solid var(--surface-border)', alignSelf: 'flex-start', marginBottom: '0.75rem', fontSize: '0.65rem' }}>{ann.class}</span>}
+                            {ann.image && (
+                              <div style={{ marginBottom: '0.75rem', width: '100%', height: '120px', overflow: 'hidden', borderRadius: 'var(--radius-sm)' }}>
+                                <img src={resolveImageUrl(ann.image)} alt={ann.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              </div>
+                            )}
+                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5', fontSize: '0.8rem', flex: 1 }}>
+                              {ann.content && ann.content.length > 80 ? ann.content.substring(0, 80) + '...' : ann.content}
+                            </p>
+                         </div>
+                       ))
+                     )}
+                   </div>
+                 </div>
+               );
+            })}
           </div>
         );
       })()}
