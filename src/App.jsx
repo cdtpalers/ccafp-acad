@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Home, Bell, BookOpen, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, Loader } from 'lucide-react';
+import { SpeedInsights } from "@vercel/speed-insights/react";
 import acadLogo from './assets/acad_logo.webp';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -193,6 +194,7 @@ function Layout({ children }) {
 function App() {
   return (
     <BrowserRouter>
+      <SpeedInsights />
       <Layout>
         <Suspense fallback={
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '50vh', color: 'var(--text-secondary)' }}>
