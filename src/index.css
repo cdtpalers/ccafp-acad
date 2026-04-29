@@ -502,7 +502,7 @@ h3 { font-size: 1.25rem; }
   right: 0;
   bottom: 0;
   background: url('./assets/main-bg.webp') center / cover no-repeat;
-  opacity: 0.2;
+  opacity: 0.4;
   pointer-events: none;
   z-index: 0;
   transition: left 0.3s ease;
