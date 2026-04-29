@@ -113,9 +113,8 @@ export default function Announcements() {
           <div style={{ flex: 1, minWidth: '150px' }}>
             <select className="input-field" value={typeFilter} onChange={(e) => setTypeFilter(e.target.value)}>
               <option value="All Types">All Types</option>
-              <option value="Urgent">Urgent</option>
+              <option value="Important">Important</option>
               <option value="Info">Info</option>
-              <option value="Warning">Warning</option>
             </select>
           </div>
         </div>
@@ -137,16 +136,16 @@ export default function Announcements() {
           return <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>No announcements match your filters.</div>;
         }
 
-        const columns = ['Urgent', 'Warning', 'Info', 'Other'];
+        const columns = ['Important', 'Info', 'Other'];
         
         // Categorize announcements
         const categorizedAnns = columns.reduce((acc, col) => {
           acc[col] = filtered.filter(ann => {
              const type = (ann.type || 'info').toLowerCase();
-             if (col.toLowerCase() === 'other') {
-               return !['urgent', 'warning', 'info'].includes(type);
-             }
-             return type === col.toLowerCase();
+              if (col.toLowerCase() === 'other') {
+                return !['important', 'info'].includes(type);
+              }
+              return type === col.toLowerCase();
           });
           return acc;
         }, {});
