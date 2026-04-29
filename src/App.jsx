@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Home, Bell, BookOpen, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, Loader } from 'lucide-react';
+import { Home, Bell, BookOpen, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, Loader, FileText } from 'lucide-react';
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import acadLogo from './assets/acad_logo.webp';
 
@@ -10,6 +10,7 @@ const Requirements = lazy(() => import('./pages/Requirements'));
 const Deficiencies = lazy(() => import('./pages/Deficiencies'));
 const About = lazy(() => import('./pages/About'));
 const ClassSchedule = lazy(() => import('./pages/ClassSchedule'));
+const Examinations = lazy(() => import('./pages/Examinations'));
 
 function DateTimeWidget({ isCollapsed }) {
   const [time, setTime] = useState(new Date());
@@ -106,6 +107,7 @@ function Layout({ children }) {
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
     { path: '/requirements', label: 'Requirements', icon: <BookOpen size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
+    { path: '/examinations', label: 'Examinations', icon: <FileText size={20} /> },
     { path: '/schedule', label: 'Class Schedule', icon: <Calendar size={20} /> },
     { path: '/about', label: 'About', icon: <Info size={20} /> }
   ];
@@ -207,6 +209,7 @@ function App() {
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/requirements" element={<Requirements />} />
             <Route path="/deficiencies" element={<Deficiencies />} />
+            <Route path="/examinations" element={<Examinations />} />
             <Route path="/schedule" element={<ClassSchedule />} />
             <Route path="/about" element={<About />} />
           </Routes>
