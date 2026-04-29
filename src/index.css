@@ -1,6 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root, [data-theme='dark'] {
+:root {
+  --bg-color: #fafafa;
+  --bg-gradient: linear-gradient(135deg, #f0f0f0 0%, #fafafa 50%, #eaeaeb 100%);
+  --surface-glass: rgba(255, 255, 255, 0.6);
+  --surface-glass-hover: rgba(255, 255, 255, 0.8);
+  --surface-border: rgba(56, 58, 66, 0.1);
+  --surface-highlight: rgba(56, 58, 66, 0.05);
+  --surface-highlight-strong: rgba(56, 58, 66, 0.1);
+  --surface-overlay: rgba(56, 58, 66, 0.03);
+  --sidebar-glass: rgba(255, 255, 255, 0.35);
+  --sidebar-glass-border-top: rgba(56, 58, 66, 0.12);
+  --sidebar-glass-border: rgba(56, 58, 66, 0.08);
+  --sidebar-inner-glow: inset 0 1px 0 0 rgba(255, 255, 255, 0.7), inset 0 0 20px rgba(255, 255, 255, 0.1);
+  --sidebar-shadow: 4px 0 24px rgba(56, 58, 66, 0.06), 1px 0 8px rgba(56, 58, 66, 0.03);
+  --text-primary: #383a42;
+  --text-secondary: #a0a1a7;
+  --accent-gold: #c18401;
+  --accent-gold-hover: #986801;
+  --accent-crimson: #e45649;
+  --success: #50a14f;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --blur-sm: 10px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+  --shadow-sm: 0 2px 8px rgba(56, 58, 66, 0.06);
+  --shadow-lg: 0 4px 16px rgba(56, 58, 66, 0.08), 0 1px 4px rgba(56, 58, 66, 0.04);
+  --shadow-glow: 0 8px 32px rgba(56, 58, 66, 0.1), 0 2px 8px rgba(56, 58, 66, 0.04);
+  
+  --badge-warning-color: #c18401;
+  --badge-success-color: #50a14f;
+  --badge-info-color: #0184bc;
+  --badge-urgent-color: #e45649;
+  --badge-important-color: #a626a4;
+}
+
+[data-theme='dark'] {
   --bg-color: #282c34;
   --bg-gradient: linear-gradient(135deg, #2c313a 0%, #282c34 50%, #21252b 100%);
   --surface-glass: rgba(53, 59, 69, 0.4);
@@ -20,12 +57,6 @@
   --accent-gold-hover: #d19a66;
   --accent-crimson: #e06c75;
   --success: #98c379;
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
-  --blur-sm: 10px;
-  --blur-md: 16px;
-  --blur-lg: 24px;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
   --shadow-glow: 0 8px 32px rgba(229, 192, 123, 0.1), 0 0 16px rgba(229, 192, 123, 0.05);
@@ -117,16 +148,16 @@ a:hover {
 }
 
 .btn-primary {
-  background: rgba(229, 192, 123, 0.85);
-  color: #282c34;
-  box-shadow: 0 4px 14px 0 rgba(229, 192, 123, 0.3);
-  border: 1px solid rgba(229, 192, 123, 0.3);
+  background: var(--accent-gold);
+  color: var(--bg-color);
+  box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--accent-gold) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent-gold) 30%, transparent);
 }
 
 .btn-primary:hover {
-  background: rgba(209, 154, 102, 0.9);
+  background: var(--accent-gold-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(229, 192, 123, 0.4);
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-gold) 40%, transparent);
 }
 
 .btn-secondary {
@@ -441,8 +472,8 @@ h3 { font-size: 1.25rem; }
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-gold) 0%, #d19a66 100%);
-  color: #282c34;
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-hover) 100%);
+  color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -544,7 +575,7 @@ h3 { font-size: 1.25rem; }
 
 .tab-item.active {
   background: var(--accent-gold);
-  color: #282c34;
+  color: var(--bg-color);
   font-weight: 600;
   box-shadow: var(--shadow-sm);
 }
