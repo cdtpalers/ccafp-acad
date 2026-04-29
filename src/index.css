@@ -38,28 +38,28 @@
 }
 
 [data-theme='dark'] {
-  --bg-color: #282c34;
-  --bg-gradient: linear-gradient(135deg, #2c313a 0%, #282c34 50%, #21252b 100%);
-  --surface-glass: rgba(53, 59, 69, 0.4);
-  --surface-glass-hover: rgba(62, 68, 81, 0.5);
-  --surface-border: rgba(171, 178, 191, 0.08);
-  --surface-highlight: rgba(171, 178, 191, 0.06);
-  --surface-highlight-strong: rgba(171, 178, 191, 0.12);
-  --surface-overlay: rgba(171, 178, 191, 0.04);
-  --sidebar-glass: rgba(40, 44, 52, 0.45);
-  --sidebar-glass-border-top: rgba(171, 178, 191, 0.15);
-  --sidebar-glass-border: rgba(171, 178, 191, 0.06);
-  --sidebar-inner-glow: inset 0 1px 0 0 rgba(171, 178, 191, 0.1), inset 0 0 20px rgba(171, 178, 191, 0.02);
-  --sidebar-shadow: 4px 0 24px rgba(0, 0, 0, 0.3), 1px 0 8px rgba(0, 0, 0, 0.15);
+  --bg-color: #1e2227;
+  --bg-gradient: linear-gradient(135deg, #21252b 0%, #1e2227 50%, #181a1f 100%);
+  --surface-glass: rgba(33, 37, 43, 0.45);
+  --surface-glass-hover: rgba(40, 44, 52, 0.55);
+  --surface-border: rgba(171, 178, 191, 0.06);
+  --surface-highlight: rgba(171, 178, 191, 0.04);
+  --surface-highlight-strong: rgba(171, 178, 191, 0.1);
+  --surface-overlay: rgba(171, 178, 191, 0.03);
+  --sidebar-glass: rgba(24, 26, 31, 0.5);
+  --sidebar-glass-border-top: rgba(171, 178, 191, 0.12);
+  --sidebar-glass-border: rgba(171, 178, 191, 0.05);
+  --sidebar-inner-glow: inset 0 1px 0 0 rgba(171, 178, 191, 0.08), inset 0 0 20px rgba(171, 178, 191, 0.01);
+  --sidebar-shadow: 4px 0 24px rgba(0, 0, 0, 0.4), 1px 0 8px rgba(0, 0, 0, 0.2);
   --text-primary: #abb2bf;
   --text-secondary: #7f848e;
   --accent-gold: #e5c07b;
   --accent-gold-hover: #d19a66;
   --accent-crimson: #e06c75;
   --success: #98c379;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 8px 32px rgba(229, 192, 123, 0.1), 0 0 16px rgba(229, 192, 123, 0.05);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 8px 32px rgba(229, 192, 123, 0.08), 0 0 16px rgba(229, 192, 123, 0.04);
   
   --badge-warning-color: #e5c07b;
   --badge-success-color: #98c379;
@@ -502,7 +502,7 @@ h3 { font-size: 1.25rem; }
   right: 0;
   bottom: 0;
   background: url('/main-bg.webp') center / cover no-repeat;
-  opacity: 0.5;
+  opacity: 0.15;
   pointer-events: none;
   z-index: 0;
   transition: left 0.3s ease;
