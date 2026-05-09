@@ -6,11 +6,9 @@ import acadLogo from './assets/acad_logo.webp';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Announcements = lazy(() => import('./pages/Announcements'));
-const Requirements = lazy(() => import('./pages/Requirements'));
 const Deficiencies = lazy(() => import('./pages/Deficiencies'));
 const About = lazy(() => import('./pages/About'));
 const ClassSchedule = lazy(() => import('./pages/ClassSchedule'));
-const Examinations = lazy(() => import('./pages/Examinations'));
 
 function DateTimeWidget({ isCollapsed }) {
   const [time, setTime] = useState(new Date());
@@ -105,9 +103,7 @@ function Layout({ children }) {
   const navItems = [
     { path: '/', label: 'Overview', icon: <Home size={20} /> },
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
-    { path: '/requirements', label: 'Requirements', icon: <BookOpen size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
-    { path: '/examinations', label: 'Examinations', icon: <FileText size={20} /> },
     { path: '/schedule', label: 'Class Schedule', icon: <Calendar size={20} /> },
     { path: '/about', label: 'About', icon: <Info size={20} /> }
   ];
@@ -207,9 +203,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/announcements" element={<Announcements />} />
-            <Route path="/requirements" element={<Requirements />} />
             <Route path="/deficiencies" element={<Deficiencies />} />
-            <Route path="/examinations" element={<Examinations />} />
             <Route path="/schedule" element={<ClassSchedule />} />
             <Route path="/about" element={<About />} />
           </Routes>

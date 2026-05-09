@@ -1,4 +1,4 @@
-import { Bell, BookOpen, AlertCircle, TrendingUp, Quote } from 'lucide-react';
+import { Bell, AlertCircle, TrendingUp, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,13 +58,11 @@ function parseCSV(csv) {
 
 export default function Dashboard() {
   const [announcements, setAnnouncements] = useState([]);
-  const [requirements, setRequirements] = useState([]);
   const [deficiencies, setDeficiencies] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // 🔴 PASTE YOUR CSV LINKS HERE (Same as the ones in other pages)
   const ANNOUNCEMENTS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQODxASqFgFWPJObis_gXQ-mcN31Kfqn1p0rRriC00czwJ_QZadUp1MQscXRGVwB1vZKP0xAvsBJI3J/pub?gid=0&single=true&output=csv';
-  const REQUIREMENTS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRC5hLbaoyuSdfdYY-xb6lkLFbfnS4iTMGNDIhc6WwSZhjKjhwgowGdT06rgDO-jEVJHhq1yUbKpm0r/pub?gid=162719649&single=true&output=csv';
   const DEFICIENCIES_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyMaWhymCt9ILdDWzRItpgd44kbvhGQR5SJHJzoVoCeRPX1WLMKTYB04Q6TmyXLR_ZqU2VDdi7EhEj/pub?gid=0&single=true&output=csv';
 
   useEffect(() => {
@@ -76,14 +74,12 @@ export default function Dashboard() {
           return parseCSV(await res.text());
         };
 
-        const [annData, reqData, defData] = await Promise.all([
+        const [annData, defData] = await Promise.all([
           fetchCSV(ANNOUNCEMENTS_CSV_URL),
-          fetchCSV(REQUIREMENTS_CSV_URL),
           fetchCSV(DEFICIENCIES_CSV_URL)
         ]);
 
         setAnnouncements(annData);
-        setRequirements(reqData);
         setDeficiencies(defData);
 
         setLoading(false);
@@ -99,7 +95,6 @@ export default function Dashboard() {
 
   const stats = [
     { label: 'Active Announcements', value: announcements.length || '0', icon: <Bell size={18} />, trend: 'View Feed', path: '/announcements' },
-    { label: 'Pending Requirements', value: requirements.length || '0', icon: <BookOpen size={18} />, trend: 'View All', path: '/requirements' },
     { label: 'Total Deficiencies', value: new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size || '0', icon: <AlertCircle size={18} />, trend: 'View Board', path: '/deficiencies' },
     { label: 'Upcoming Classes', value: '4CL-1CL', icon: <TrendingUp size={18} />, trend: 'View Schedule', path: '/schedule' },
   ];
@@ -194,50 +189,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <h3 style={{ marginBottom: '1rem' }}>Pending Requirements Breakdown</h3>
-          <div className="table-container">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Class</th>
-                  <th>Pending Tasks</th>
-                  <th>Next Deadline</th>
-                </tr>
-              </thead>
-              <tbody>
-                {loading ? (
-                  <tr>
-                    <td colSpan="3" className="text-muted" style={{ textAlign: 'center', padding: '1.5rem' }}>Loading...</td>
-                  </tr>
-                ) : (
-                  ['1CL', '2CL', '3CL', '4CL'].map(cls => {
-                    const classReqs = requirements.filter(r => 
-                      (r.class || '').toUpperCase() === cls && 
-                      (r.status || '').toLowerCase() === 'pending'
-                    );
-                    const nextReq = classReqs.length > 0 ? classReqs[0] : null;
-                    return (
-                      <tr key={cls}>
-                        <td style={{ fontWeight: 600 }}>{cls}</td>
-                        <td>
-                          {classReqs.length > 0 ? (
-                            <span className="badge badge-warning">{classReqs.length} Pending</span>
-                          ) : (
-                            <span className="badge badge-success">Cleared</span>
-                          )}
-                        </td>
-                        <td className="text-muted" style={{ fontSize: '0.875rem' }}>
-                          {nextReq ? nextReq.due : '-'}
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
     </div>
   );
