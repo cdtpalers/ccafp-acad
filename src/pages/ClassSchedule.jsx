@@ -59,7 +59,8 @@ const renderGroupKey = (groupKey, selectedClass) => {
       if (['A','B','C','D'].includes(letter)) return '#56b6c2'; // Light Blue
       if (['E','F','G','H'].includes(letter)) return '#98c379'; // Green
       if (['I','J','K','L'].includes(letter)) return '#3b82f6'; // Dark Blue
-    } else if (selectedClass === '2CL') {
+    } else {
+      // 2CL, 3CL, 4CL
       if (['A','B','C','D','E'].includes(letter)) return '#56b6c2'; // Light Blue
       if (['F','G','H','I','J'].includes(letter)) return '#98c379'; // Green
       if (['K','L','M','N','O'].includes(letter)) return '#3b82f6'; // Dark Blue
