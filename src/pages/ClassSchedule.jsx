@@ -53,6 +53,29 @@ function parseScheduleCSV(csv) {
 
 const CLASSES = ['1CL', '2CL', '3CL', '4CL'];
 
+const renderGroupKey = (groupKey, selectedClass) => {
+  const getColor = (letter) => {
+    if (selectedClass === '1CL') {
+      if (['A','B','C','D'].includes(letter)) return '#56b6c2'; // Light Blue
+      if (['E','F','G','H'].includes(letter)) return '#98c379'; // Green
+      if (['I','J','K','L'].includes(letter)) return '#3b82f6'; // Dark Blue
+    } else if (selectedClass === '2CL') {
+      if (['A','B','C','D','E'].includes(letter)) return '#56b6c2'; // Light Blue
+      if (['F','G','H','I','J'].includes(letter)) return '#98c379'; // Green
+      if (['K','L','M','N','O'].includes(letter)) return '#3b82f6'; // Dark Blue
+    }
+    return 'inherit';
+  };
+
+  return groupKey.split('').map((char, index) => {
+    const upperChar = char.toUpperCase();
+    if (/[A-Z]/.test(upperChar)) {
+      return <span key={index} style={{ color: getColor(upperChar), fontWeight: 600 }}>{char}</span>;
+    }
+    return <span key={index}>{char}</span>;
+  });
+};
+
 export default function ClassSchedule() {
   const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -135,7 +158,7 @@ export default function ClassSchedule() {
             <div className="flex-between" style={{ marginBottom: '1rem', padding: '0 0.5rem' }}>
               <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <div style={{ width: '8px', height: '24px', background: 'var(--accent-gold)', borderRadius: '4px' }}></div>
-                Section Group: {groupKey}
+                Section Group: {renderGroupKey(groupKey, selectedClass)}
               </h2>
               <span className="badge badge-info">{groups[groupKey].length} Periods</span>
             </div>
@@ -182,41 +205,6 @@ export default function ClassSchedule() {
         ))
       )}
 
-      {groupKeys.length > 0 && (
-        <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
-          <div className="glass-card" style={{ flex: 1, padding: '1.5rem' }}>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-               <Info size={16} className="text-accent-gold" /> Schedule Legend
-            </h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', fontSize: '0.85rem' }}>
-              <div className="flex-between"><span>MAT132</span> <span className="text-muted">Mathematics</span></div>
-              <div className="flex-between"><span>PHI132</span> <span className="text-muted">Philosophy</span></div>
-              <div className="flex-between"><span>POM132</span> <span className="text-muted">Prin. of Management</span></div>
-              <div className="flex-between"><span>ECO132</span> <span className="text-muted">Economics</span></div>
-              <div className="flex-between"><span>STES132</span> <span className="text-muted">Science & Tech</span></div>
-              <div className="flex-between"><span>SD/PD</span> <span className="text-muted">Svc Drills / Phys Dev</span></div>
-              <div className="flex-between"><span>ARD332</span> <span className="text-muted">Adv. R&D</span></div>
-              <div className="flex-between"><span>STIT332</span> <span className="text-muted">Science, Tech, & IT</span></div>
-              <div className="flex-between"><span>ENGG352</span> <span className="text-muted">Engineering Sci.</span></div>
-              <div className="flex-between"><span>LDM332</span> <span className="text-muted">Leadership & Mgmt</span></div>
-              <div className="flex-between"><span>RES332</span> <span className="text-muted">Research Methods</span></div>
-              <div className="flex-between"><span>AS/AFS/NS</span> <span className="text-muted">Area Studies / Naval Sci</span></div>
-              <div className="flex-between"><span>ENGG431</span> <span className="text-muted">Engineering Mgt</span></div>
-              <div className="flex-between"><span>HRP431</span> <span className="text-muted">Human Resource Plan</span></div>
-              <div className="flex-between"><span>COM431</span> <span className="text-muted">Communications</span></div>
-              <div className="flex-between"><span>RES431</span> <span className="text-muted">Research 2</span></div>
-              <div className="flex-between"><span>RM431</span> <span className="text-muted">Resource Mgt</span></div>
-              <div className="flex-between"><span>WIT431</span> <span className="text-muted">Weapons & Info Tech</span></div>
-              <div className="flex-between"><span>LDM331</span> <span className="text-muted">Leadership & Mgmt</span></div>
-              <div className="flex-between"><span>TI331</span> <span className="text-muted">Tactical Intelligence</span></div>
-              <div className="flex-between"><span>ML321</span> <span className="text-muted">Military Leadership</span></div>
-              <div className="flex-between"><span>PHY331</span> <span className="text-muted">Physics</span></div>
-              <div className="flex-between"><span>RES331</span> <span className="text-muted">Research Methods</span></div>
-              <div className="flex-between"><span>IT331</span> <span className="text-muted">Information Technology</span></div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
