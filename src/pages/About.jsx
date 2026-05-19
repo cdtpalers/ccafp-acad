@@ -37,13 +37,13 @@ const companies = [
   },
   {
     id: 'D', name: 'Delta Company',
-    officer: { name: "ARMY CDT 1CL VIENNE IRA CELAJES", imageUrl: dCoImg },
+    officer: { name: "AERO CDT 1CL FREDERIC DACARA", imageUrl: dCoImg },
     sgt: { name: "CDT 2CL IANNA JHONS GRY DABALOS", imageUrl: dSgtImg },
     cpl: { name: "[Co. D Cpl Name]", imageUrl: "" }
   },
   {
     id: 'E', name: 'Echo Company',
-    officer: { name: "AERO CDT 1CL DANLOUIE VILLANUEVA", imageUrl: eCoImg },
+    officer: { name: "ARMY CDT 1CL FRANCES VERONICA LATORRE", imageUrl: eCoImg },
     sgt: { name: "CDT 2CL SANDESLUV OTTAO", imageUrl: eSgtImg },
     cpl: { name: "[Co. E Cpl Name]", imageUrl: "" }
   },
