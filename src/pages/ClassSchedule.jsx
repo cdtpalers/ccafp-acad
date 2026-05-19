@@ -207,6 +207,12 @@ export default function ClassSchedule() {
               <div className="flex-between"><span>RES431</span> <span className="text-muted">Research 2</span></div>
               <div className="flex-between"><span>RM431</span> <span className="text-muted">Resource Mgt</span></div>
               <div className="flex-between"><span>WIT431</span> <span className="text-muted">Weapons & Info Tech</span></div>
+              <div className="flex-between"><span>LDM331</span> <span className="text-muted">Leadership & Mgmt</span></div>
+              <div className="flex-between"><span>TI331</span> <span className="text-muted">Tactical Intelligence</span></div>
+              <div className="flex-between"><span>ML321</span> <span className="text-muted">Military Leadership</span></div>
+              <div className="flex-between"><span>PHY331</span> <span className="text-muted">Physics</span></div>
+              <div className="flex-between"><span>RES331</span> <span className="text-muted">Research Methods</span></div>
+              <div className="flex-between"><span>IT331</span> <span className="text-muted">Information Technology</span></div>
             </div>
           </div>
         </div>
