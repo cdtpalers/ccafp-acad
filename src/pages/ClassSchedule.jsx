@@ -83,7 +83,7 @@ export default function ClassSchedule() {
 
   // Group schedule by Section Group
   const groups = schedule.reduce((acc, row) => {
-    const group = row['Section Group'] || 'Unknown';
+    const group = row['Section Group'] || row['Section'] || 'Unknown';
     if (!acc[group]) acc[group] = [];
     acc[group].push(row);
     return acc;
@@ -155,17 +155,25 @@ export default function ClassSchedule() {
                     </tr>
                   </thead>
                   <tbody>
-                    {groups[groupKey].map((row, i) => (
-                      <tr key={i} style={{ transition: 'background 0.2s' }}>
-                        <td style={{ fontWeight: 600, padding: '1.25rem' }}>{row['Period']}</td>
-                        <td className="text-muted" style={{ fontSize: '0.85rem' }}>{row['Time']}</td>
-                        <td style={{ fontWeight: row['Monday (M)'] ? 500 : 400 }}>{row['Monday (M)'] || '-'}</td>
-                        <td style={{ fontWeight: row['Tuesday (T)'] ? 500 : 400 }}>{row['Tuesday (T)'] || '-'}</td>
-                        <td style={{ fontWeight: row['Wednesday (W)'] ? 500 : 400 }}>{row['Wednesday (W)'] || '-'}</td>
-                        <td style={{ fontWeight: row['Thursday (TH)'] ? 500 : 400 }}>{row['Thursday (TH)'] || '-'}</td>
-                        <td style={{ fontWeight: row['Friday (F)'] ? 500 : 400 }}>{row['Friday (F)'] || '-'}</td>
-                      </tr>
-                    ))}
+                    {groups[groupKey].map((row, i) => {
+                      const mon = row['Monday (M)'] || row['Monday'] || '-';
+                      const tue = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                      const wed = row['Wednesday (W)'] || row['Wednesday'] || '-';
+                      const thu = row['Thursday (TH)'] || row['Thursday'] || '-';
+                      const fri = row['Friday (F)'] || row['Friday'] || '-';
+
+                      return (
+                        <tr key={i} style={{ transition: 'background 0.2s' }}>
+                          <td style={{ fontWeight: 600, padding: '1.25rem' }}>{row['Period']}</td>
+                          <td className="text-muted" style={{ fontSize: '0.85rem' }}>{row['Time']}</td>
+                          <td style={{ fontWeight: mon !== '-' ? 500 : 400 }}>{mon}</td>
+                          <td style={{ fontWeight: tue !== '-' ? 500 : 400 }}>{tue}</td>
+                          <td style={{ fontWeight: wed !== '-' ? 500 : 400 }}>{wed}</td>
+                          <td style={{ fontWeight: thu !== '-' ? 500 : 400 }}>{thu}</td>
+                          <td style={{ fontWeight: fri !== '-' ? 500 : 400 }}>{fri}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -192,6 +200,13 @@ export default function ClassSchedule() {
               <div className="flex-between"><span>ENGG352</span> <span className="text-muted">Engineering Sci.</span></div>
               <div className="flex-between"><span>LDM332</span> <span className="text-muted">Leadership & Mgmt</span></div>
               <div className="flex-between"><span>RES332</span> <span className="text-muted">Research Methods</span></div>
+              <div className="flex-between"><span>AS/AFS/NS</span> <span className="text-muted">Area Studies / Naval Sci</span></div>
+              <div className="flex-between"><span>ENGG431</span> <span className="text-muted">Engineering Mgt</span></div>
+              <div className="flex-between"><span>HRP431</span> <span className="text-muted">Human Resource Plan</span></div>
+              <div className="flex-between"><span>COM431</span> <span className="text-muted">Communications</span></div>
+              <div className="flex-between"><span>RES431</span> <span className="text-muted">Research 2</span></div>
+              <div className="flex-between"><span>RM431</span> <span className="text-muted">Resource Mgt</span></div>
+              <div className="flex-between"><span>WIT431</span> <span className="text-muted">Weapons & Info Tech</span></div>
             </div>
           </div>
         </div>
