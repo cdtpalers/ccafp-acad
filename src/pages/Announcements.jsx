@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 // A lightweight CSV parser to handle quotes and commas properly
 function parseCSV(csv) {
+  if (!csv || typeof csv !== 'string') return [];
+  
   const lines = [];
   let currentLine = [];
   let currentVal = '';
@@ -35,8 +37,13 @@ function parseCSV(csv) {
     lines.push(currentLine);
   }
 
-  const headers = lines[0].map(h => h.trim());
-  return lines.slice(1).filter(line => line.join('').trim() !== '').map(line => {
+  // Filter out completely empty lines
+  const cleanLines = lines.filter(line => line.some(val => val.trim() !== ''));
+
+  if (cleanLines.length === 0 || !cleanLines[0]) return [];
+
+  const headers = cleanLines[0].map(h => h.trim());
+  return cleanLines.slice(1).map(line => {
     return headers.reduce((obj, header, i) => {
       obj[header] = line[i] ? line[i].trim() : '';
       return obj;
@@ -68,61 +75,60 @@ export default function Announcements() {
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        if (!SHEET_CSV_URL) {
-          setAnnouncements([]);
-          setLoading(false);
-          return;
+      const hardcodedAnns = [
+        {
+          title: "IFMH Formations",
+          type: "Info",
+          date: "Permanent",
+          image: "/ifmh_formation.png",
+          content: "Please refer to the detailed diagram for the MWF and TTh Formation layouts at Melchor Hall."
+        },
+        {
+          title: "Class Supervisors",
+          type: "Info",
+          date: "Permanent",
+          isHtml: true,
+          content: `
+            <div style="overflow-x: auto; margin-top: 1rem;">
+              <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: center;">
+                <thead>
+                  <tr style="background: var(--surface-overlay);">
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);"></th>
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);">Monday</th>
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);">Tuesday</th>
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);">Wednesday</th>
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);">Thursday</th>
+                    <th style="padding: 1rem; border: 1px solid var(--surface-border);">Friday</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">1st Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Acad Council</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td></tr>
+                  <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">2nd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td></tr>
+                  <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">3rd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td></tr>
+                  <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">4th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td></tr>
+                  <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">5th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h3 style="text-align: center; margin-top: 1.5rem;">All sections will be supervisors TWICE a week</h3>
+          `
         }
+      ];
 
-        const response = await fetch(SHEET_CSV_URL);
-        const csvText = await response.text();
-        const data = parseCSV(csvText);
-        
-        const hardcodedAnns = [
-          {
-            title: "IFMH Formations",
-            type: "Info",
-            date: "Permanent",
-            image: "/ifmh_formation.png",
-            content: "Please refer to the detailed diagram for the MWF and TTh Formation layouts at Melchor Hall."
-          },
-          {
-            title: "Class Supervisors",
-            type: "Info",
-            date: "Permanent",
-            isHtml: true,
-            content: `
-              <div style="overflow-x: auto; margin-top: 1rem;">
-                <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: center;">
-                  <thead>
-                    <tr style="background: var(--surface-overlay);">
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);"></th>
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Monday</th>
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Tuesday</th>
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Wednesday</th>
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Thursday</th>
-                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Friday</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">1st Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Acad Council</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td></tr>
-                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">2nd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td></tr>
-                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">3rd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td></tr>
-                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">4th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td></tr>
-                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">5th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <h3 style="text-align: center; margin-top: 1.5rem;">All sections will be supervisors TWICE a week</h3>
-            `
+      let data = [];
+      try {
+        if (SHEET_CSV_URL) {
+          const response = await fetch(SHEET_CSV_URL);
+          if (!response.ok) {
+            throw new Error(`HTTP status error: ${response.status}`);
           }
-        ];
-
-        setAnnouncements([...hardcodedAnns, ...data]);
-        setLoading(false);
+          const csvText = await response.text();
+          data = parseCSV(csvText);
+        }
       } catch (error) {
         console.error("Error fetching sheet data:", error);
+      } finally {
+        setAnnouncements([...hardcodedAnns, ...data]);
         setLoading(false);
       }
     }
