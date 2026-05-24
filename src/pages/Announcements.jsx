@@ -81,6 +81,13 @@ export default function Announcements() {
         
         const hardcodedAnns = [
           {
+            title: "IFMH Formations",
+            type: "Info",
+            date: "Permanent",
+            image: "/ifmh_formation.png",
+            content: "Please refer to the detailed diagram for the MWF and TTh Formation layouts at Melchor Hall."
+          },
+          {
             title: "Class Supervisors",
             type: "Info",
             date: "Permanent",
