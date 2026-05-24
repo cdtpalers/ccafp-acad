@@ -78,7 +78,41 @@ export default function Announcements() {
         const response = await fetch(SHEET_CSV_URL);
         const csvText = await response.text();
         const data = parseCSV(csvText);
-        setAnnouncements(data);
+        
+        const hardcodedAnns = [
+          {
+            title: "Class Supervisors",
+            type: "Info",
+            date: "Permanent",
+            isHtml: true,
+            content: `
+              <div style="overflow-x: auto; margin-top: 1rem;">
+                <table class="data-table" style="width: 100%; border-collapse: collapse; text-align: center;">
+                  <thead>
+                    <tr style="background: var(--surface-overlay);">
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);"></th>
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Monday</th>
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Tuesday</th>
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Wednesday</th>
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Thursday</th>
+                      <th style="padding: 1rem; border: 1px solid var(--surface-border);">Friday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">1st Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Acad Council</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec J</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td></tr>
+                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">2nd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec H</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec C</td></tr>
+                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">3rd Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec D</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec K</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec E</td></tr>
+                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">4th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec I</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec A</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec B</td></tr>
+                    <tr><td style="padding: 1rem; border: 1px solid var(--surface-border); font-weight: bold;">5th Period</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec G</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec L</td><td style="padding: 1rem; border: 1px solid var(--surface-border);">Sec F</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <h3 style="text-align: center; margin-top: 1.5rem;">All sections will be supervisors TWICE a week</h3>
+            `
+          }
+        ];
+
+        setAnnouncements([...hardcodedAnns, ...data]);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching sheet data:", error);
@@ -186,9 +220,13 @@ export default function Announcements() {
                                 <img src={resolveImageUrl(ann.image)} alt={ann.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                               </div>
                             )}
-                            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5', fontSize: '0.8rem', flex: 1 }}>
-                              {ann.content && ann.content.length > 80 ? ann.content.substring(0, 80) + '...' : ann.content}
-                            </p>
+                            <div style={{ color: 'var(--text-secondary)', lineHeight: '1.5', fontSize: '0.8rem', flex: 1 }}>
+                              {ann.isHtml ? (
+                                "Click to view full table details..."
+                              ) : (
+                                ann.content && ann.content.length > 80 ? ann.content.substring(0, 80) + '...' : ann.content
+                              )}
+                            </div>
                          </div>
                        ))
                      )}
@@ -216,9 +254,13 @@ export default function Announcements() {
                   <img src={resolveImageUrl(selectedAnn.image)} alt={selectedAnn.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
                 </div>
             )}
-            <div style={{ color: 'var(--text-primary)', lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '1.05rem' }}>
-              {selectedAnn.content}
-            </div>
+            {selectedAnn.isHtml ? (
+              <div style={{ color: 'var(--text-primary)', lineHeight: '1.8', fontSize: '1.05rem' }} dangerouslySetInnerHTML={{ __html: selectedAnn.content }} />
+            ) : (
+              <div style={{ color: 'var(--text-primary)', lineHeight: '1.8', whiteSpace: 'pre-wrap', fontSize: '1.05rem' }}>
+                {selectedAnn.content}
+              </div>
+            )}
           </div>
         </div>
       )}
