@@ -51,7 +51,7 @@ function parseScheduleCSV(csv) {
   });
 }
 
-const CLASSES = ['1CL', '2CL', '3CL', '4CL'];
+const CLASSES = ['1CL', '2CL', '3CL', '4CL', 'MWF Rooms'];
 
 const renderGroupKey = (groupKey, selectedClass) => {
   const getColor = (letter) => {
@@ -85,7 +85,11 @@ export default function ClassSchedule() {
     async function fetchData() {
       setLoading(true);
       try {
-        const res = await fetch(`/sched_${selectedClass.toLowerCase()}.csv`);
+        let url = `/sched_${selectedClass.toLowerCase()}.csv`;
+        if (selectedClass === 'MWF Rooms') {
+          url = '/classroom_assignment_MWF(1).csv';
+        }
+        const res = await fetch(url);
         if (!res.ok) {
            setSchedule([]);
            setLoading(false);
@@ -105,12 +109,12 @@ export default function ClassSchedule() {
   }, [selectedClass]);
 
   // Group schedule by Section Group
-  const groups = schedule.reduce((acc, row) => {
+  const groups = selectedClass !== 'MWF Rooms' ? schedule.reduce((acc, row) => {
     const group = row['Section Group'] || row['Section'] || 'Unknown';
     if (!acc[group]) acc[group] = [];
     acc[group].push(row);
     return acc;
-  }, {});
+  }, {}) : {};
 
   const groupKeys = Object.keys(groups);
 
@@ -131,7 +135,7 @@ export default function ClassSchedule() {
             onClick={() => setSelectedClass(cls)}
             className={`tab-item ${selectedClass === cls ? 'active' : ''}`}
           >
-            {cls} Cadets
+            {cls === 'MWF Rooms' ? cls : `${cls} Cadets`}
           </button>
         ))}
       </div>
@@ -143,7 +147,7 @@ export default function ClassSchedule() {
             Loading {selectedClass} schedule...
           </div>
         </div>
-      ) : groupKeys.length === 0 ? (
+      ) : schedule.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
           <div style={{ fontSize: '3rem', marginBottom: '1rem', filter: 'grayscale(1)' }}>📅</div>
           <h3 style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Schedule Not Found</h3>
@@ -151,6 +155,47 @@ export default function ClassSchedule() {
             The schedule for <strong>{selectedClass}</strong> has not been uploaded yet. 
             Please check back later or contact the Academic Group.
           </p>
+        </div>
+      ) : selectedClass === 'MWF Rooms' ? (
+        <div style={{ marginBottom: '3rem' }}>
+          <div className="flex-between" style={{ marginBottom: '1rem', padding: '0 0.5rem' }}>
+            <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <div style={{ width: '8px', height: '24px', background: 'var(--accent-gold)', borderRadius: '4px' }}></div>
+              MWF Classroom Assignments
+            </h2>
+            <span className="badge badge-info">{schedule.length} Rooms</span>
+          </div>
+          
+          <div className="glass-panel" style={{ padding: '0', overflow: 'hidden' }}>
+            <div className="table-container">
+              <table className="data-table">
+                <thead>
+                  <tr style={{ background: 'var(--surface-overlay)' }}>
+                    <th style={{ padding: '1.25rem', width: '150px' }}>Rooms</th>
+                    <th style={{ width: '150px' }}>Subject</th>
+                    <th>1st</th>
+                    <th>2nd</th>
+                    <th>3rd</th>
+                    <th>4th</th>
+                    <th>5th</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {schedule.map((row, i) => (
+                    <tr key={i} style={{ transition: 'background 0.2s' }}>
+                      <td style={{ fontWeight: 600, padding: '1.25rem' }}>{row['ROOMS'] || '-'}</td>
+                      <td style={{ fontWeight: 500 }}>{row['SUBJ'] || '-'}</td>
+                      <td>{row['1ST'] || '-'}</td>
+                      <td>{row['2ND'] || '-'}</td>
+                      <td>{row['3RD'] || '-'}</td>
+                      <td>{row['4TH'] || '-'}</td>
+                      <td>{row['5TH'] || '-'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       ) : (
         groupKeys.map((groupKey) => (
