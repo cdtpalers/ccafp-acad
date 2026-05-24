@@ -51,7 +51,7 @@ function parseScheduleCSV(csv) {
   });
 }
 
-const CLASSES = ['1CL', '2CL', '3CL', '4CL', 'MWF Rooms'];
+const CLASSES = ['1CL', '2CL', '3CL', '4CL', 'MWF Rooms', 'TTh Rooms'];
 
 const renderGroupKey = (groupKey, selectedClass) => {
   const getColor = (letter) => {
@@ -88,6 +88,8 @@ export default function ClassSchedule() {
         let url = `/sched_${selectedClass.toLowerCase()}.csv`;
         if (selectedClass === 'MWF Rooms') {
           url = '/classroom_assignment_MWF(1).csv';
+        } else if (selectedClass === 'TTh Rooms') {
+          url = '/classroom_assignment_TTH.csv';
         }
         const res = await fetch(url);
         if (!res.ok) {
@@ -109,7 +111,7 @@ export default function ClassSchedule() {
   }, [selectedClass]);
 
   // Group schedule by Section Group
-  const groups = selectedClass !== 'MWF Rooms' ? schedule.reduce((acc, row) => {
+  const groups = (selectedClass !== 'MWF Rooms' && selectedClass !== 'TTh Rooms') ? schedule.reduce((acc, row) => {
     const group = row['Section Group'] || row['Section'] || 'Unknown';
     if (!acc[group]) acc[group] = [];
     acc[group].push(row);
@@ -135,7 +137,7 @@ export default function ClassSchedule() {
             onClick={() => setSelectedClass(cls)}
             className={`tab-item ${selectedClass === cls ? 'active' : ''}`}
           >
-            {cls === 'MWF Rooms' ? cls : `${cls} Cadets`}
+            {cls === 'MWF Rooms' || cls === 'TTh Rooms' ? cls : `${cls} Cadets`}
           </button>
         ))}
       </div>
@@ -156,12 +158,12 @@ export default function ClassSchedule() {
             Please check back later or contact the Academic Group.
           </p>
         </div>
-      ) : selectedClass === 'MWF Rooms' ? (
+      ) : (selectedClass === 'MWF Rooms' || selectedClass === 'TTh Rooms') ? (
         <div style={{ marginBottom: '3rem' }}>
           <div className="flex-between" style={{ marginBottom: '1rem', padding: '0 0.5rem' }}>
             <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{ width: '8px', height: '24px', background: 'var(--accent-gold)', borderRadius: '4px' }}></div>
-              MWF Classroom Assignments
+              {selectedClass === 'MWF Rooms' ? 'MWF' : 'TTh'} Classroom Assignments
             </h2>
             <span className="badge badge-info">{schedule.length} Rooms</span>
           </div>
