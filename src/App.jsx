@@ -104,7 +104,7 @@ function Layout({ children }) {
     { path: '/', label: 'Overview', icon: <Home size={20} /> },
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
-    { path: '/schedule', label: 'Class Schedule', icon: <Calendar size={20} /> },
+    { path: '/schedule', label: 'HAG CLASS SCHED', icon: <Calendar size={20} /> },
     { path: '/about', label: 'About', icon: <Info size={20} /> }
   ];
 

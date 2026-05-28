@@ -122,10 +122,19 @@ export default function ClassSchedule() {
 
   return (
     <div className="schedule-page">
-      <div className="flex-between" style={{ marginBottom: '2.5rem' }}>
+      <div className="flex-between" style={{ marginBottom: '1.5rem' }}>
         <div>
-          <h1>Class Schedule</h1>
+          <h1>HAG CLASS SCHED</h1>
           <p className="text-muted">Master Schedule • Term Overview</p>
+        </div>
+      </div>
+
+      <div className="glass-panel" style={{ marginBottom: '2.5rem', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent-gold)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <Info size={20} style={{ color: 'var(--accent-gold)' }} />
+          <p style={{ margin: 0 }}>
+            <strong>Note:</strong> The formation time IFMH is 10 mins minus the first call in melchor/HAG
+          </p>
         </div>
       </div>
 
