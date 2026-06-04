@@ -9,6 +9,7 @@ const Announcements = lazy(() => import('./pages/Announcements'));
 const Deficiencies = lazy(() => import('./pages/Deficiencies'));
 const About = lazy(() => import('./pages/About'));
 const ClassSchedule = lazy(() => import('./pages/ClassSchedule'));
+const GradeReports = lazy(() => import('./pages/GradeReports'));
 
 function DateTimeWidget({ isCollapsed }) {
   const [time, setTime] = useState(new Date());
@@ -105,6 +106,7 @@ function Layout({ children }) {
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
     { path: '/schedule', label: 'HAG CLASS SCHED', icon: <Calendar size={20} /> },
+    { path: '/grades', label: 'Grade Reports', icon: <FileText size={20} /> },
     { path: '/about', label: 'About', icon: <Info size={20} /> }
   ];
 
@@ -120,6 +122,12 @@ function Layout({ children }) {
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
+      {/* Sidebar Overlay */}
+      <div 
+        className={`sidebar-overlay ${sidebarOpen ? 'visible' : ''}`}
+        onClick={() => setSidebarOpen(false)}
+      />
 
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
@@ -205,6 +213,7 @@ function App() {
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/deficiencies" element={<Deficiencies />} />
             <Route path="/schedule" element={<ClassSchedule />} />
+            <Route path="/grades" element={<GradeReports />} />
             <Route path="/about" element={<About />} />
           </Routes>
         </Suspense>

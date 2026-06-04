@@ -194,13 +194,13 @@ export default function ClassSchedule() {
                 <tbody>
                   {schedule.map((row, i) => (
                     <tr key={i} style={{ transition: 'background 0.2s' }}>
-                      <td style={{ fontWeight: 600, padding: '1.25rem' }}>{row['ROOMS'] || '-'}</td>
-                      <td style={{ fontWeight: 500 }}>{row['SUBJ'] || '-'}</td>
-                      <td>{row['1ST'] || '-'}</td>
-                      <td>{row['2ND'] || '-'}</td>
-                      <td>{row['3RD'] || '-'}</td>
-                      <td>{row['4TH'] || '-'}</td>
-                      <td>{row['5TH'] || '-'}</td>
+                      <td data-label="Rooms" style={{ fontWeight: 600, padding: '1.25rem' }}>{row['ROOMS'] || '-'}</td>
+                      <td data-label="Subject" style={{ fontWeight: 500 }}>{row['SUBJ'] || '-'}</td>
+                      <td data-label="1st">{row['1ST'] || '-'}</td>
+                      <td data-label="2nd">{row['2ND'] || '-'}</td>
+                      <td data-label="3rd">{row['3RD'] || '-'}</td>
+                      <td data-label="4th">{row['4TH'] || '-'}</td>
+                      <td data-label="5th">{row['5TH'] || '-'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -243,13 +243,13 @@ export default function ClassSchedule() {
 
                       return (
                         <tr key={i} style={{ transition: 'background 0.2s' }}>
-                          <td style={{ fontWeight: 600, padding: '1.25rem' }}>{row['Period']}</td>
-                          <td className="text-muted" style={{ fontSize: '0.85rem' }}>{row['Time']}</td>
-                          <td style={{ fontWeight: mon !== '-' ? 500 : 400 }}>{mon}</td>
-                          <td style={{ fontWeight: tue !== '-' ? 500 : 400 }}>{tue}</td>
-                          <td style={{ fontWeight: wed !== '-' ? 500 : 400 }}>{wed}</td>
-                          <td style={{ fontWeight: thu !== '-' ? 500 : 400 }}>{thu}</td>
-                          <td style={{ fontWeight: fri !== '-' ? 500 : 400 }}>{fri}</td>
+                          <td data-label="Period" style={{ fontWeight: 600, padding: '1.25rem' }}>{row['Period']}</td>
+                          <td data-label="Time" className="text-muted" style={{ fontSize: '0.85rem' }}>{row['Time']}</td>
+                          <td data-label="Monday" style={{ fontWeight: mon !== '-' ? 500 : 400 }}>{mon}</td>
+                          <td data-label="Tuesday" style={{ fontWeight: tue !== '-' ? 500 : 400 }}>{tue}</td>
+                          <td data-label="Wednesday" style={{ fontWeight: wed !== '-' ? 500 : 400 }}>{wed}</td>
+                          <td data-label="Thursday" style={{ fontWeight: thu !== '-' ? 500 : 400 }}>{thu}</td>
+                          <td data-label="Friday" style={{ fontWeight: fri !== '-' ? 500 : 400 }}>{fri}</td>
                         </tr>
                       );
                     })}

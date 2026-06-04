@@ -322,15 +322,15 @@ export default function Deficiencies() {
                         return 0;
                       }).map((def, i) => (
                         <tr key={i}>
-                          <td style={{ fontWeight: 600 }}>{def.cadet}</td>
-                          <td>{def.company || def.coy || '-'}</td>
-                          <td style={{ fontWeight: 'bold' }}>{def.grade}</td>
-                          <td>
+                          <td data-label="Cadet Name" style={{ fontWeight: 600 }}>{def.cadet}</td>
+                          <td data-label="Company">{def.company || def.coy || '-'}</td>
+                          <td data-label="Grade/Status" style={{ fontWeight: 'bold' }}>{def.grade}</td>
+                          <td data-label="Deficiency Points">
                             <span className="badge badge-urgent">
                               {def.pts || def.def || def.points || 0} pts
                             </span>
                           </td>
-                          <td>
+                          <td data-label="Actions">
                             <button className="btn btn-secondary" style={{ padding: '0.4rem 0.75rem', fontSize: '0.75rem' }}>Review</button>
                           </td>
                         </tr>
