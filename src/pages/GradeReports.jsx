@@ -5,7 +5,7 @@ export default function GradeReports() {
   const [loading, setLoading] = useState(true);
 
   // We expect the file to be placed in the public folder as grade_report.pdf
-  const pdfUrl = '/grade_report.pdf';
+  const pdfUrl = '/grade_report.pdf#toolbar=0&navpanes=0&scrollbar=0';
 
   return (
     <div className="grade-reports-page">
