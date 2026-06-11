@@ -51,7 +51,7 @@ export default function GradeReports() {
           <p className="text-muted" style={{ marginBottom: '2rem', fontSize: '0.9rem' }}>This section contains sensitive grade reports. Please enter the access code to continue.</p>
           <form onSubmit={(e) => {
             e.preventDefault();
-            if (password === 'betterccafp') {
+            if (password === 'melchorhall') {
               setIsAuthenticated(true);
               setAuthError('');
             } else {
