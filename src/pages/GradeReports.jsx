@@ -100,11 +100,34 @@ export default function GradeReports() {
                   cursor: 'pointer'
                 }}
               >
-                {WEEK_REPORTS[activeWeek].map(report => (
-                  <option key={report} value={report}>
-                    {report.replace('.pdf', '')}
-                  </option>
-                ))}
+                {(() => {
+                  const reports = WEEK_REPORTS[activeWeek];
+                  const groups = { '1CL': [], '2CL': [], '3CL': [], 'Other': [] };
+                  reports.forEach(report => {
+                    const match = report.match(/\d/);
+                    if (match) {
+                      if (match[0] === '4') groups['1CL'].push(report);
+                      else if (match[0] === '3') groups['2CL'].push(report);
+                      else if (match[0] === '2') groups['3CL'].push(report);
+                      else groups['Other'].push(report);
+                    } else {
+                      groups['Other'].push(report);
+                    }
+                  });
+
+                  return Object.keys(groups).map(groupLabel => {
+                    if (groups[groupLabel].length === 0) return null;
+                    return (
+                      <optgroup key={groupLabel} label={`${groupLabel} Courses`}>
+                        {groups[groupLabel].map(report => (
+                          <option key={report} value={report}>
+                            {report.replace('.pdf', '')}
+                          </option>
+                        ))}
+                      </optgroup>
+                    );
+                  });
+                })()}
               </select>
             </div>
           </div>
