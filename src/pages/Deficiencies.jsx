@@ -284,7 +284,7 @@ export default function Deficiencies() {
             <div className="glass-panel" style={{ padding: '1.5rem' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Company</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {sortedCompanies.slice(0, 5).map(([coy, count]) => (
+                {sortedCompanies.map(([coy, count]) => (
                   <div key={coy}>
                     <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
                       <span>{coy}</span>
