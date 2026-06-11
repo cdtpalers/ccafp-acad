@@ -302,7 +302,7 @@ export default function Deficiencies() {
             <div className="glass-panel" style={{ padding: '1.5rem' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {sortedCourses.slice(0, 5).map(([crs, count]) => (
+                {sortedCourses.map(([crs, count]) => (
                   <div key={crs}>
                     <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
                       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
