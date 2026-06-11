@@ -49,6 +49,7 @@ const WEEKS = [1, 2, 3, 4, 5, 6, 7];
 // Map week number to CSV file path (only populated weeks will load data)
 const WEEK_CSV_FILES = {
   1: '/week1_deficiencies.csv',
+  2: '/week2_deficiencies.csv',
 };
 
 export default function Deficiencies() {
