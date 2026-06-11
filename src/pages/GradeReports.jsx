@@ -1,4 +1,4 @@
-import { FileText, Info, Calendar, BookOpen } from 'lucide-react';
+import { FileText, Info, Calendar, BookOpen, Lock, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
 const WEEKS = [1, 2, 3, 4, 5, 6, 7];
@@ -15,6 +15,10 @@ export default function GradeReports() {
   const [activeWeek, setActiveWeek] = useState(1);
   const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[1][0]);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState('');
 
   const handleWeekChange = (week) => {
     setActiveWeek(week);
@@ -35,6 +39,48 @@ export default function GradeReports() {
     if (!selectedReport) return '';
     return `/week${activeWeek}(def)/${selectedReport}#toolbar=0&navpanes=0&scrollbar=0`;
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div className="glass-card modal-inner" style={{ padding: '3rem', maxWidth: '420px', width: '100%', textAlign: 'center' }}>
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'color-mix(in srgb, var(--accent-gold) 15%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+            <Lock size={28} style={{ color: 'var(--accent-gold)' }} />
+          </div>
+          <h2 style={{ marginBottom: '0.5rem' }}>Restricted Access</h2>
+          <p className="text-muted" style={{ marginBottom: '2rem', fontSize: '0.9rem' }}>This section contains sensitive grade reports. Please enter the access code to continue.</p>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            if (password === 'betterccafp') {
+              setIsAuthenticated(true);
+              setAuthError('');
+            } else {
+              setAuthError('Incorrect password. Access denied.');
+            }
+          }}>
+            <div style={{ position: 'relative', marginBottom: '1rem' }}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => { setPassword(e.target.value); setAuthError(''); }}
+                placeholder="Enter access code..."
+                className="input-field"
+                style={{ width: '100%', paddingRight: '3rem' }}
+                autoFocus
+              />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--text-secondary)', cursor: 'pointer', padding: '0.25rem' }}>
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
+            </div>
+            {authError && (
+              <p style={{ color: 'var(--accent-crimson)', fontSize: '0.85rem', marginBottom: '1rem' }}>{authError}</p>
+            )}
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Unlock</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="grade-reports-page">
