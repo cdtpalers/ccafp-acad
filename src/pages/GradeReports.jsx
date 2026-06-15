@@ -1,7 +1,7 @@
 import { FileText, Info, Calendar, BookOpen, Lock, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
-const WEEKS = [1, 2, 3, 4, 5, 6, 7];
+const WEEKS = [7, 6, 5, 4, 3, 2, 1];
 
 const WEEK_REPORTS = {
   1: [
@@ -18,8 +18,8 @@ const WEEK_REPORTS = {
 };
 
 export default function GradeReports() {
-  const [activeWeek, setActiveWeek] = useState(1);
-  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[1][0]);
+  const [activeWeek, setActiveWeek] = useState(3);
+  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[3]?.[0] || null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');

@@ -44,7 +44,7 @@ function parseCSV(csv) {
   });
 }
 
-const WEEKS = [1, 2, 3, 4, 5, 6, 7];
+const WEEKS = [7, 6, 5, 4, 3, 2, 1];
 
 // Map week number to CSV file path (only populated weeks will load data)
 const WEEK_CSV_FILES = {
@@ -61,7 +61,7 @@ export default function Deficiencies() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
-  const [activeWeek, setActiveWeek] = useState(1);
+  const [activeWeek, setActiveWeek] = useState(3);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSort = (key) => {
