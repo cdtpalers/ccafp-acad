@@ -1,6 +1,7 @@
 import { Bell, AlertCircle, TrendingUp, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '../lib/supabaseClient';
 
 const ACADEMIC_QUOTES = [
   { text: "The beautiful thing about learning is that no one can take it away from you.", author: "B.B. King" },
@@ -61,8 +62,7 @@ export default function Dashboard() {
   const [deficiencies, setDeficiencies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔴 PASTE YOUR CSV LINKS HERE (Same as the ones in other pages)
-  const ANNOUNCEMENTS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQODxASqFgFWPJObis_gXQ-mcN31Kfqn1p0rRriC00czwJ_QZadUp1MQscXRGVwB1vZKP0xAvsBJI3J/pub?gid=0&single=true&output=csv';
+  // CSV Link for deficiencies
   const DEFICIENCIES_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyMaWhymCt9ILdDWzRItpgd44kbvhGQR5SJHJzoVoCeRPX1WLMKTYB04Q6TmyXLR_ZqU2VDdi7EhEj/pub?gid=0&single=true&output=csv';
 
   useEffect(() => {
@@ -74,12 +74,17 @@ export default function Dashboard() {
           return parseCSV(await res.text());
         };
 
-        const [annData, defData] = await Promise.all([
-          fetchCSV(ANNOUNCEMENTS_CSV_URL),
+        const [supabaseData, defData] = await Promise.all([
+          supabase.from('announcements').select('*').order('created_at', { ascending: false }),
           fetchCSV(DEFICIENCIES_CSV_URL)
         ]);
 
-        setAnnouncements(annData);
+        const { data: annData, error } = supabaseData;
+        if (error) {
+          console.error("Error fetching announcements from Supabase:", error);
+        }
+
+        setAnnouncements(annData || []);
         setDeficiencies(defData);
 
         setLoading(false);
