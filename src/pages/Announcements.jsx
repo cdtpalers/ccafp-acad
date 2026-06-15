@@ -1,6 +1,55 @@
 import { Search, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
+
+// A lightweight CSV parser to handle quotes and commas properly
+function parseCSV(csv) {
+  if (!csv || typeof csv !== 'string') return [];
+  
+  const lines = [];
+  let currentLine = [];
+  let currentVal = '';
+  let insideQuotes = false;
+
+  for (let i = 0; i < csv.length; i++) {
+    const char = csv[i];
+    const nextChar = csv[i + 1];
+
+    if (char === '"' && insideQuotes && nextChar === '"') {
+      currentVal += '"';
+      i++;
+    } else if (char === '"') {
+      insideQuotes = !insideQuotes;
+    } else if (char === ',' && !insideQuotes) {
+      currentLine.push(currentVal);
+      currentVal = '';
+    } else if ((char === '\n' || char === '\r') && !insideQuotes) {
+      if (char === '\r' && nextChar === '\n') ++i;
+      currentLine.push(currentVal);
+      lines.push(currentLine);
+      currentLine = [];
+      currentVal = '';
+    } else {
+      currentVal += char;
+    }
+  }
+  if (currentVal || currentLine.length > 0) {
+    currentLine.push(currentVal);
+    lines.push(currentLine);
+  }
+
+  // Filter out completely empty lines
+  const cleanLines = lines.filter(line => line.some(val => val.trim() !== ''));
+
+  if (cleanLines.length === 0 || !cleanLines[0]) return [];
+
+  const headers = cleanLines[0].map(h => h.trim());
+  return cleanLines.slice(1).map(line => {
+    return headers.reduce((obj, header, i) => {
+      obj[header] = line[i] ? line[i].trim() : '';
+      return obj;
+    }, {});
+  });
+}
 
 // Helper to convert Google Drive share links to direct image URLs
 function resolveImageUrl(url) {
@@ -20,6 +69,9 @@ export default function Announcements() {
   const [selectedAnn, setSelectedAnn] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [typeFilter, setTypeFilter] = useState('All Types');
+
+  // 🔴 PASTE YOUR ANNOUNCEMENTS CSV LINK HERE:
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQODxASqFgFWPJObis_gXQ-mcN31Kfqn1p0rRriC00czwJ_QZadUp1MQscXRGVwB1vZKP0xAvsBJI3J/pub?gid=0&single=true&output=csv';
 
   useEffect(() => {
     async function fetchData() {
@@ -63,23 +115,20 @@ export default function Announcements() {
         }
       ];
 
+      let data = [];
       try {
-        const { data, error } = await supabase
-          .from('announcements')
-          .select('*')
-          .order('created_at', { ascending: false });
-
-        if (error) {
-          console.error("Error fetching announcements from Supabase:", error);
-          throw error;
+        if (SHEET_CSV_URL) {
+          const response = await fetch(SHEET_CSV_URL);
+          if (!response.ok) {
+            throw new Error(`HTTP status error: ${response.status}`);
+          }
+          const csvText = await response.text();
+          data = parseCSV(csvText);
         }
-        
-        setAnnouncements([...hardcodedAnns, ...(data || [])]);
       } catch (error) {
-        console.error("Failed to load announcements:", error);
-        // Fallback to just hardcoded if database fails
-        setAnnouncements([...hardcodedAnns]);
+        console.error("Error fetching sheet data:", error);
       } finally {
+        setAnnouncements([...hardcodedAnns, ...data]);
         setLoading(false);
       }
     }
