@@ -10,8 +10,12 @@ import os
 import re
 import sys
 
-INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", "week1(def)")
-OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", "week1_deficiencies.csv")
+week_str = "1"
+if len(sys.argv) > 1:
+    week_str = sys.argv[1]
+
+INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}(def)")
+OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_deficiencies.csv")
 
 
 def get_class_level(filename):
@@ -46,26 +50,37 @@ def extract_course_full_name(text):
 def parse_cadet_line(line):
     """Parse a single cadet data line.
     Format: No Name CN SEC COY SUM CNT SUM CNT FINAL PTS_DEF AVG_GRADE
-    Example: 1 CRESCENCIO, R, S 27062 C G 13.6600 2 0.0000 0 0.0000 -0.34 6.83
+    Or shorter formats if exams are missing.
     """
-    # Match pattern: number, then name (with commas), then cadet number, section, company, and numeric fields
-    pattern = r'^(\d+)\s+(.+?)\s+(\d{5})\s+(\w+)\s+(\w+)\s+([\d.]+)\s+(\d+)\s+([\d.]+)\s+(\d+)\s+([\d.]+)\s+(-?[\d.]+)\s+([\d.]+)$'
+    # Match pattern: number, then name (with commas), then cadet number, section, company, and the rest
+    pattern = r'^(\d+)\s+(.+?)\s+(\d{5})\s+(\w+)\s+(\w+)\s+(.*)$'
     match = re.match(pattern, line.strip())
     if match:
-        return {
-            'no': match.group(1),
-            'name': match.group(2).strip(),
-            'cn': match.group(3),
-            'sec': match.group(4),
-            'coy': match.group(5),
-            'lesson_sum': match.group(6),
-            'lesson_cnt': match.group(7),
-            'unit_sum': match.group(8),
-            'unit_cnt': match.group(9),
-            'final_exam': match.group(10),
-            'pts_def': match.group(11),
-            'avg_grade': match.group(12),
-        }
+        rest = match.group(6).split()
+        if len(rest) >= 2:
+            avg_grade = rest[-1]
+            pts_def = rest[-2]
+            
+            lesson_sum = rest[0] if len(rest) > 2 else "0"
+            lesson_cnt = rest[1] if len(rest) > 3 else "0"
+            unit_sum = rest[2] if len(rest) > 4 else "0"
+            unit_cnt = rest[3] if len(rest) > 5 else "0"
+            final_exam = rest[4] if len(rest) > 6 else "0"
+
+            return {
+                'no': match.group(1),
+                'name': match.group(2).strip(),
+                'cn': match.group(3),
+                'sec': match.group(4),
+                'coy': match.group(5),
+                'lesson_sum': lesson_sum,
+                'lesson_cnt': lesson_cnt,
+                'unit_sum': unit_sum,
+                'unit_cnt': unit_cnt,
+                'final_exam': final_exam,
+                'pts_def': pts_def,
+                'avg_grade': avg_grade,
+            }
     return None
 
 

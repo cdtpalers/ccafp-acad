@@ -50,6 +50,7 @@ const WEEKS = [7, 6, 5, 4, 3, 2, 1];
 const WEEK_CSV_FILES = {
   1: '/week1_deficiencies.csv',
   2: '/week2_deficiencies.csv',
+  3: '/week3_deficiencies.csv',
 };
 
 export default function Deficiencies() {
