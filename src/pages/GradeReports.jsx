@@ -14,6 +14,12 @@ const WEEK_REPORTS = {
     "LAW231.pdf", "LDM331.pdf", "MAT231.pdf", "OM231.pdf", "PHI231.pdf",
     "PHY331.pdf", "RES331.pdf", "RES431.pdf", "RM431.pdf", "SGD231.pdf",
     "TI331.pdf", "WIT431.pdf"
+  ],
+  3: [
+    "COM431.pdf", "ENGG431.pdf", "GIS231.pdf", "HRP431.pdf", "IT331.pdf",
+    "LAW231.pdf", "LDM331.pdf", "MAT231.pdf", "OM231.pdf", "PHI231.pdf",
+    "PHY331(.pdf", "RES331.pdf", "RES431.pdf", "RM431.pdf", "SGD231.pdf",
+    "TI331.pdf", "WIT431.pdf"
   ]
 };
 
