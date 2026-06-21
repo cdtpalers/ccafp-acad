@@ -53,6 +53,22 @@ const WEEK_CSV_FILES = {
   3: '/week3_deficiencies.csv',
 };
 
+const COMPANY_NAMES = {
+  'A': 'Alpha Company',
+  'B': 'Bravo Company',
+  'C': 'Charlie Company',
+  'D': 'Delta Company',
+  'E': 'Echo Company',
+  'F': 'Foxtrot Company',
+  'G': 'Golf Company',
+  'H': 'Hotel Company',
+  'I': 'India Company',
+  'J': 'Juliet Company',
+  'K': 'Kilo Company',
+  'L': 'Lima Company',
+  'M': 'Mike Company',
+};
+
 export default function Deficiencies() {
   const [deficiencies, setDeficiencies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -262,8 +278,8 @@ export default function Deficiencies() {
               <p className="text-muted">Deficient Cadets</p>
             </div>
             <div className="glass-card" style={{ borderTop: '2px solid var(--accent-gold)' }}>
-              <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={topCompany}>
-                {topCompany}
+              <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={COMPANY_NAMES[topCompany] || topCompany}>
+                {COMPANY_NAMES[topCompany] || topCompany}
               </h3>
               <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <span>Company with Most Deficient Cadets</span>
@@ -283,13 +299,13 @@ export default function Deficiencies() {
 
           {/* Charts */}
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
-            <div className="glass-panel" style={{ padding: '1.5rem' }}>
+            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Company</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, justifyContent: 'space-between' }}>
                 {sortedCompanies.map(([coy, count]) => (
                   <div key={coy}>
                     <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
-                      <span>{coy}</span>
+                      <span>{COMPANY_NAMES[coy] || coy}</span>
                       <span style={{ fontWeight: 600 }}>{count}</span>
                     </div>
                     <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden' }}>
@@ -301,9 +317,9 @@ export default function Deficiencies() {
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '1.5rem' }}>
+            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, justifyContent: 'space-between' }}>
                 {sortedCourses.map(([crs, count]) => (
                   <div key={crs}>
                     <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
