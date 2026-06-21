@@ -61,7 +61,7 @@ const COMPANY_NAMES = {
   'E': 'Echo Company',
   'F': 'Foxtrot Company',
   'G': 'Golf Company',
-  'H': 'Hotel Company',
+  'H': 'Hawk Company',
   'I': 'India Company',
   'J': 'Juliet Company',
   'K': 'Kilo Company',
