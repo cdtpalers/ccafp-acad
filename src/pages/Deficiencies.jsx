@@ -51,6 +51,7 @@ const WEEK_CSV_FILES = {
   1: '/week1_deficiencies.csv',
   2: '/week2_deficiencies.csv',
   3: '/week3_deficiencies.csv',
+  4: '/week4_deficiencies.csv',
 };
 
 const COMPANY_NAMES = {
@@ -78,7 +79,7 @@ export default function Deficiencies() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
-  const [activeWeek, setActiveWeek] = useState(3);
+  const [activeWeek, setActiveWeek] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSort = (key) => {

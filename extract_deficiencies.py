@@ -117,13 +117,18 @@ def extract_from_pdf(pdf_path):
 def main():
     all_records = []
     
-    pdf_files = sorted([f for f in os.listdir(INPUT_DIR) if f.endswith('.pdf')])
+    pdf_paths = []
+    for root, dirs, files in os.walk(INPUT_DIR):
+        for f in files:
+            if f.endswith('.pdf'):
+                pdf_paths.append(os.path.join(root, f))
+    pdf_paths = sorted(pdf_paths)
     
-    print(f"Processing {len(pdf_files)} PDF files from: {INPUT_DIR}")
+    print(f"Processing {len(pdf_paths)} PDF files from: {INPUT_DIR}")
     
-    for pdf_file in pdf_files:
-        pdf_path = os.path.join(INPUT_DIR, pdf_file)
+    for pdf_path in pdf_paths:
         records = extract_from_pdf(pdf_path)
+        pdf_file = os.path.basename(pdf_path)
         print(f"  {pdf_file}: {len(records)} deficient cadets extracted")
         all_records.extend(records)
     
