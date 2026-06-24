@@ -226,6 +226,25 @@ export default function Deficiencies() {
       { name: '3CL', [`Week ${activeWeek - 1}`]: classCounts['3CL'].prev, [`Week ${activeWeek}`]: classCounts['3CL'].curr },
     ];
 
+    const companyCountsCurr = {};
+    const companyCountsPrev = {};
+    currentData.forEach(d => {
+      const coy = d.company || d.coy || 'Unspecified';
+      companyCountsCurr[coy] = (companyCountsCurr[coy] || 0) + 1;
+    });
+    prevData.forEach(d => {
+      const coy = d.company || d.coy || 'Unspecified';
+      companyCountsPrev[coy] = (companyCountsPrev[coy] || 0) + 1;
+    });
+    
+    const allCompanies = [...new Set([...Object.keys(companyCountsCurr), ...Object.keys(companyCountsPrev)])].sort();
+    const companyChartData = allCompanies.map(coy => ({
+      name: coy,
+      fullName: COMPANY_NAMES[coy] || coy,
+      [`Week ${activeWeek - 1}`]: companyCountsPrev[coy] || 0,
+      [`Week ${activeWeek}`]: companyCountsCurr[coy] || 0,
+    }));
+
     const cleared = [...prevUniqueCadets].filter(c => !currentUniqueCadets.has(c));
     const newlyDeficient = [...currentUniqueCadets].filter(c => !prevUniqueCadets.has(c));
     
@@ -239,6 +258,7 @@ export default function Deficiencies() {
       currentCadets: currentUniqueCadets.size, prevCadets: prevUniqueCadets.size, diffCadets: currentUniqueCadets.size - prevUniqueCadets.size,
       currentAvg, prevAvg, diffAvg: currentAvg - prevAvg,
       chartData,
+      companyChartData,
       cleared: cleared.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
       newlyDeficient: newlyDeficient.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' }))
     };
@@ -509,6 +529,30 @@ export default function Deficiencies() {
                   </ul>
                 )}
               </div>
+            </div>
+          </div>
+
+          <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '3rem' }}>
+            <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <BarChart size={18} style={{ color: '#f59e0b' }} />
+              Deficiencies per Company (W{activeWeek - 1} vs W{activeWeek})
+            </h3>
+            <div style={{ flex: 1, width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={comparisonStats.companyChartData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                  <Tooltip 
+                    cursor={{ fill: 'var(--surface-overlay)' }} 
+                    contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                    labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                  />
+                  <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
+                  <Bar dataKey={`Week ${activeWeek - 1}`} fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey={`Week ${activeWeek}`} fill="#ef4444" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
             </div>
           </div>
         </>
