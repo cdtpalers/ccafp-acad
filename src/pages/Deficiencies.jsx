@@ -658,9 +658,11 @@ export default function Deficiencies() {
                 style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
               >
                 <option value="All">All Companies</option>
-                {Object.entries(COMPANY_NAMES).map(([key, name]) => (
-                  <option key={key} value={key}>{name}</option>
-                ))}
+                {Object.entries(COMPANY_NAMES)
+                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
+                  .map(([key, name]) => (
+                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
+                  ))}
               </select>
             </div>
             <div>
