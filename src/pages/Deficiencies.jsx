@@ -266,7 +266,7 @@ export default function Deficiencies() {
 
   const generateComparisonText = (stats) => {
     if (!stats) return '';
-    const prefix = selectedClassFilter === 'All' ? 'The Battalion' : `${selectedClassFilter}`;
+    const prefix = selectedClassFilter === 'All' ? 'The Cadet Corps' : `${selectedClassFilter}`;
     const diffTotal = stats.diffTotal;
     const diffAvg = stats.diffAvg;
     
@@ -356,7 +356,7 @@ export default function Deficiencies() {
             <AlertCircle className="text-accent-crimson" size={28} />
             Academic Deficiencies Tracker
           </h1>
-          <p className="text-muted" style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px', fontWeight: 600 }}>{selectedClassFilter === 'All' ? 'Battalion Overview' : `${selectedClassFilter} Overview`}</p>
+          <p className="text-muted" style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px', fontWeight: 600 }}>{selectedClassFilter === 'All' ? 'Cadet Corps Overview' : `${selectedClassFilter} Overview`}</p>
         </div>
       </div>
 
