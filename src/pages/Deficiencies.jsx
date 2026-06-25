@@ -74,6 +74,7 @@ export default function Deficiencies() {
   const [prevDeficiencies, setPrevDeficiencies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClassFilter, setSelectedClassFilter] = useState('All');
+  const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('All');
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
@@ -94,6 +95,7 @@ export default function Deficiencies() {
   const handleWeekChange = (week) => {
     setActiveWeek(week);
     setSelectedClassFilter('All');
+    setSelectedCompanyFilter('All');
     setSearchTerm('');
     setSortConfig({ key: null, direction: 'asc' });
     if (week === 1) setViewMode('data');
@@ -134,6 +136,10 @@ export default function Deficiencies() {
       ? deficiencies
       : deficiencies.filter(d => (d.class || '').toUpperCase() === selectedClassFilter);
     
+    if (selectedCompanyFilter !== 'All') {
+      data = data.filter(d => (d.company || d.coy || '') === selectedCompanyFilter);
+    }
+    
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
       data = data.filter(d => 
@@ -146,7 +152,7 @@ export default function Deficiencies() {
     }
     
     return data;
-  }, [deficiencies, selectedClassFilter, searchTerm]);
+  }, [deficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm]);
 
   const groupedData = useMemo(() => {
     return filteredData.reduce((acc, def) => {
@@ -193,6 +199,11 @@ export default function Deficiencies() {
     let prevData = selectedClassFilter === 'All'
       ? prevDeficiencies
       : prevDeficiencies.filter(d => (d.class || '').toUpperCase() === selectedClassFilter);
+    
+    if (selectedCompanyFilter !== 'All') {
+      prevData = prevData.filter(d => (d.company || d.coy || '') === selectedCompanyFilter);
+    }
+
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase();
       prevData = prevData.filter(d => 
@@ -262,11 +273,14 @@ export default function Deficiencies() {
       cleared: cleared.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
       newlyDeficient: newlyDeficient.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' }))
     };
-  }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, searchTerm, activeWeek]);
+  }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm, activeWeek]);
 
   const generateComparisonText = (stats) => {
     if (!stats) return '';
-    const prefix = selectedClassFilter === 'All' ? 'The Cadet Corps' : `${selectedClassFilter}`;
+    let prefix = selectedClassFilter === 'All' ? 'The Cadet Corps' : `${selectedClassFilter}`;
+    if (selectedCompanyFilter !== 'All') {
+      prefix = `${prefix} (${COMPANY_NAMES[selectedCompanyFilter] || selectedCompanyFilter})`;
+    }
     const diffTotal = stats.diffTotal;
     const diffAvg = stats.diffAvg;
     
@@ -635,6 +649,19 @@ export default function Deficiencies() {
                 className="input-field"
                 style={{ width: '100%' }}
               />
+            </div>
+            <div>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
+              <select
+                value={selectedCompanyFilter}
+                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
+                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
+              >
+                <option value="All">All Companies</option>
+                {Object.entries(COMPANY_NAMES).map(([key, name]) => (
+                  <option key={key} value={key}>{name}</option>
+                ))}
+              </select>
             </div>
             <div>
               <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
