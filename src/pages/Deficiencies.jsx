@@ -1,6 +1,6 @@
 import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, EyeOff, Calendar, Download, Activity, TrendingUp, TrendingDown, BookOpen, Users } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function parseCSV(csv) {
   const lines = [];
@@ -83,6 +83,37 @@ export default function Deficiencies() {
   const [activeWeek, setActiveWeek] = useState(4);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
+  const [allWeeksTrend, setAllWeeksTrend] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllWeeksTrend() {
+      try {
+        const promises = Object.keys(WEEK_CSV_FILES).map(async (weekStr) => {
+          const week = parseInt(weekStr);
+          const url = WEEK_CSV_FILES[week];
+          const text = await fetch(url).then(r => r.ok ? r.text() : null);
+          if (!text) return null;
+          
+          const parsed = parseCSV(text);
+          const uniqueCadets = new Set(parsed.map(d => d.cadet).filter(Boolean)).size;
+          
+          return {
+            week,
+            name: `Week ${week}`,
+            totalDeficiencies: parsed.length,
+            uniqueCadets
+          };
+        });
+        
+        const results = await Promise.all(promises);
+        const validResults = results.filter(Boolean).sort((a, b) => a.week - b.week);
+        setAllWeeksTrend(validResults);
+      } catch (error) {
+        console.error("Error fetching trend data:", error);
+      }
+    }
+    fetchAllWeeksTrend();
+  }, []);
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -467,6 +498,29 @@ export default function Deficiencies() {
         </div>
       ) : viewMode === 'comparison' && comparisonStats ? (
         <>
+          {allWeeksTrend.length > 0 && (
+            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '350px', marginBottom: '1.5rem' }}>
+              <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
+                Cadet Corps Deficiency Trend
+              </h3>
+              <div style={{ flex: 1, width: '100%' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={allWeeksTrend} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                    <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                    <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                    <Tooltip cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
+                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
+                    <Line yAxisId="left" type="monotone" dataKey="totalDeficiencies" name="Total Deficiencies" stroke="#93C5FD" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                    <Line yAxisId="right" type="monotone" dataKey="uniqueCadets" name="Affected Cadets" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          )}
+
           <div className="glass-panel" style={{ marginBottom: '1.5rem', background: 'color-mix(in srgb, var(--accent-primary) 5%, var(--surface-glass))', border: '1px solid color-mix(in srgb, var(--accent-primary) 20%, transparent)', position: 'relative', overflow: 'hidden' }}>
             <Activity size={120} style={{ position: 'absolute', right: '-20px', bottom: '-20px', color: 'var(--accent-primary)', opacity: 0.05 }} />
             <h3 style={{ color: 'var(--accent-primary)', fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
