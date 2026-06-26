@@ -275,6 +275,29 @@ export default function Deficiencies() {
     };
   }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm, activeWeek]);
 
+  const specialConcernCadets = useMemo(() => {
+    const cadetStats = {};
+    filteredData.forEach(def => {
+      const name = def.cadet;
+      if (!name) return;
+      if (!cadetStats[name]) {
+        cadetStats[name] = { 
+          name, 
+          totalPts: 0, 
+          subjectCount: 0, 
+          company: def.company || def.coy || '-', 
+          class: def.class || '-' 
+        };
+      }
+      cadetStats[name].totalPts += (parseFloat(def.pts) || 0);
+      cadetStats[name].subjectCount += 1;
+    });
+    
+    return Object.values(cadetStats)
+      .filter(c => c.totalPts > 20 || c.subjectCount >= 3)
+      .sort((a, b) => b.totalPts - a.totalPts || b.subjectCount - a.subjectCount);
+  }, [filteredData]);
+
   const generateComparisonText = (stats) => {
     if (!stats) return '';
     let prefix = selectedClassFilter === 'All' ? 'The Cadet Corps' : `${selectedClassFilter}`;
@@ -636,6 +659,51 @@ export default function Deficiencies() {
               </div>
             </div>
           </div>
+
+          {/* Cadets of Special Concern */}
+          {specialConcernCadets.length > 0 && (
+            <div className="glass-panel" style={{ marginBottom: '3rem', borderLeft: '4px solid var(--accent-crimson)' }}>
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--accent-crimson)' }}>
+                <AlertCircle size={20} />
+                Cadets of Special Concern
+              </h3>
+              <p className="text-muted" style={{ marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                Cadets with more than 20 deficiency points or deficient in 3 or more subjects.
+              </p>
+              <div className="table-container">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Cadet Name</th>
+                      <th>Class</th>
+                      <th>Company</th>
+                      <th>Subjects Deficient</th>
+                      <th>Total Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {specialConcernCadets.map((cadet, i) => (
+                      <tr key={i}>
+                        <td style={{ fontWeight: 600 }}>{cadet.name}</td>
+                        <td>{cadet.class}</td>
+                        <td>{cadet.company}</td>
+                        <td>
+                          <span className={cadet.subjectCount >= 3 ? "badge badge-urgent" : "badge"}>
+                            {cadet.subjectCount}
+                          </span>
+                        </td>
+                        <td>
+                          <span className={cadet.totalPts > 20 ? "badge badge-urgent" : "badge badge-warning"}>
+                            {cadet.totalPts % 1 === 0 ? cadet.totalPts : cadet.totalPts.toFixed(1)} pts
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           {/* Search and Filter */}
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
