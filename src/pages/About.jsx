@@ -76,7 +76,7 @@ function ProfileCard({ role, name, imageUrl, isTopLevel = false }) {
       alignItems: 'center',
       textAlign: 'center',
       borderTop: isTopLevel ? '3px solid var(--accent-gold)' : '1px solid var(--surface-highlight)',
-      background: isTopLevel ? 'color-mix(in srgb, var(--accent-gold) 5%, transparent)' : 'var(--surface-overlay)'
+      background: isTopLevel ? 'color-mix(in srgb, var(--accent-primary) 5%, transparent)' : 'var(--surface-overlay)'
     }}>
       <div style={{
         width: isTopLevel ? '150px' : '100px',
@@ -146,7 +146,7 @@ export default function About() {
 
       <div className="glass-panel" style={{ padding: '2rem' }}>
         <h2 style={{ textAlign: 'center', marginBottom: '3rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-          <Users className="text-accent-gold" />
+          <Users className="text-accent-primary" />
           Company Academic Elements
         </h2>
 
@@ -164,7 +164,7 @@ export default function About() {
                 textAlign: 'center'
               }}>
                 <h3 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                  <Medal size={18} className="text-accent-gold" />
+                  <Medal size={18} className="text-accent-primary" />
                   {company.name}
                 </h3>
               </div>

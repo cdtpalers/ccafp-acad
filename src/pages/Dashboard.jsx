@@ -151,7 +151,7 @@ export default function Dashboard() {
               <Quote size={120} weight="fill" />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-color)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--surface-border)', flexShrink: 0 }}>
-              <Quote className="text-accent-gold" size={24} />
+              <Quote className="text-accent-primary" size={24} />
             </div>
             <div>
               <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', fontWeight: 500, fontStyle: 'italic', marginBottom: '0.5rem', lineHeight: 1.6 }}>

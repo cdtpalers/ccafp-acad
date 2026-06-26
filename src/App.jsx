@@ -71,12 +71,12 @@ function DateTimeWidget({ isCollapsed }) {
       </div>
 
       <div style={{
-        background: 'color-mix(in srgb, var(--accent-gold) 15%, transparent)',
+        background: 'color-mix(in srgb, var(--accent-primary) 12%, transparent)',
         borderRadius: 'var(--radius-md)',
         padding: '0.85rem',
         border: '1px solid var(--surface-border)'
       }}>
-        <div style={{ fontSize: '0.6rem', color: 'var(--accent-gold)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem', fontWeight: 600 }}>CURRENT DATE</div>
+        <div style={{ fontSize: '0.6rem', color: 'var(--accent-primary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem', fontWeight: 600 }}>CURRENT DATE</div>
         <div style={{ fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
           <span style={{ fontSize: '1.2rem' }}>📅</span>
           {dayName[time.getDay()]}, {monthNames[time.getMonth()]} {time.getDate()}
@@ -141,7 +141,7 @@ function Layout({ children }) {
                   <span className="text-muted" style={{ fontSize: '0.90rem', fontWeight: 500 }}>CCAFP</span>
                   <p style={{ 
                     fontSize: '0.65rem', 
-                    color: 'var(--accent-gold)', 
+                    color: 'var(--accent-primary)', 
                     fontStyle: 'italic', 
                     marginTop: '0.15rem', 
                     letterSpacing: '0.3px',

@@ -332,8 +332,8 @@ export default function Deficiencies() {
     
     return (
       <span className="badge" style={{ 
-        background: isGood ? 'color-mix(in srgb, #4ade80 20%, transparent)' : 'color-mix(in srgb, #f87171 20%, transparent)',
-        color: isGood ? '#4ade80' : '#f87171',
+        background: isGood ? 'color-mix(in srgb, var(--success) 15%, transparent)' : 'color-mix(in srgb, var(--accent-crimson) 15%, transparent)',
+        color: isGood ? 'var(--success)' : 'var(--accent-crimson)',
         fontWeight: 600,
         fontSize: '0.75rem',
         padding: '0.2rem 0.5rem'
@@ -416,9 +416,9 @@ export default function Deficiencies() {
           <button 
             className={`btn ${viewMode === 'comparison' ? 'btn-primary' : ''}`}
             style={{ 
-              background: viewMode === 'comparison' ? 'rgba(139, 92, 246, 0.15)' : 'transparent',
-              color: viewMode === 'comparison' ? '#a78bfa' : 'var(--text-muted)',
-              border: viewMode === 'comparison' ? '1px solid #8b5cf6' : 'none',
+              background: viewMode === 'comparison' ? 'var(--accent-primary-light)' : 'transparent',
+              color: viewMode === 'comparison' ? 'var(--accent-primary)' : 'var(--text-muted)',
+              border: viewMode === 'comparison' ? '1px solid var(--accent-primary)' : 'none',
               boxShadow: viewMode === 'comparison' ? 'var(--shadow-md)' : 'none',
               display: 'flex', alignItems: 'center', gap: '0.5rem',
               padding: '0.5rem 1rem',
@@ -442,7 +442,7 @@ export default function Deficiencies() {
               padding: '0.75rem 1.5rem',
               borderRadius: '8px',
               border: 'none',
-              background: activeWeek === week ? 'var(--accent-crimson)' : 'transparent',
+              background: activeWeek === week ? 'var(--accent-primary)' : 'transparent',
               color: activeWeek === week ? '#fff' : 'var(--text-primary)',
               fontWeight: activeWeek === week ? '600' : '400',
               cursor: 'pointer',
@@ -467,9 +467,9 @@ export default function Deficiencies() {
         </div>
       ) : viewMode === 'comparison' && comparisonStats ? (
         <>
-          <div className="glass-panel" style={{ marginBottom: '1.5rem', background: 'color-mix(in srgb, #8b5cf6 5%, var(--surface-glass))', border: '1px solid color-mix(in srgb, #8b5cf6 20%, transparent)', position: 'relative', overflow: 'hidden' }}>
-            <Activity size={120} style={{ position: 'absolute', right: '-20px', bottom: '-20px', color: '#8b5cf6', opacity: 0.05 }} />
-            <h3 style={{ color: '#a78bfa', fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div className="glass-panel" style={{ marginBottom: '1.5rem', background: 'color-mix(in srgb, var(--accent-primary) 5%, var(--surface-glass))', border: '1px solid color-mix(in srgb, var(--accent-primary) 20%, transparent)', position: 'relative', overflow: 'hidden' }}>
+            <Activity size={120} style={{ position: 'absolute', right: '-20px', bottom: '-20px', color: 'var(--accent-primary)', opacity: 0.05 }} />
+            <h3 style={{ color: 'var(--accent-primary)', fontSize: '1rem', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <TrendingUp size={18} />
               AI Generated Comparison
             </h3>
@@ -513,7 +513,7 @@ export default function Deficiencies() {
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <BarChart size={18} style={{ color: '#0ea5e9' }} />
+                <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
                 Deficiencies per Class (W{activeWeek - 1} vs W{activeWeek})
               </h3>
               <div style={{ flex: 1, width: '100%' }}>
@@ -524,8 +524,8 @@ export default function Deficiencies() {
                     <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
                     <Tooltip cursor={{ fill: 'var(--surface-overlay)' }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
                     <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                    <Bar dataKey={`Week ${activeWeek - 1}`} fill="#6366f1" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey={`Week ${activeWeek}`} fill="#0ea5e9" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Week ${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Week ${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -534,7 +534,7 @@ export default function Deficiencies() {
             <div className="glass-panel" style={{ padding: '0', display: 'flex', flexDirection: 'column', height: '400px', overflow: 'hidden' }}>
               <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--surface-border)', background: 'var(--surface-overlay)' }}>
                 <h3 style={{ fontSize: '1rem', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <TrendingUp size={18} style={{ color: '#10b981' }} />
+                  <TrendingUp size={18} style={{ color: 'var(--success)' }} />
                   Cadet Progress Tracker
                 </h3>
               </div>
@@ -551,7 +551,7 @@ export default function Deficiencies() {
                           <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{c.name}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{c.class}</div>
                         </div>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#10b981' }}>CLEARED (W{activeWeek - 1} to W{activeWeek})</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--success)' }}>CLEARED (W{activeWeek - 1} to W{activeWeek})</span>
                       </li>
                     ))}
                     {comparisonStats.newlyDeficient.map((c, i) => (
@@ -560,7 +560,7 @@ export default function Deficiencies() {
                           <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{c.name}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{c.class}</div>
                         </div>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#f87171' }}>NEW (W{activeWeek})</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--accent-crimson)' }}>NEW (W{activeWeek})</span>
                       </li>
                     ))}
                   </ul>
@@ -571,7 +571,7 @@ export default function Deficiencies() {
 
           <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '3rem' }}>
             <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <BarChart size={18} style={{ color: '#f59e0b' }} />
+              <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
               Deficiencies per Company (W{activeWeek - 1} vs W{activeWeek})
             </h3>
             <div style={{ flex: 1, width: '100%' }}>
@@ -586,8 +586,8 @@ export default function Deficiencies() {
                     labelFormatter={(label) => COMPANY_NAMES[label] || label}
                   />
                   <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                  <Bar dataKey={`Week ${activeWeek - 1}`} fill="#f59e0b" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey={`Week ${activeWeek}`} fill="#ef4444" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey={`Week ${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey={`Week ${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -601,7 +601,7 @@ export default function Deficiencies() {
               <h3 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}>{new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size}</h3>
               <p className="text-muted">Deficient Cadets</p>
             </div>
-            <div className="glass-card" style={{ borderTop: '2px solid var(--accent-gold)' }}>
+            <div className="glass-card" style={{ borderTop: '2px solid var(--accent-primary)' }}>
               <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={COMPANY_NAMES[topCompany] || topCompany}>
                 {COMPANY_NAMES[topCompany] || topCompany}
               </h3>

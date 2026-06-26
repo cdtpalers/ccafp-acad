@@ -129,9 +129,9 @@ export default function ClassSchedule() {
         </div>
       </div>
 
-      <div className="glass-panel" style={{ marginBottom: '2.5rem', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent-gold)' }}>
+      <div className="glass-panel" style={{ marginBottom: '2.5rem', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent-primary)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <Info size={20} style={{ color: 'var(--accent-gold)' }} />
+          <Info size={20} style={{ color: 'var(--accent-primary)' }} />
           <p style={{ margin: 0 }}>
             <strong>Note:</strong> The formation time IFMH is 10 mins minus the first call in melchor/HAG
           </p>
@@ -171,7 +171,7 @@ export default function ClassSchedule() {
         <div style={{ marginBottom: '3rem' }}>
           <div className="flex-between" style={{ marginBottom: '1rem', padding: '0 0.5rem' }}>
             <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <div style={{ width: '8px', height: '24px', background: 'var(--accent-gold)', borderRadius: '4px' }}></div>
+              <div style={{ width: '8px', height: '24px', background: 'var(--accent-primary)', borderRadius: '4px' }}></div>
               {selectedClass === 'MWF Rooms' ? 'MWF' : 'TTh'} Classroom Assignments
             </h2>
             <span className="badge badge-info">{schedule.length} Rooms</span>
@@ -213,7 +213,7 @@ export default function ClassSchedule() {
           <div key={groupKey} style={{ marginBottom: '3rem' }}>
             <div className="flex-between" style={{ marginBottom: '1rem', padding: '0 0.5rem' }}>
               <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div style={{ width: '8px', height: '24px', background: 'var(--accent-gold)', borderRadius: '4px' }}></div>
+                <div style={{ width: '8px', height: '24px', background: 'var(--accent-primary)', borderRadius: '4px' }}></div>
                 Section Group: {renderGroupKey(groupKey, selectedClass)}
               </h2>
               <span className="badge badge-info">{groups[groupKey].length} Periods</span>

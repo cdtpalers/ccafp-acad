@@ -61,8 +61,8 @@ export default function GradeReports() {
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
         <div className="glass-card modal-inner" style={{ padding: '3rem', maxWidth: '420px', width: '100%', textAlign: 'center' }}>
-          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'color-mix(in srgb, var(--accent-gold) 15%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
-            <Lock size={28} style={{ color: 'var(--accent-gold)' }} />
+          <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
+            <Lock size={28} style={{ color: 'var(--accent-primary)' }} />
           </div>
           <h2 style={{ marginBottom: '0.5rem' }}>Restricted Access</h2>
           <p className="text-muted" style={{ marginBottom: '2rem', fontSize: '0.9rem' }}>This section contains sensitive grade reports. Please enter the access code to continue.</p>
@@ -117,8 +117,8 @@ export default function GradeReports() {
               padding: '0.75rem 1.5rem',
               borderRadius: '8px',
               border: 'none',
-              background: activeWeek === week ? 'var(--accent-gold)' : 'transparent',
-              color: activeWeek === week ? '#000' : 'var(--text-primary)',
+              background: activeWeek === week ? 'var(--accent-primary)' : 'transparent',
+              color: activeWeek === week ? '#fff' : 'var(--text-primary)',
               fontWeight: activeWeek === week ? '600' : '400',
               cursor: 'pointer',
               display: 'flex',
@@ -144,7 +144,7 @@ export default function GradeReports() {
         <div className="glass-panel" style={{ padding: '0', overflow: 'hidden', height: '75vh', display: 'flex', flexDirection: 'column' }}>
           <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--surface-border)', background: 'var(--surface-overlay)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-              <FileText size={20} style={{ color: 'var(--accent-gold)' }} />
+              <FileText size={20} style={{ color: 'var(--accent-primary)' }} />
               <h2 style={{ fontSize: '1.1rem', margin: 0, fontWeight: 600 }}>Document Viewer</h2>
             </div>
             
@@ -203,7 +203,7 @@ export default function GradeReports() {
                   width: '40px', 
                   height: '40px', 
                   border: '3px solid var(--surface-border)', 
-                  borderTopColor: 'var(--accent-gold)', 
+                  borderTopColor: 'var(--accent-primary)', 
                   borderRadius: '50%', 
                   animation: 'spin 1s linear infinite',
                   marginBottom: '1rem'
