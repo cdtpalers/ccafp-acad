@@ -679,15 +679,15 @@ export default function Deficiencies() {
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Company</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
                 {sortedCompanies.map(([coy, count]) => (
                   <div key={coy}>
-                    <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
-                      <span>{COMPANY_NAMES[coy] || coy}</span>
-                      <span style={{ fontWeight: 600 }}>{count}</span>
+                    <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
+                      <span style={{ fontWeight: 600 }}>{COMPANY_NAMES[coy] || coy}</span>
+                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
-                    <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden' }}>
-                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'var(--accent-gold)', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
+                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent-primary-hover) 0%, var(--accent-primary) 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
                     </div>
                   </div>
                 ))}
@@ -697,15 +697,15 @@ export default function Deficiencies() {
 
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1, justifyContent: 'space-between' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
                 {sortedCourses.map(([crs, count]) => (
                   <div key={crs}>
-                    <div className="flex-between" style={{ marginBottom: '0.25rem', fontSize: '0.85rem' }}>
-                      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
-                      <span style={{ fontWeight: 600 }}>{count}</span>
+                    <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
+                      <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
+                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
-                    <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden' }}>
-                      <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'var(--accent-crimson)', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
+                      <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #fca5a5 0%, var(--accent-crimson) 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
                     </div>
                   </div>
                 ))}
