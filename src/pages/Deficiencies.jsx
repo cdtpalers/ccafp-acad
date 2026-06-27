@@ -687,7 +687,7 @@ export default function Deficiencies() {
                       <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
                     <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, var(--accent-primary-hover) 0%, var(--accent-primary) 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
+                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #8B5CF6 0%, #3B82F6 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
                     </div>
                   </div>
                 ))}
@@ -705,7 +705,7 @@ export default function Deficiencies() {
                       <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
                     <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #fca5a5 0%, var(--accent-crimson) 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
+                      <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #F59E0B 0%, #EF4444 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
                     </div>
                   </div>
                 ))}
