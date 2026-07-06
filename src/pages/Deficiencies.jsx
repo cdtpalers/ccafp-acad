@@ -71,8 +71,7 @@ const COMPANY_NAMES = {
 };
 
 export default function Deficiencies() {
-  const [deficiencies, setDeficiencies] = useState([]);
-  const [prevDeficiencies, setPrevDeficiencies] = useState([]);
+  const [allWeeksData, setAllWeeksData] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedClassFilter, setSelectedClassFilter] = useState('All');
   const [selectedCompanyFilter, setSelectedCompanyFilter] = useState('All');
@@ -84,37 +83,81 @@ export default function Deficiencies() {
   const [activeWeek, setActiveWeek] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
-  const [allWeeksTrend, setAllWeeksTrend] = useState([]);
+  
+  // Interactive Legend State for Trend Chart
+  const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
 
+  // 1. Fetch ALL data on mount
   useEffect(() => {
-    async function fetchAllWeeksTrend() {
+    async function fetchAllData() {
+      setLoading(true);
       try {
         const promises = Object.keys(WEEK_CSV_FILES).map(async (weekStr) => {
           const week = parseInt(weekStr);
           const url = WEEK_CSV_FILES[week];
           const text = await fetch(url).then(r => r.ok ? r.text() : null);
-          if (!text) return null;
-          
-          const parsed = parseCSV(text);
-          const uniqueCadets = new Set(parsed.map(d => d.cadet).filter(Boolean)).size;
-          
-          return {
-            week,
-            name: `Week ${week}`,
-            totalDeficiencies: parsed.length,
-            uniqueCadets
-          };
+          if (!text) return { week, data: [] };
+          return { week, data: parseCSV(text) };
         });
         
         const results = await Promise.all(promises);
-        const validResults = results.filter(Boolean).sort((a, b) => a.week - b.week);
-        setAllWeeksTrend(validResults);
+        const newAllData = {};
+        results.forEach(r => {
+          newAllData[r.week] = r.data;
+        });
+        setAllWeeksData(newAllData);
       } catch (error) {
-        console.error("Error fetching trend data:", error);
+        console.error("Error fetching all weeks data:", error);
+      } finally {
+        setLoading(false);
       }
     }
-    fetchAllWeeksTrend();
+    fetchAllData();
   }, []);
+
+  // 2. Derive active week and prev week deficiencies
+  const deficiencies = allWeeksData[activeWeek] || [];
+  const prevDeficiencies = activeWeek > 1 ? (allWeeksData[activeWeek - 1] || []) : [];
+
+  // 3. Dynamically compute the trend across all weeks based on current filters
+  const allWeeksTrend = useMemo(() => {
+    const validWeeks = Object.keys(allWeeksData).map(w => parseInt(w)).sort((a, b) => a - b);
+    if (validWeeks.length === 0) return [];
+    
+    return validWeeks.map(week => {
+      let data = allWeeksData[week] || [];
+      
+      // Apply filters
+      if (selectedClassFilter !== 'All') {
+        data = data.filter(d => (d.class || '').toUpperCase() === selectedClassFilter);
+      }
+      if (selectedCompanyFilter !== 'All') {
+        data = data.filter(d => (d.company || d.coy || '') === selectedCompanyFilter);
+      }
+      if (searchTerm.trim()) {
+        const term = searchTerm.toLowerCase();
+        data = data.filter(d => 
+          (d.cadet || '').toLowerCase().includes(term) ||
+          (d.course || '').toLowerCase().includes(term) ||
+          (d.course_name || '').toLowerCase().includes(term) ||
+          (d.company || '').toLowerCase().includes(term) ||
+          (d.cn || '').toLowerCase().includes(term)
+        );
+      }
+      
+      const uniqueCadets = new Set(data.map(d => d.cadet).filter(Boolean)).size;
+      const grades = data.map(d => parseFloat(d.grade)).filter(g => !isNaN(g));
+      const avgGrade = grades.length ? (grades.reduce((a, b) => a + b, 0) / grades.length) : 0;
+      
+      return {
+        week,
+        name: `Week ${week}`,
+        totalDeficiencies: data.length,
+        uniqueCadets,
+        avgGrade: parseFloat(avgGrade.toFixed(2))
+      };
+    });
+  }, [allWeeksData, selectedClassFilter, selectedCompanyFilter, searchTerm]);
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -132,36 +175,6 @@ export default function Deficiencies() {
     setSortConfig({ key: null, direction: 'asc' });
     if (week === 1) setViewMode('data');
   };
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      try {
-        const csvUrl = WEEK_CSV_FILES[activeWeek];
-        const prevCsvUrl = activeWeek > 1 ? WEEK_CSV_FILES[activeWeek - 1] : null;
-
-        const promises = [];
-        if (csvUrl) promises.push(fetch(csvUrl).then(r => r.ok ? r.text() : null));
-        else promises.push(Promise.resolve(null));
-
-        if (prevCsvUrl) promises.push(fetch(prevCsvUrl).then(r => r.ok ? r.text() : null));
-        else promises.push(Promise.resolve(null));
-
-        const [currText, prevText] = await Promise.all(promises);
-        
-        setDeficiencies(currText ? parseCSV(currText) : []);
-        setPrevDeficiencies(prevText ? parseCSV(prevText) : []);
-        
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching deficiency data:", error);
-        setDeficiencies([]);
-        setPrevDeficiencies([]);
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [activeWeek]);
 
   const filteredData = useMemo(() => {
     let data = selectedClassFilter === 'All'
@@ -513,9 +526,22 @@ export default function Deficiencies() {
                     <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
                     <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
                     <Tooltip cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
-                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                    <Line yAxisId="left" type="monotone" dataKey="totalDeficiencies" name="Total Deficiencies" stroke="#93C5FD" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
-                    <Line yAxisId="right" type="monotone" dataKey="uniqueCadets" name="Affected Cadets" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                    <Legend 
+                      iconType="circle" 
+                      wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} 
+                      onClick={(e) => {
+                        const { dataKey } = e;
+                        setActiveLines(prev => ({ ...prev, [dataKey]: !prev[dataKey] }));
+                      }}
+                      formatter={(value, entry, index) => {
+                        const { dataKey } = entry;
+                        const isActive = activeLines[dataKey];
+                        return <span style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)', transition: 'color 0.2s', cursor: 'pointer', opacity: isActive ? 1 : 0.5 }}>{value}</span>;
+                      }}
+                    />
+                    {activeLines.totalDeficiencies && <Line yAxisId="left" type="monotone" dataKey="totalDeficiencies" name="Total Deficiencies" stroke="#93C5FD" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
+                    {activeLines.uniqueCadets && <Line yAxisId="right" type="monotone" dataKey="uniqueCadets" name="Affected Cadets" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
+                    {activeLines.avgGrade && <Line yAxisId="right" type="monotone" dataKey="avgGrade" name="Average Grade" stroke="#10B981" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
                   </LineChart>
                 </ResponsiveContainer>
               </div>
