@@ -1,4 +1,4 @@
-import { Calendar, Search, Filter, Info } from 'lucide-react';
+import { Calendar, Search, Filter, Info, ArrowLeftRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 // Specialized CSV parser that handles the PPM metadata comments
@@ -80,6 +80,12 @@ export default function ClassSchedule() {
   const [schedule, setSchedule] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedClass, setSelectedClass] = useState('4CL');
+  
+  // Class shifting starts on July 13, 2026
+  const [isShifted, setIsShifted] = useState(() => {
+    const shiftDate = new Date('2026-07-13T00:00:00+08:00');
+    return new Date() >= shiftDate;
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -129,12 +135,44 @@ export default function ClassSchedule() {
         </div>
       </div>
 
-      <div className="glass-panel" style={{ marginBottom: '2.5rem', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent-primary)' }}>
+      <div className="glass-panel" style={{ marginBottom: '1.5rem', padding: '1rem 1.5rem', borderLeft: '4px solid var(--accent-primary)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <Info size={20} style={{ color: 'var(--accent-primary)' }} />
           <p style={{ margin: 0 }}>
             <strong>Note:</strong> The formation time IFMH is 10 mins minus the first call in melchor/HAG
           </p>
+        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'var(--surface-overlay)', padding: '0.35rem', borderRadius: '12px', border: '1px solid var(--surface-border)' }}>
+          <button 
+            className={`btn ${!isShifted ? 'btn-primary' : ''}`}
+            style={{ 
+              background: !isShifted ? 'var(--surface-background)' : 'transparent',
+              color: !isShifted ? 'var(--text-primary)' : 'var(--text-muted)',
+              border: !isShifted ? '1px solid var(--surface-border)' : 'none',
+              boxShadow: !isShifted ? 'var(--shadow-sm)' : 'none',
+              padding: '0.5rem 1rem'
+            }}
+            onClick={() => setIsShifted(false)}
+          >
+            Regular Schedule
+          </button>
+          <button 
+            className={`btn ${isShifted ? 'btn-primary' : ''}`}
+            style={{ 
+              background: isShifted ? 'var(--accent-primary-light)' : 'transparent',
+              color: isShifted ? 'var(--accent-primary)' : 'var(--text-muted)',
+              border: isShifted ? '1px solid var(--accent-primary)' : 'none',
+              boxShadow: isShifted ? 'var(--shadow-md)' : 'none',
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.5rem 1rem'
+            }}
+            onClick={() => setIsShifted(true)}
+            title="Starts July 13 (MWF and TTh swapped)"
+          >
+            <ArrowLeftRight size={16} />
+            Shifted Schedule
+          </button>
         </div>
       </div>
 
@@ -235,20 +273,30 @@ export default function ClassSchedule() {
                   </thead>
                   <tbody>
                     {groups[groupKey].map((row, i) => {
-                      const mon = row['Monday (M)'] || row['Monday'] || '-';
-                      const tue = row['Tuesday (T)'] || row['Tuesday'] || '-';
-                      const wed = row['Wednesday (W)'] || row['Wednesday'] || '-';
-                      const thu = row['Thursday (TH)'] || row['Thursday'] || '-';
+                      let mon = row['Monday (M)'] || row['Monday'] || '-';
+                      let tue = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                      let wed = row['Wednesday (W)'] || row['Wednesday'] || '-';
+                      let thu = row['Thursday (TH)'] || row['Thursday'] || '-';
                       const fri = row['Friday (F)'] || row['Friday'] || '-';
+
+                      if (isShifted) {
+                        const tempMon = mon;
+                        mon = tue;
+                        tue = tempMon;
+
+                        const tempWed = wed;
+                        wed = thu;
+                        thu = tempWed;
+                      }
 
                       return (
                         <tr key={i} style={{ transition: 'background 0.2s' }}>
                           <td data-label="Period" style={{ fontWeight: 600, padding: '1.25rem' }}>{row['Period']}</td>
                           <td data-label="Time" className="text-muted" style={{ fontSize: '0.85rem' }}>{row['Time']}</td>
-                          <td data-label="Monday" style={{ fontWeight: mon !== '-' ? 500 : 400 }}>{mon}</td>
-                          <td data-label="Tuesday" style={{ fontWeight: tue !== '-' ? 500 : 400 }}>{tue}</td>
-                          <td data-label="Wednesday" style={{ fontWeight: wed !== '-' ? 500 : 400 }}>{wed}</td>
-                          <td data-label="Thursday" style={{ fontWeight: thu !== '-' ? 500 : 400 }}>{thu}</td>
+                          <td data-label="Monday" style={{ fontWeight: mon !== '-' ? 500 : 400, color: isShifted && mon !== '-' ? 'var(--accent-primary)' : 'inherit' }}>{mon}</td>
+                          <td data-label="Tuesday" style={{ fontWeight: tue !== '-' ? 500 : 400, color: isShifted && tue !== '-' ? 'var(--accent-primary)' : 'inherit' }}>{tue}</td>
+                          <td data-label="Wednesday" style={{ fontWeight: wed !== '-' ? 500 : 400, color: isShifted && wed !== '-' ? 'var(--accent-primary)' : 'inherit' }}>{wed}</td>
+                          <td data-label="Thursday" style={{ fontWeight: thu !== '-' ? 500 : 400, color: isShifted && thu !== '-' ? 'var(--accent-primary)' : 'inherit' }}>{thu}</td>
                           <td data-label="Friday" style={{ fontWeight: fri !== '-' ? 500 : 400 }}>{fri}</td>
                         </tr>
                       );
