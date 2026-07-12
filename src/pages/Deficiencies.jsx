@@ -91,6 +91,7 @@ export default function Deficiencies() {
   const [activeWeek, setActiveWeek] = useState(6);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
+  const [hoveredBar, setHoveredBar] = useState(null);
   
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
@@ -725,7 +726,12 @@ export default function Deficiencies() {
                       <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
                     <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
+                      <div 
+                        onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
+                        onMouseLeave={() => setHoveredBar(null)}
+                        onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
+                        style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out', cursor: 'pointer' }}>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -746,12 +752,15 @@ export default function Deficiencies() {
                       {Object.entries(data.companies).sort((a, b) => b[1] - a[1]).map(([coy, count]) => (
                         <div 
                           key={coy} 
-                          title={`${COMPANY_NAMES[coy] || coy}: ${count}`}
+                          onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
+                          onMouseLeave={() => setHoveredBar(null)}
+                          onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
                           style={{ 
                             width: `${(count / maxCourseCount) * 100}%`, 
                             height: '100%', 
                             backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
-                            transition: 'width 1s ease-out' 
+                            transition: 'width 1s ease-out',
+                            cursor: 'pointer'
                           }} 
                         />
                       ))}
@@ -941,6 +950,25 @@ export default function Deficiencies() {
             ))
           )}
         </>
+      )}
+      {hoveredBar && (
+        <div style={{
+          position: 'fixed',
+          top: hoveredBar.y - 40,
+          left: hoveredBar.x + 10,
+          background: 'var(--surface-overlay)',
+          border: '1px solid var(--surface-border)',
+          padding: '0.5rem 0.75rem',
+          borderRadius: '6px',
+          boxShadow: 'var(--shadow-md)',
+          zIndex: 9999,
+          pointerEvents: 'none',
+          fontSize: '0.85rem',
+          fontWeight: 600,
+          color: 'var(--text-primary)'
+        }}>
+          {hoveredBar.text}
+        </div>
       )}
     </div>
   );
