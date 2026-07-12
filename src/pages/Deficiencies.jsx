@@ -56,7 +56,7 @@ const WEEK_CSV_FILES = {
 };
 
 const COMPANY_NAMES = {
-  'A': 'Alpha Company',
+  'A': 'Alfa Company',
   'B': 'Bravo Company',
   'C': 'Charlie Company',
   'D': 'Delta Company',
@@ -64,11 +64,18 @@ const COMPANY_NAMES = {
   'F': 'Foxtrot Company',
   'G': 'Golf Company',
   'H': 'Hawk Company',
-  'I': 'India Company',
-  'J': 'Juliet Company',
-  'K': 'Kilo Company',
-  'L': 'Lima Company',
-  'M': 'Mike Company',
+};
+
+const COMPANY_COLORS = {
+  'A': '#22c55e', // Green
+  'B': '#f8fafc', // White
+  'C': '#ef4444', // Red
+  'D': '#3b82f6', // Blue
+  'E': '#16a34a', // Green (slightly darker to distinguish from Alfa if needed)
+  'F': '#7f1d1d', // Maroon
+  'G': '#eab308', // Yellow
+  'H': '#334155', // Dark colored
+  'Unspecified': '#9ca3af', // Gray
 };
 
 export default function Deficiencies() {
@@ -214,15 +221,18 @@ export default function Deficiencies() {
   const courseCounts = useMemo(() => {
     return deficiencies.reduce((acc, def) => {
       const crs = def.course || 'Unspecified';
-      acc[crs] = (acc[crs] || 0) + 1;
+      const coy = def.company || def.coy || 'Unspecified';
+      if (!acc[crs]) acc[crs] = { total: 0, companies: {} };
+      acc[crs].total += 1;
+      acc[crs].companies[coy] = (acc[crs].companies[coy] || 0) + 1;
       return acc;
     }, {});
   }, [deficiencies]);
 
-  const sortedCourses = useMemo(() => Object.entries(courseCounts).sort((a, b) => b[1] - a[1]), [courseCounts]);
+  const sortedCourses = useMemo(() => Object.entries(courseCounts).sort((a, b) => b[1].total - a[1].total), [courseCounts]);
   const topCourse = sortedCourses.length > 0 ? sortedCourses[0][0] : "N/A";
-  const topCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1] : 0;
-  const maxCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1] : 1;
+  const topCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1].total : 0;
+  const maxCourseCount = sortedCourses.length > 0 ? sortedCourses[0][1].total : 1;
 
   const companyCounts = useMemo(() => {
     return deficiencies.reduce((acc, def) => {
@@ -715,7 +725,7 @@ export default function Deficiencies() {
                       <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
                     </div>
                     <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #8B5CF6 0%, #3B82F6 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
+                      <div style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
                     </div>
                   </div>
                 ))}
@@ -726,14 +736,25 @@ export default function Deficiencies() {
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
-                {sortedCourses.map(([crs, count]) => (
+                {sortedCourses.map(([crs, data]) => (
                   <div key={crs}>
                     <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
                       <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
+                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{data.total}</span>
                     </div>
-                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div style={{ width: `${(count / maxCourseCount) * 100}%`, height: '100%', background: 'linear-gradient(90deg, #F59E0B 0%, #EF4444 100%)', borderRadius: '6px', transition: 'width 1s ease-out' }}></div>
+                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)', display: 'flex' }}>
+                      {Object.entries(data.companies).sort((a, b) => b[1] - a[1]).map(([coy, count]) => (
+                        <div 
+                          key={coy} 
+                          title={`${COMPANY_NAMES[coy] || coy}: ${count}`}
+                          style={{ 
+                            width: `${(count / maxCourseCount) * 100}%`, 
+                            height: '100%', 
+                            backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
+                            transition: 'width 1s ease-out' 
+                          }} 
+                        />
+                      ))}
                     </div>
                   </div>
                 ))}
