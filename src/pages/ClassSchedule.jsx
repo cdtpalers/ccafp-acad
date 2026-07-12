@@ -241,7 +241,7 @@ export default function ClassSchedule() {
                       let tue = row['Monday (M)'] || row['Monday'] || '-';
                       let wed = row['Thursday (TH)'] || row['Thursday'] || '-';
                       let thu = row['Wednesday (W)'] || row['Wednesday'] || '-';
-                      const fri = row['Friday (F)'] || row['Friday'] || '-';
+                      const fri = row['Tuesday (T)'] || row['Tuesday'] || '-';
 
                       return (
                         <tr key={i} style={{ transition: 'background 0.2s' }}>
