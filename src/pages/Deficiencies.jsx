@@ -71,7 +71,7 @@ const COMPANY_COLORS = {
   'B': '#f8fafc', // White
   'C': '#ef4444', // Red
   'D': '#3b82f6', // Blue
-  'E': '#16a34a', // Green (slightly darker to distinguish from Alfa if needed)
+  'E': '#f97316', // Orange
   'F': '#7f1d1d', // Maroon
   'G': '#eab308', // Yellow
   'H': '#334155', // Dark colored
