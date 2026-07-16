@@ -28,7 +28,7 @@ const COMPANY_COLORS_RGB = {
  * Generate a comprehensive PDF deficiency report for the given week.
  */
 export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData }) {
-  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
   const margin = 14;
@@ -385,8 +385,8 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
   doc.line(margin, y, pageWidth - margin, y);
   y += 6;
 
-  // ─── Side-by-side charts ───
-  const chartHalfWidth = (contentWidth - 8) / 2;
+  // ─── Stacked charts ───
+  const chartWidth = contentWidth;
 
   // Prepare data sorted by count (descending)
   const companiesByCount = [...companySeverity].sort((a, b) => b.count - a.count);
@@ -404,16 +404,16 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
     color: COMPANY_COLORS_RGB[s.coy] || COMPANY_COLORS_RGB['Unspecified'],
   }));
 
-  const chartY = y;
-  // Left chart: Deficiency Count
-  drawHorizontalBarChart(margin, chartY, chartHalfWidth, 'Deficiency Count by Company', countChartData);
+  let chartY = y;
+  // Top chart: Deficiency Count
+  chartY = drawHorizontalBarChart(margin, chartY, chartWidth, 'Deficiency Count by Company', countChartData);
 
-  // Right chart: Total Points
-  drawHorizontalBarChart(margin + chartHalfWidth + 8, chartY, chartHalfWidth, 'Total Deficiency Points by Company', ptsChartData, ' pts');
+  chartY += 6;
 
-  // Calculate y after the tallest chart
-  const chartRows = Math.max(countChartData.length, ptsChartData.length);
-  y = chartY + 5 + chartRows * 10 + 6;
+  // Bottom chart: Total Points
+  chartY = drawHorizontalBarChart(margin, chartY, chartWidth, 'Total Deficiency Points by Company', ptsChartData, ' pts');
+
+  y = chartY + 10;
 
   // ─── Grouped "Count vs Severity" chart ───
   const groupedData2 = [...companySeverity].sort((a, b) => b.totalPts - a.totalPts).map(s => ({
