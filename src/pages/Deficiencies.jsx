@@ -1,7 +1,8 @@
-import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, EyeOff, Calendar, Download, Activity, TrendingUp, TrendingDown, BookOpen, Users, Zap, Flame } from 'lucide-react';
+import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, EyeOff, Calendar, Download, Activity, TrendingUp, TrendingDown, BookOpen, Users, Zap, Flame, FileDown } from 'lucide-react';
 import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { exportDeficiencyPdf } from './exportDeficiencyPdf';
 
 function parseCSV(csv) {
   const lines = [];
@@ -499,6 +500,28 @@ export default function Deficiencies() {
           </h1>
           <p className="text-muted" style={{ textTransform: 'uppercase', fontSize: '0.75rem', letterSpacing: '1px', fontWeight: 600 }}>{selectedClassFilter === 'All' ? 'Cadet Corps Overview' : `${selectedClassFilter} Overview`}</p>
         </div>
+        {WEEK_CSV_FILES[activeWeek] && deficiencies.length > 0 && (
+          <button
+            onClick={() => exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData })}
+            className="btn"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '0.5rem',
+              padding: '0.6rem 1.2rem',
+              background: 'var(--surface-overlay)',
+              border: '1px solid var(--surface-border)',
+              color: 'var(--text-primary)',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '0.85rem',
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            <FileDown size={18} />
+            Export PDF
+          </button>
+        )}
       </div>
 
       <div style={{ display: 'flex', gap: '0.5rem', background: 'var(--surface-overlay)', padding: '0.35rem', borderRadius: '12px', border: '1px solid var(--surface-border)', width: 'fit-content', marginBottom: '1.5rem' }}>
