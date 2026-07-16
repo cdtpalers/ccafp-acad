@@ -305,17 +305,56 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
 
   y = doc.lastAutoTable.finalY + 10;
 
-  // ─── Course Breakdown Table ───
+  // ─── Class & Course Breakdown Tables (Side-by-Side) ───
   if (y + 10 < pageHeight - 25) {
+    const halfWidth = (contentWidth - 10) / 2;
+    const startY = y;
+
+    // Class Data
+    const classCounts = deficiencies.reduce((acc, def) => {
+      const cls = def.class || 'Unknown';
+      acc[cls] = (acc[cls] || 0) + 1;
+      return acc;
+    }, {});
+    const classData = Object.entries(classCounts).sort((a, b) => {
+      const order = ['1CL', '2CL', '3CL', '4CL'];
+      const aIdx = order.indexOf(a[0]);
+      const bIdx = order.indexOf(b[0]);
+      if (aIdx === -1 && bIdx === -1) return a[0].localeCompare(b[0]);
+      if (aIdx === -1) return 1;
+      if (bIdx === -1) return -1;
+      return aIdx - bIdx;
+    });
+
     doc.setFontSize(11);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...navy);
-    doc.text('Deficiencies by Course', margin, y);
-    y += 2;
+    doc.text('Deficiencies by Class', margin, y);
+    
+    autoTable(doc, {
+      startY: y + 2,
+      margin: { left: margin, right: margin + halfWidth + 10 },
+      head: [['Class', 'Deficiency Records']],
+      body: classData.map(([cls, count]) => [cls, String(count)]),
+      headStyles: { fillColor: navy, textColor: white, fontSize: 8, fontStyle: 'bold' },
+      bodyStyles: { fontSize: 8 },
+      columnStyles: { 0: { fontStyle: 'bold' }, 1: { halign: 'center' } },
+      alternateRowStyles: { fillColor: lightGray },
+      theme: 'grid',
+      styles: { lineColor: midGray, lineWidth: 0.2 },
+    });
+
+    const finalYClass = doc.lastAutoTable.finalY;
+
+    // Course Data
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...navy);
+    doc.text('Deficiencies by Course', margin + halfWidth + 10, startY);
 
     autoTable(doc, {
-      startY: y,
-      margin: { left: margin, right: margin },
+      startY: startY + 2,
+      margin: { left: margin + halfWidth + 10, right: margin },
       head: [['Course', 'Deficiency Records']],
       body: sortedCourses.map(([crs, data]) => [crs, String(data.total)]),
       headStyles: { fillColor: navy, textColor: white, fontSize: 8, fontStyle: 'bold' },
@@ -325,6 +364,8 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
       theme: 'grid',
       styles: { lineColor: midGray, lineWidth: 0.2 },
     });
+
+    y = Math.max(finalYClass, doc.lastAutoTable.finalY) + 10;
   }
 
   // ═══════════════════════════════════════════════════════════════
