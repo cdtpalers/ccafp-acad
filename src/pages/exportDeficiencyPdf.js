@@ -422,6 +422,22 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
     totalPts: s.totalPts,
   }));
 
+  const groupedChartHeight = 10 + groupedData2.length * 15;
+  if (y + groupedChartHeight > pageHeight - 15) {
+    doc.addPage();
+    drawPageHeader();
+    y = 26;
+    doc.setFontSize(13);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...navy);
+    doc.text('Visual Analysis & Severity Classification (Cont.)', margin, y);
+    y += 3;
+    doc.setDrawColor(...midGray);
+    doc.setLineWidth(0.3);
+    doc.line(margin, y, pageWidth - margin, y);
+    y += 6;
+  }
+
   y = drawGroupedBarChart(
     margin, y, contentWidth,
     'Count vs Total Points — Side-by-Side Comparison',
