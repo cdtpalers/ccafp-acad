@@ -37,7 +37,7 @@ const WEEK_REPORTS = {
     "3CL/GIS231.pdf", "3CL/LAW231.pdf", "3CL/MAT231.pdf", "3CL/OM231.pdf", "3CL/PHI231.pdf", "3CL/SGD231.pdf"
   ],
   7: [
-    "1CL/COM431.pdf", "1CL/ENGG431.pdf", "1CL/HRP431.pdf", "1CL/RES431.pdf", "1CL/RM431.pdf", "1CL/WIT431.pdf",
+    "1CL/COM431.pdf", "1CL/ENGG431.pdf", "1CL/HRP431.pdf", "1CL/RES431.pdf", "1CL/RM431.pdf", "1CL/WIT431.png",
     "2CL/IT331.pdf", "2CL/LDM331.pdf", "2CL/PHY331.pdf", "2CL/RES331.pdf", "2CL/TI331.pdf",
     "3CL/GIS231.pdf", "3CL/LAW231.pdf", "3CL/MAT231.pdf", "3CL/OM231.pdf", "3CL/PHI231.pdf", "3CL/SGD231.pdf"
   ]
@@ -200,7 +200,7 @@ export default function GradeReports() {
                       <optgroup key={groupLabel} label={`${groupLabel} Courses`}>
                         {groups[groupLabel].map(report => (
                           <option key={report} value={report}>
-                            {report.split('/').pop().replace('.pdf', '')}
+                            {report.split('/').pop().replace(/\.(pdf|png|jpe?g)$/i, '')}
                           </option>
                         ))}
                       </optgroup>
@@ -233,15 +233,27 @@ export default function GradeReports() {
             )}
             
             {selectedReport && (
-              <iframe 
-                key={selectedReport}
-                src={getPdfUrl()}
-                title="Deficiency Report PDF Viewer"
-                width="100%"
-                height="100%"
-                style={{ border: 'none', position: 'relative', zIndex: 1, background: 'transparent' }}
-                onLoad={() => setLoading(false)}
-              />
+              selectedReport.match(/\.(png|jpe?g)$/i) ? (
+                <div style={{ width: '100%', height: '100%', overflow: 'auto', display: 'flex', justifyContent: 'center', position: 'relative', zIndex: 1, background: 'var(--surface-background)', padding: '1rem' }}>
+                  <img 
+                    key={selectedReport}
+                    src={getPdfUrl().split('#')[0]} 
+                    alt="Deficiency Report Image" 
+                    style={{ maxWidth: '100%', objectFit: 'contain', border: '1px solid var(--surface-border)', borderRadius: '4px' }}
+                    onLoad={() => setLoading(false)}
+                  />
+                </div>
+              ) : (
+                <iframe 
+                  key={selectedReport}
+                  src={getPdfUrl()}
+                  title="Deficiency Report PDF Viewer"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 'none', position: 'relative', zIndex: 1, background: 'transparent' }}
+                  onLoad={() => setLoading(false)}
+                />
+              )
             )}
           </div>
         </div>
