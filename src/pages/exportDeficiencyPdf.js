@@ -12,6 +12,18 @@ const COMPANY_NAMES = {
   'H': 'Hawk Company',
 };
 
+const COMPANY_COLORS_RGB = {
+  'A': [34, 197, 94],
+  'B': [148, 163, 184],
+  'C': [239, 68, 68],
+  'D': [59, 130, 246],
+  'E': [249, 115, 22],
+  'F': [127, 29, 29],
+  'G': [234, 179, 8],
+  'H': [51, 65, 85],
+  'Unspecified': [156, 163, 175],
+};
+
 /**
  * Generate a comprehensive PDF deficiency report for the given week.
  */
@@ -34,9 +46,19 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
   const crimson = [220, 38, 38];
   const blue = [59, 130, 246];
   const orange = [249, 115, 22];
+  const yellow = [202, 138, 4];
+  const green = [22, 163, 74];
   const white = [255, 255, 255];
   const lightGray = [241, 245, 249];
   const midGray = [203, 213, 225];
+
+  // Severity tier definitions
+  const SEVERITY_TIERS = [
+    { tier: 'Critical', color: crimson, threshold: '≥ 15.00', desc: 'Cadets are deeply behind; immediate academic intervention required.' },
+    { tier: 'High', color: orange, threshold: '10.00 – 14.99', desc: 'Significant academic risk; close monitoring and remedial action needed.' },
+    { tier: 'Moderate', color: yellow, threshold: '5.00 – 9.99', desc: 'Noticeable deficiency gap; preventive measures recommended.' },
+    { tier: 'Low', color: green, threshold: '< 5.00', desc: 'Minor deficiency; cadets are near passing threshold.' },
+  ];
 
   // ─── Helper: draw a header bar on each page ───
   function drawPageHeader() {
@@ -63,6 +85,132 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
     doc.text('CONFIDENTIAL — Academic Council, CCAFP', margin, pageHeight - 6);
     doc.text(`Page ${pageNum} of ${totalPages}`, pageWidth - margin, pageHeight - 6, { align: 'right' });
   }
+
+  /**
+   * Draw a horizontal bar chart.
+   * @param {number} x - Left x position
+   * @param {number} y - Top y position
+   * @param {number} w - Total width available
+   * @param {string} title - Chart title
+   * @param {Array} data - Array of { label, value, color }
+   * @param {string} unit - Unit label for values (e.g., '' or ' pts')
+   * @returns {number} The y position after the chart
+   */
+  function drawHorizontalBarChart(x, y, w, title, data, unit = '') {
+    const barHeight = 7;
+    const barGap = 3;
+    const labelWidth = 38;
+    const valueWidth = 20;
+    const barAreaWidth = w - labelWidth - valueWidth - 4;
+    const maxVal = Math.max(...data.map(d => d.value), 1);
+
+    // Title
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...navy);
+    doc.text(title, x, y);
+    y += 5;
+
+    // Bars
+    data.forEach((item) => {
+      // Label
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...navy);
+      doc.text(item.label, x, y + barHeight * 0.65, { maxWidth: labelWidth - 2 });
+
+      // Background track
+      const barX = x + labelWidth;
+      doc.setFillColor(...lightGray);
+      doc.roundedRect(barX, y, barAreaWidth, barHeight, 1.5, 1.5, 'F');
+
+      // Filled bar
+      const barW = Math.max((item.value / maxVal) * barAreaWidth, 1);
+      doc.setFillColor(...(item.color || blue));
+      doc.roundedRect(barX, y, barW, barHeight, 1.5, 1.5, 'F');
+
+      // Value label
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...navy);
+      doc.text(`${item.value}${unit}`, barX + barAreaWidth + 2, y + barHeight * 0.65);
+
+      y += barHeight + barGap;
+    });
+
+    return y;
+  }
+
+  /**
+   * Draw a grouped bar chart (two bars per row).
+   * @returns {number} The y position after the chart
+   */
+  function drawGroupedBarChart(x, y, w, title, data, key1, key2, label1, label2, color1, color2) {
+    const barHeight = 5;
+    const groupGap = 4;
+    const labelWidth = 38;
+    const valueWidth = 18;
+    const barAreaWidth = w - labelWidth - valueWidth - 4;
+    const maxVal = Math.max(...data.map(d => Math.max(d[key1], d[key2])), 1);
+
+    // Title
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...navy);
+    doc.text(title, x, y);
+    y += 3;
+
+    // Legend
+    doc.setFontSize(6.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setFillColor(...color1);
+    doc.roundedRect(x + w - 80, y - 2, 5, 3, 0.5, 0.5, 'F');
+    doc.setTextColor(...slate);
+    doc.text(label1, x + w - 74, y);
+    doc.setFillColor(...color2);
+    doc.roundedRect(x + w - 40, y - 2, 5, 3, 0.5, 0.5, 'F');
+    doc.text(label2, x + w - 34, y);
+    y += 4;
+
+    data.forEach((item) => {
+      // Label
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(...navy);
+      doc.text(item.label, x, y + barHeight * 0.7);
+
+      const barX = x + labelWidth;
+
+      // Bar 1
+      doc.setFillColor(...lightGray);
+      doc.roundedRect(barX, y, barAreaWidth, barHeight, 1, 1, 'F');
+      const barW1 = Math.max((item[key1] / maxVal) * barAreaWidth, 0.5);
+      doc.setFillColor(...color1);
+      doc.roundedRect(barX, y, barW1, barHeight, 1, 1, 'F');
+      doc.setFontSize(6);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...color1);
+      doc.text(String(item[key1]), barX + barAreaWidth + 2, y + barHeight * 0.7);
+
+      y += barHeight + 1;
+
+      // Bar 2
+      doc.setFillColor(...lightGray);
+      doc.roundedRect(barX, y, barAreaWidth, barHeight, 1, 1, 'F');
+      const barW2 = Math.max((item[key2] / maxVal) * barAreaWidth, 0.5);
+      doc.setFillColor(...color2);
+      doc.roundedRect(barX, y, barW2, barHeight, 1, 1, 'F');
+      doc.setFontSize(6);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(...color2);
+      doc.text(String(item[key2]), barX + barAreaWidth + 2, y + barHeight * 0.7);
+
+      y += barHeight + groupGap;
+    });
+
+    return y;
+  }
+
 
   // ═══════════════════════════════════════════════════════════════
   // PAGE 1 — COVER / EXECUTIVE SUMMARY
@@ -147,8 +295,8 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
         const tier = data.cell.raw;
         if (tier === 'Critical') data.cell.styles.textColor = crimson;
         else if (tier === 'High') data.cell.styles.textColor = orange;
-        else if (tier === 'Moderate') data.cell.styles.textColor = [202, 138, 4];
-        else data.cell.styles.textColor = [22, 163, 74];
+        else if (tier === 'Moderate') data.cell.styles.textColor = yellow;
+        else data.cell.styles.textColor = green;
       }
     },
     theme: 'grid',
@@ -180,7 +328,156 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
   }
 
   // ═══════════════════════════════════════════════════════════════
-  // PAGE 2+ — CADETS OF SPECIAL CONCERN
+  // PAGE 2 — CHARTS + SEVERITY LEGEND
+  // ═══════════════════════════════════════════════════════════════
+  doc.addPage();
+  drawPageHeader();
+  y = 26;
+
+  doc.setFontSize(13);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...navy);
+  doc.text('Visual Analysis & Severity Classification', margin, y);
+  y += 3;
+  doc.setDrawColor(...midGray);
+  doc.setLineWidth(0.3);
+  doc.line(margin, y, pageWidth - margin, y);
+  y += 6;
+
+  // ─── Side-by-side charts ───
+  const chartHalfWidth = (contentWidth - 8) / 2;
+
+  // Prepare data sorted by count (descending)
+  const companiesByCount = [...companySeverity].sort((a, b) => b.count - a.count);
+  const countChartData = companiesByCount.map(s => ({
+    label: COMPANY_NAMES[s.coy] || s.coy,
+    value: s.count,
+    color: COMPANY_COLORS_RGB[s.coy] || COMPANY_COLORS_RGB['Unspecified'],
+  }));
+
+  // Prepare data sorted by total pts (descending)
+  const companiesByPts = [...companySeverity].sort((a, b) => b.totalPts - a.totalPts);
+  const ptsChartData = companiesByPts.map(s => ({
+    label: COMPANY_NAMES[s.coy] || s.coy,
+    value: s.totalPts,
+    color: COMPANY_COLORS_RGB[s.coy] || COMPANY_COLORS_RGB['Unspecified'],
+  }));
+
+  const chartY = y;
+  // Left chart: Deficiency Count
+  drawHorizontalBarChart(margin, chartY, chartHalfWidth, 'Deficiency Count by Company', countChartData);
+
+  // Right chart: Total Points
+  drawHorizontalBarChart(margin + chartHalfWidth + 8, chartY, chartHalfWidth, 'Total Deficiency Points by Company', ptsChartData, ' pts');
+
+  // Calculate y after the tallest chart
+  const chartRows = Math.max(countChartData.length, ptsChartData.length);
+  y = chartY + 5 + chartRows * 10 + 6;
+
+  // ─── Grouped "Count vs Severity" chart ───
+  const groupedData2 = [...companySeverity].sort((a, b) => b.totalPts - a.totalPts).map(s => ({
+    label: COMPANY_NAMES[s.coy] || s.coy,
+    count: s.count,
+    totalPts: s.totalPts,
+  }));
+
+  y = drawGroupedBarChart(
+    margin, y, contentWidth,
+    'Count vs Total Points — Side-by-Side Comparison',
+    groupedData2, 'count', 'totalPts',
+    'Deficiency Count', 'Total Points (abs)',
+    [147, 197, 253], orange
+  );
+
+  y += 6;
+
+  // ─── SEVERITY CLASSIFICATION LEGEND ───
+  // Check if enough space, otherwise new page
+  if (y + 55 > pageHeight - 15) {
+    doc.addPage();
+    drawPageHeader();
+    y = 26;
+  }
+
+  doc.setDrawColor(...midGray);
+  doc.setLineWidth(0.3);
+  doc.line(margin, y, pageWidth - margin, y);
+  y += 6;
+
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(...navy);
+  doc.text('Severity Classification Legend', margin, y);
+  y += 3;
+
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.setTextColor(...slate);
+  doc.text('Severity is determined by the Average Deficiency Points per Cadet within each company. Higher average points indicate deeper academic trouble across cadets.', margin, y, { maxWidth: contentWidth });
+  y += 7;
+
+  const legendBoxH = 10;
+  const legendColW = (contentWidth - 9) / 4;
+
+  SEVERITY_TIERS.forEach((tier, i) => {
+    const lx = margin + i * (legendColW + 3);
+
+    // Background box
+    doc.setFillColor(...tier.color);
+    doc.roundedRect(lx, y, legendColW, legendBoxH, 1.5, 1.5, 'F');
+
+    // Tier name
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...white);
+    doc.text(tier.tier.toUpperCase(), lx + 3, y + 4.5);
+
+    // Threshold
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Avg Pts/Cadet: ${tier.threshold}`, lx + 3, y + 8.5);
+  });
+  y += legendBoxH + 3;
+
+  // Description under each
+  SEVERITY_TIERS.forEach((tier, i) => {
+    const lx = margin + i * (legendColW + 3);
+    doc.setFontSize(6.5);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...slate);
+    doc.text(tier.desc, lx, y, { maxWidth: legendColW - 2 });
+  });
+
+  y += 14;
+
+  // ─── Additional classification notes ───
+  if (y + 30 < pageHeight - 15) {
+    doc.setFillColor(...lightGray);
+    doc.roundedRect(margin, y, contentWidth, 22, 2, 2, 'F');
+    doc.setDrawColor(...blue);
+    doc.setLineWidth(0.6);
+    doc.line(margin, y, margin, y + 22);
+
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'bold');
+    doc.setTextColor(...navy);
+    doc.text('How to Read This Report', margin + 5, y + 5);
+
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(...slate);
+    const notes = [
+      '• A company with fewer deficiencies but a higher severity tier indicates its cadets are, on average, further from passing — requiring more targeted intervention.',
+      '• "Cadets of Special Concern" are flagged when a cadet accumulates > 20 total deficiency points OR is deficient in 3 or more subjects simultaneously.',
+      '• Deficiency points (Pts) represent how far below the passing threshold a cadet scored. Larger absolute values = more severe academic risk.',
+    ];
+    notes.forEach((note, i) => {
+      doc.text(note, margin + 5, y + 10 + i * 4.5, { maxWidth: contentWidth - 10 });
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════════
+  // PAGE 3+ — CADETS OF SPECIAL CONCERN
   // ═══════════════════════════════════════════════════════════════
   if (specialConcernCadets.length > 0) {
     doc.addPage();
@@ -190,7 +487,7 @@ export function exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity,
     doc.setFontSize(13);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(...crimson);
-    doc.text('⚠  Cadets of Special Concern', margin, y);
+    doc.text('Cadets of Special Concern', margin, y);
     y += 4;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
