@@ -81,6 +81,30 @@ const COMPANY_COLORS = {
   'Unspecified': '#9ca3af', // Gray
 };
 
+const AnimatedNumber = ({ value, isFloat = false }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp = null;
+    const duration = 1500; // 1.5 seconds
+    const startValue = 0;
+    
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      const current = startValue + easeProgress * (value - startValue);
+      setDisplayValue(current);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [value]);
+
+  return isFloat ? displayValue.toFixed(2) : Math.floor(displayValue);
+};
+
 export default function Deficiencies() {
   const [allWeeksData, setAllWeeksData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -741,39 +765,40 @@ export default function Deficiencies() {
             </div>
           </div>
 
-          <div className="grid-cols-3" style={{ marginBottom: '1.5rem' }}>
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          {/* 4 Cards Top Summary Stats */}
+          <div className="grid-cols-4" style={{ marginBottom: '1.5rem' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', animationDelay: '0.1s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.85rem', fontWeight: 600 }}>
                 <BookOpen size={16} /> Total Deficiencies
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
-                <h3 style={{ fontSize: '2.5rem', margin: 0 }}>{comparisonStats.currentTotal}</h3>
+                <h3 style={{ fontSize: '2.5rem', margin: 0 }}><AnimatedNumber value={comparisonStats.currentTotal} /></h3>
                 <Pill value={comparisonStats.diffTotal} label={`from W${activeWeek - 1}`} positiveIsGood={false} />
               </div>
             </div>
             
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', animationDelay: '0.2s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.85rem', fontWeight: 600 }}>
                 <Users size={16} /> Affected Cadets
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
-                <h3 style={{ fontSize: '2.5rem', margin: 0 }}>{comparisonStats.currentCadets}</h3>
+                <h3 style={{ fontSize: '2.5rem', margin: 0 }}><AnimatedNumber value={comparisonStats.currentCadets} /></h3>
                 <Pill value={comparisonStats.diffCadets} label={`from W${activeWeek - 1}`} positiveIsGood={false} />
               </div>
             </div>
             
-            <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', animationDelay: '0.3s' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', marginBottom: '1rem', fontSize: '0.85rem', fontWeight: 600 }}>
                 <TrendingUp size={16} /> Average Grade
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
-                <h3 style={{ fontSize: '2.5rem', margin: 0 }}>{comparisonStats.currentAvg.toFixed(2)}</h3>
+                <h3 style={{ fontSize: '2.5rem', margin: 0 }}><AnimatedNumber value={comparisonStats.currentAvg} isFloat={true} /></h3>
                 <Pill value={comparisonStats.diffAvg} label={`pts`} positiveIsGood={true} isFloat={true} />
               </div>
             </div>
           </div>
 
-          <div className="glass-panel" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsComparisonChartsCollapsed(!isComparisonChartsCollapsed)}>
+          <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsComparisonChartsCollapsed(!isComparisonChartsCollapsed)}>
             <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
               <Activity size={20} />
               Comparative Charts
@@ -784,7 +809,7 @@ export default function Deficiencies() {
           {!isComparisonChartsCollapsed && (
             <>
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', animationDelay: '0.1s' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
                 Deficiencies per Class (W{activeWeek - 1} vs W{activeWeek})
@@ -873,7 +898,7 @@ export default function Deficiencies() {
           {/* Stats Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
             <div className="glass-card" style={{ borderTop: '2px solid var(--accent-crimson)' }}>
-              <h3 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}>{new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size}</h3>
+              <h3 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}><AnimatedNumber value={new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size} /></h3>
               <p className="text-muted">Deficient Cadets</p>
             </div>
             <div className="glass-card" style={{ borderTop: '2px solid var(--accent-primary)' }}>
@@ -909,7 +934,7 @@ export default function Deficiencies() {
           </div>
 
           {/* Charts */}
-          <div className="glass-panel" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
+          <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem', animationDelay: '0.5s' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
             <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
               <Activity size={20} />
               Visual Analysis & Charts
@@ -1113,7 +1138,7 @@ export default function Deficiencies() {
 
           {/* Cadets of Special Concern */}
           {specialConcernCadets.length > 0 && (
-            <div className="glass-panel" style={{ marginBottom: '3rem', borderLeft: '4px solid var(--accent-crimson)' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '3rem', borderLeft: '4px solid var(--accent-crimson)', animationDelay: '0.6s' }}>
               <div 
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', marginBottom: isSpecialConcernCollapsed ? 0 : '1.5rem' }} 
                 onClick={() => setIsSpecialConcernCollapsed(!isSpecialConcernCollapsed)}
