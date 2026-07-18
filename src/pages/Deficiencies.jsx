@@ -369,10 +369,54 @@ export default function Deficiencies() {
       if (d.cadet && d.class) cadetClassMap[d.cadet] = d.class;
     });
 
+    // Total Points
+    const currentTotalPts = currentData.reduce((sum, d) => sum + (parseFloat(d.pts) || 0), 0);
+    const prevTotalPts = prevData.reduce((sum, d) => sum + (parseFloat(d.pts) || 0), 0);
+    const diffTotalPts = currentTotalPts - prevTotalPts;
+
+    // Course Volatility
+    const courseCountsCurr = {};
+    const courseCountsPrev = {};
+    currentData.forEach(d => {
+      const crs = d.course || 'Unknown';
+      courseCountsCurr[crs] = (courseCountsCurr[crs] || 0) + 1;
+    });
+    prevData.forEach(d => {
+      const crs = d.course || 'Unknown';
+      courseCountsPrev[crs] = (courseCountsPrev[crs] || 0) + 1;
+    });
+    
+    const allCourses = [...new Set([...Object.keys(courseCountsCurr), ...Object.keys(courseCountsPrev)])];
+    let maxCourseIncrease = { course: null, diff: 0 };
+    let maxCourseDecrease = { course: null, diff: 0 };
+    
+    allCourses.forEach(crs => {
+      const diff = (courseCountsCurr[crs] || 0) - (courseCountsPrev[crs] || 0);
+      if (diff > maxCourseIncrease.diff) maxCourseIncrease = { course: crs, diff };
+      if (diff < maxCourseDecrease.diff) maxCourseDecrease = { course: crs, diff };
+    });
+
+    // Company Shifts
+    let maxCompanyIncrease = { company: null, diff: 0 };
+    let maxCompanyDecrease = { company: null, diff: 0 };
+    allCompanies.forEach(coy => {
+      const diff = (companyCountsCurr[coy] || 0) - (companyCountsPrev[coy] || 0);
+      if (diff > maxCompanyIncrease.diff) maxCompanyIncrease = { company: coy, diff };
+      if (diff < maxCompanyDecrease.diff) maxCompanyDecrease = { company: coy, diff };
+    });
+
+    // Chronic Cadets
+    const chronicCadets = [...currentUniqueCadets].filter(c => prevUniqueCadets.has(c));
+    const chronicCount = chronicCadets.length;
+
     return {
       currentTotal, prevTotal, diffTotal: currentTotal - prevTotal,
       currentCadets: currentUniqueCadets.size, prevCadets: prevUniqueCadets.size, diffCadets: currentUniqueCadets.size - prevUniqueCadets.size,
       currentAvg, prevAvg, diffAvg: currentAvg - prevAvg,
+      currentTotalPts, prevTotalPts, diffTotalPts,
+      maxCourseIncrease, maxCourseDecrease,
+      maxCompanyIncrease, maxCompanyDecrease,
+      chronicCount,
       chartData,
       companyChartData,
       cleared: cleared.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
@@ -403,26 +447,77 @@ export default function Deficiencies() {
       .sort((a, b) => b.totalPts - a.totalPts || b.subjectCount - a.subjectCount);
   }, [filteredData]);
 
-  const generateComparisonText = (stats) => {
-    if (!stats) return '';
+  const renderComparativeInsights = (stats) => {
+    if (!stats) return null;
     let prefix = selectedClassFilter === 'All' ? 'The Cadet Corps' : `${selectedClassFilter}`;
     if (selectedCompanyFilter !== 'All') {
       prefix = `${prefix} (${COMPANY_NAMES[selectedCompanyFilter] || selectedCompanyFilter})`;
     }
-    const diffTotal = stats.diffTotal;
-    const diffAvg = stats.diffAvg;
     
-    let text = `${prefix} saw ${diffTotal <= 0 ? 'an improvement' : 'a decline'} with a ${diffTotal <= 0 ? 'decrease' : 'increase'} of ${Math.abs(diffTotal)} total deficiencies from Week ${activeWeek - 1} to Week ${activeWeek}. `;
-    
-    if (stats.cleared.length > 0) {
-      text += `Encouragingly, ${stats.cleared.length} cadets managed to completely clear their deficient status. `;
-    } else if (stats.newlyDeficient.length > 0) {
-      text += `However, ${stats.newlyDeficient.length} new cadets fell into deficient status. `;
-    }
-    
-    text += `The average grade among deficient cadets ${diffAvg >= 0 ? 'slightly improved' : 'dropped'} by ${diffAvg > 0 ? '+' : ''}${diffAvg.toFixed(2)} pts.`;
-    
-    return text;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '1.2rem' }}>📊</span> The Big Picture
+          </h4>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            {prefix} saw a net <strong>{stats.diffTotal <= 0 ? 'decrease' : 'increase'} of {Math.abs(stats.diffTotal)}</strong> deficiency records from Week {activeWeek - 1} to Week {activeWeek}. 
+            {stats.cleared.length > 0 && ` Encouragingly, ${stats.cleared.length} cadets managed to completely clear their deficient status.`}
+            {stats.newlyDeficient.length > 0 && ` However, ${stats.newlyDeficient.length} new cadets fell into deficient status.`}
+          </p>
+        </div>
+
+        <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '1.2rem' }}>⚠️</span> Severity Trend
+          </h4>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Total deficiency points across the tracked group {stats.diffTotalPts > 0 ? 'worsened' : 'improved'} by <strong>{Math.abs(stats.diffTotalPts).toFixed(2)} pts</strong>. 
+            {stats.diffTotalPts > 0 ? " This indicates that existing academic struggles are deepening, even if headcounts remain stable." : " This shows a tangible recovery in grades and academic standing."}
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+          <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--accent-crimson)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '1.2rem' }}>📈</span> Biggest Concern
+            </h4>
+            <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+              {stats.maxCourseIncrease.course && stats.maxCourseIncrease.diff > 0 ? (
+                <li><strong>{stats.maxCourseIncrease.course}</strong> spiked with {stats.maxCourseIncrease.diff} new records.</li>
+              ) : <li>No significant course spikes.</li>}
+              {stats.maxCompanyIncrease.company && stats.maxCompanyIncrease.diff > 0 ? (
+                <li><strong>{COMPANY_NAMES[stats.maxCompanyIncrease.company] || stats.maxCompanyIncrease.company}</strong> saw the highest surge (+{stats.maxCompanyIncrease.diff} records).</li>
+              ) : <li>No significant company surges.</li>}
+            </ul>
+          </div>
+          
+          <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+            <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--success)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ fontSize: '1.2rem' }}>📉</span> Biggest Win
+            </h4>
+            <ul style={{ margin: 0, paddingLeft: '1.2rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+              {stats.maxCourseDecrease.course && stats.maxCourseDecrease.diff < 0 ? (
+                <li><strong>{stats.maxCourseDecrease.course}</strong> showed the best recovery ({stats.maxCourseDecrease.diff} records).</li>
+              ) : <li>No significant course recoveries.</li>}
+              {stats.maxCompanyDecrease.company && stats.maxCompanyDecrease.diff < 0 ? (
+                <li><strong>{COMPANY_NAMES[stats.maxCompanyDecrease.company] || stats.maxCompanyDecrease.company}</strong> improved the most ({stats.maxCompanyDecrease.diff} records).</li>
+              ) : <li>No significant company recoveries.</li>}
+            </ul>
+          </div>
+        </div>
+
+        <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
+          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '1.2rem' }}>⏱️</span> Chronic Watch
+          </h4>
+          <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Out of {stats.currentCadets} currently deficient cadets, <strong>{stats.chronicCount}</strong> are considered 'chronic' (deficient in both Week {activeWeek - 1} and Week {activeWeek}). 
+            This represents {stats.currentCadets > 0 ? Math.round((stats.chronicCount / stats.currentCadets) * 100) : 0}% of the struggling population.
+          </p>
+        </div>
+      </div>
+    );
   };
 
   const Pill = ({ value, label, positiveIsGood = true, isFloat = false }) => {
@@ -636,9 +731,9 @@ export default function Deficiencies() {
               <TrendingUp size={18} />
               AI Generated Comparison
             </h3>
-            <p style={{ lineHeight: '1.6', fontSize: '0.95rem' }}>
-              {generateComparisonText(comparisonStats)}
-            </p>
+            <div style={{ marginTop: '0.5rem' }}>
+              {renderComparativeInsights(comparisonStats)}
+            </div>
           </div>
 
           <div className="grid-cols-3" style={{ marginBottom: '1.5rem' }}>
