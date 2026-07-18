@@ -306,9 +306,9 @@ h3 { font-size: 1.25rem; }
 }
 
 .data-table th {
-  padding: 1rem;
+  padding: 0.5rem 0.75rem;
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -318,10 +318,11 @@ h3 { font-size: 1.25rem; }
 }
 
 .data-table td {
-  padding: 1rem;
+  padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--surface-border);
   color: var(--text-primary);
   white-space: nowrap;
+  font-size: 0.85rem;
 }
 
 .data-table tr:hover td {

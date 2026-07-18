@@ -96,6 +96,11 @@ export default function Deficiencies() {
   const [viewMode, setViewMode] = useState('data');
   const [hoveredBar, setHoveredBar] = useState(null);
   
+  // Collapse States
+  const [isDataChartsCollapsed, setIsDataChartsCollapsed] = useState(false);
+  const [isSpecialConcernCollapsed, setIsSpecialConcernCollapsed] = useState(false);
+  const [isComparisonChartsCollapsed, setIsComparisonChartsCollapsed] = useState(false);
+  
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
 
@@ -768,6 +773,16 @@ export default function Deficiencies() {
             </div>
           </div>
 
+          <div className="glass-panel" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsComparisonChartsCollapsed(!isComparisonChartsCollapsed)}>
+            <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
+              <Activity size={20} />
+              Comparative Charts
+            </h3>
+            {isComparisonChartsCollapsed ? <ChevronDown size={20} style={{ color: 'var(--text-secondary)' }} /> : <ChevronUp size={20} style={{ color: 'var(--text-secondary)' }} />}
+          </div>
+          
+          {!isComparisonChartsCollapsed && (
+            <>
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -850,6 +865,8 @@ export default function Deficiencies() {
               </ResponsiveContainer>
             </div>
           </div>
+          </>
+          )}
         </>
       ) : (
         <>
@@ -892,8 +909,17 @@ export default function Deficiencies() {
           </div>
 
           {/* Charts */}
-          {/* Charts */}
-          <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
+          <div className="glass-panel" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
+            <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
+              <Activity size={20} />
+              Visual Analysis & Charts
+            </h3>
+            {isDataChartsCollapsed ? <ChevronDown size={20} style={{ color: 'var(--text-secondary)' }} /> : <ChevronUp size={20} style={{ color: 'var(--text-secondary)' }} />}
+          </div>
+
+          {!isDataChartsCollapsed && (
+            <>
+              <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <h3 style={{ marginBottom: '0.25rem' }}>Deficiencies by Company</h3>
               <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Count of deficiency records per company</p>
@@ -1082,49 +1108,62 @@ export default function Deficiencies() {
               </div>
             </div>
           )}
+          </>
+          )}
 
           {/* Cadets of Special Concern */}
           {specialConcernCadets.length > 0 && (
             <div className="glass-panel" style={{ marginBottom: '3rem', borderLeft: '4px solid var(--accent-crimson)' }}>
-              <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: 'var(--accent-crimson)' }}>
-                <AlertCircle size={20} />
-                Cadets of Special Concern
-              </h3>
-              <p className="text-muted" style={{ marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-                Cadets with more than 20 deficiency points or deficient in 3 or more subjects.
-              </p>
-              <div className="table-container">
-                <table className="data-table">
-                  <thead>
-                    <tr>
-                      <th>Cadet Name</th>
-                      <th>Class</th>
-                      <th>Company</th>
-                      <th>Subjects Deficient</th>
-                      <th>Total Points</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {specialConcernCadets.map((cadet, i) => (
-                      <tr key={i}>
-                        <td style={{ fontWeight: 600 }}>{cadet.name}</td>
-                        <td>{cadet.class}</td>
-                        <td>{cadet.company}</td>
-                        <td>
-                          <span className={cadet.subjectCount >= 3 ? "badge badge-urgent" : "badge"}>
-                            {cadet.subjectCount}
-                          </span>
-                        </td>
-                        <td>
-                          <span className={cadet.totalPts > 20 ? "badge badge-urgent" : "badge badge-warning"}>
-                            {cadet.totalPts % 1 === 0 ? cadet.totalPts : cadet.totalPts.toFixed(1)} pts
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div 
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', marginBottom: isSpecialConcernCollapsed ? 0 : '1.5rem' }} 
+                onClick={() => setIsSpecialConcernCollapsed(!isSpecialConcernCollapsed)}
+              >
+                <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, color: 'var(--accent-crimson)' }}>
+                  <AlertCircle size={20} />
+                  Cadets of Special Concern
+                </h3>
+                {isSpecialConcernCollapsed ? <ChevronDown size={20} style={{ color: 'var(--text-secondary)' }} /> : <ChevronUp size={20} style={{ color: 'var(--text-secondary)' }} />}
               </div>
+              
+              {!isSpecialConcernCollapsed && (
+                <>
+                  <p className="text-muted" style={{ marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                    Cadets with more than 20 deficiency points or deficient in 3 or more subjects.
+                  </p>
+                  <div className="table-container">
+                    <table className="data-table">
+                      <thead>
+                        <tr>
+                          <th>Cadet Name</th>
+                          <th>Class</th>
+                          <th>Company</th>
+                          <th>Subjects Deficient</th>
+                          <th>Total Points</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {specialConcernCadets.map((cadet, i) => (
+                          <tr key={i}>
+                            <td style={{ fontWeight: 600 }}>{cadet.name}</td>
+                            <td>{cadet.class}</td>
+                            <td>{cadet.company}</td>
+                            <td>
+                              <span className={cadet.subjectCount >= 3 ? "badge badge-urgent" : "badge"}>
+                                {cadet.subjectCount}
+                              </span>
+                            </td>
+                            <td>
+                              <span className={cadet.totalPts > 20 ? "badge badge-urgent" : "badge badge-warning"}>
+                                {cadet.totalPts % 1 === 0 ? cadet.totalPts : cadet.totalPts.toFixed(1)} pts
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </div>
           )}
 
