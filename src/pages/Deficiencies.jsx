@@ -125,14 +125,6 @@ export default function Deficiencies() {
   const [isSpecialConcernCollapsed, setIsSpecialConcernCollapsed] = useState(false);
   const [isComparisonChartsCollapsed, setIsComparisonChartsCollapsed] = useState(false);
   
-  // Custom charts animation state
-  const [animateBars, setAnimateBars] = useState(false);
-  useEffect(() => {
-    setAnimateBars(false);
-    const timer = setTimeout(() => setAnimateBars(true), 100);
-    return () => clearTimeout(timer);
-  }, [viewMode, activeWeek, filteredData]);
-  
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
 
@@ -247,6 +239,14 @@ export default function Deficiencies() {
     
     return data;
   }, [deficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm]);
+
+  // Custom charts animation state
+  const [animateBars, setAnimateBars] = useState(false);
+  useEffect(() => {
+    setAnimateBars(false);
+    const timer = setTimeout(() => setAnimateBars(true), 100);
+    return () => clearTimeout(timer);
+  }, [viewMode, activeWeek, filteredData]);
 
   const groupedData = useMemo(() => {
     return filteredData.reduce((acc, def) => {
