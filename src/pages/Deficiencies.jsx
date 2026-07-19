@@ -125,6 +125,14 @@ export default function Deficiencies() {
   const [isSpecialConcernCollapsed, setIsSpecialConcernCollapsed] = useState(false);
   const [isComparisonChartsCollapsed, setIsComparisonChartsCollapsed] = useState(false);
   
+  // Custom charts animation state
+  const [animateBars, setAnimateBars] = useState(false);
+  useEffect(() => {
+    setAnimateBars(false);
+    const timer = setTimeout(() => setAnimateBars(true), 100);
+    return () => clearTimeout(timer);
+  }, [viewMode, activeWeek, filteredData]);
+  
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
 
@@ -969,7 +977,7 @@ export default function Deficiencies() {
                           onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count} deficiencies • ${sevData ? sevData.totalPts : 0} total pts • Avg ${sevData ? sevData.avgPtsPerCadet : 0} pts/cadet` })}
                           onMouseLeave={() => setHoveredBar(null)}
                           onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count} deficiencies • ${sevData ? sevData.totalPts : 0} total pts • Avg ${sevData ? sevData.avgPtsPerCadet : 0} pts/cadet` })}
-                          style={{ width: `${(count / maxCompanyCount) * 100}%`, height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out', cursor: 'pointer' }}>
+                          style={{ width: animateBars ? `${(count / maxCompanyCount) * 100}%` : '0%', height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out', cursor: 'pointer' }}>
                         </div>
                       </div>
                     </div>
@@ -998,7 +1006,7 @@ export default function Deficiencies() {
                         onMouseLeave={() => setHoveredBar(null)}
                         onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${sev.name}: ${sev.totalPts} total pts • ${sev.uniqueCadets} cadets • Avg ${sev.avgPtsPerCadet} pts/cadet` })}
                         style={{ 
-                          width: `${(sev.totalPts / maxTotalPts) * 100}%`, 
+                          width: animateBars ? `${(sev.totalPts / maxTotalPts) * 100}%` : '0%', 
                           height: '100%', 
                           background: `linear-gradient(90deg, ${sev.color}, ${sev.tierColor})`,
                           borderRadius: '6px', 
@@ -1033,7 +1041,7 @@ export default function Deficiencies() {
                           onMouseLeave={() => setHoveredBar(null)}
                           onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
                           style={{ 
-                            width: `${(count / maxCourseCount) * 100}%`, 
+                            width: animateBars ? `${(count / maxCourseCount) * 100}%` : '0%', 
                             height: '100%', 
                             backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
                             transition: 'width 1s ease-out',
@@ -1082,7 +1090,7 @@ export default function Deficiencies() {
                         <td style={{ textAlign: 'center' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
                             <div style={{ width: '40px', height: '6px', background: 'var(--surface-overlay)', borderRadius: '3px', overflow: 'hidden' }}>
-                              <div style={{ width: `${Math.min((sev.avgPtsPerCadet / maxAvgPts) * 100, 100)}%`, height: '100%', background: sev.tierColor, borderRadius: '3px', transition: 'width 0.8s ease' }}></div>
+                              <div style={{ width: animateBars ? `${Math.min((sev.avgPtsPerCadet / maxAvgPts) * 100, 100)}%` : '0%', height: '100%', background: sev.tierColor, borderRadius: '3px', transition: 'width 0.8s ease' }}></div>
                             </div>
                             <span style={{ fontWeight: 600, fontSize: '0.8rem' }}>{sev.avgPtsPerCadet}</span>
                           </div>
