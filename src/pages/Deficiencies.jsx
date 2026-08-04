@@ -980,7 +980,7 @@ export default function Deficiencies() {
           </div>
 
           {/* ── Deficient Cadets per Class Summary ── */}
-          {(() => {
+           {(() => {
             const classCadets = {};
             deficiencies.forEach(d => {
               const cls = d.class || 'Unknown';
@@ -990,7 +990,6 @@ export default function Deficiencies() {
             const classOrder = ['1CL', '2CL', '3CL'];
             const orderedClassData = classOrder.filter(c => classCadets[c]).map(c => ({ cls: c, cadets: classCadets[c].size, records: deficiencies.filter(d => d.class === c).length }));
             if (orderedClassData.length === 0) return null;
-            const maxCadets = Math.max(...orderedClassData.map(c => c.cadets), 1);
             return (
               <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
                 <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
@@ -1003,15 +1002,7 @@ export default function Deficiencies() {
                     <div key={cls} style={{ textAlign: 'center' }}>
                       <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{cls}</div>
                       <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1 }}>{cadets}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>cadets</div>
-                      <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden', marginTop: '0.75rem' }}>
-                        <div style={{ 
-                          width: animateBars ? `${(cadets / maxCadets) * 100}%` : '0%', 
-                          height: '100%', background: 'var(--accent-primary)', borderRadius: '4px', 
-                          transition: 'width 1s ease-out' 
-                        }} />
-                      </div>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>{records} records</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>cadets • {records} records</div>
                     </div>
                   ))}
                 </div>
