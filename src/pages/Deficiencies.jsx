@@ -372,13 +372,43 @@ export default function Deficiencies() {
     const prevAvg = prevGrades.length ? (prevGrades.reduce((a, b) => a + b, 0) / prevGrades.length) : 0;
 
     const classCounts = { '1CL': { prev: 0, curr: 0 }, '2CL': { prev: 0, curr: 0 }, '3CL': { prev: 0, curr: 0 } };
-    currentData.forEach(d => { if (classCounts[d.class]) classCounts[d.class].curr++; });
-    prevData.forEach(d => { if (classCounts[d.class]) classCounts[d.class].prev++; });
+    const classUniqueCadets = { '1CL': { prev: new Set(), curr: new Set() }, '2CL': { prev: new Set(), curr: new Set() }, '3CL': { prev: new Set(), curr: new Set() } };
+
+    currentData.forEach(d => { 
+      if (classCounts[d.class]) {
+        classCounts[d.class].curr++;
+        if (d.cadet) classUniqueCadets[d.class].curr.add(d.cadet);
+      }
+    });
+    prevData.forEach(d => { 
+      if (classCounts[d.class]) {
+        classCounts[d.class].prev++;
+        if (d.cadet) classUniqueCadets[d.class].prev.add(d.cadet);
+      }
+    });
     
     const chartData = [
-      { name: '1CL', [`Week ${activeWeek - 1}`]: classCounts['1CL'].prev, [`Week ${activeWeek}`]: classCounts['1CL'].curr },
-      { name: '2CL', [`Week ${activeWeek - 1}`]: classCounts['2CL'].prev, [`Week ${activeWeek}`]: classCounts['2CL'].curr },
-      { name: '3CL', [`Week ${activeWeek - 1}`]: classCounts['3CL'].prev, [`Week ${activeWeek}`]: classCounts['3CL'].curr },
+      { 
+        name: '1CL', 
+        [`Records W${activeWeek - 1}`]: classCounts['1CL'].prev, 
+        [`Records W${activeWeek}`]: classCounts['1CL'].curr,
+        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['1CL'].prev.size,
+        [`Cadets W${activeWeek}`]: classUniqueCadets['1CL'].curr.size
+      },
+      { 
+        name: '2CL', 
+        [`Records W${activeWeek - 1}`]: classCounts['2CL'].prev, 
+        [`Records W${activeWeek}`]: classCounts['2CL'].curr,
+        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['2CL'].prev.size,
+        [`Cadets W${activeWeek}`]: classUniqueCadets['2CL'].curr.size
+      },
+      { 
+        name: '3CL', 
+        [`Records W${activeWeek - 1}`]: classCounts['3CL'].prev, 
+        [`Records W${activeWeek}`]: classCounts['3CL'].curr,
+        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['3CL'].prev.size,
+        [`Cadets W${activeWeek}`]: classUniqueCadets['3CL'].curr.size
+      },
     ];
 
     const companyCountsCurr = {};
@@ -822,7 +852,7 @@ export default function Deficiencies() {
             <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', animationDelay: '0.1s' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
-                Deficiencies per Class (W{activeWeek - 1} vs W{activeWeek})
+                Deficiencies & Cadets per Class (W{activeWeek - 1} vs W{activeWeek})
               </h3>
               <div style={{ flex: 1, width: '100%' }}>
                 <ResponsiveContainer width="100%" height="100%">
@@ -832,8 +862,10 @@ export default function Deficiencies() {
                     <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
                     <Tooltip cursor={{ fill: 'var(--surface-overlay)' }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
                     <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                    <Bar dataKey={`Week ${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey={`Week ${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Records W${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Records W${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Cadets W${activeWeek - 1}`} fill="#86EFAC" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Cadets W${activeWeek}`} fill="#22C55E" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
