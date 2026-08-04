@@ -851,7 +851,7 @@ export default function Deficiencies() {
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
             <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', animationDelay: '0.1s' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
+                <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
                 Deficiencies & Cadets per Class (W{activeWeek - 1} vs W{activeWeek})
               </h3>
               <div style={{ flex: 1, width: '100%' }}>
@@ -911,7 +911,7 @@ export default function Deficiencies() {
 
           <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '3rem' }}>
             <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
+              <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
               Deficiencies per Company (W{activeWeek - 1} vs W{activeWeek})
             </h3>
             <div style={{ flex: 1, width: '100%' }}>
@@ -1106,13 +1106,13 @@ export default function Deficiencies() {
             {companySeverity.length > 0 && (
               <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
                 <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
-                  <BarChart size={18} style={{ color: 'var(--accent-primary)' }} />
+                  <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
                   Count vs Severity
                 </h3>
                 <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Fewer deficiencies can still mean higher total points</p>
                 <div style={{ flex: 1, width: '100%' }}>
                   <ResponsiveContainer width="100%" height="100%">
-                    <RechartsBarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
+                    <BarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
                       <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
                       <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
                       <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
@@ -1125,7 +1125,7 @@ export default function Deficiencies() {
                       <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
                       <Bar yAxisId="left" dataKey="Deficiency Count" fill="#93C5FD" radius={[4, 4, 0, 0]} />
                       <Bar yAxisId="right" dataKey="Total Points" fill="#f97316" radius={[4, 4, 0, 0]} />
-                    </RechartsBarChart>
+                    </BarChart>
                   </ResponsiveContainer>
                 </div>
               </div>
