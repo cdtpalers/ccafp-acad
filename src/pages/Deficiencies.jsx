@@ -507,7 +507,7 @@ export default function Deficiencies() {
           class: def.class || '-' 
         };
       }
-      cadetStats[name].totalPts += (parseFloat(def.pts) || 0);
+      cadetStats[name].totalPts += Math.abs(parseFloat(def.pts) || 0);
       cadetStats[name].subjectCount += 1;
     });
     
