@@ -1010,54 +1010,6 @@ export default function Deficiencies() {
             );
           })()}
 
-          {/* ── Search & Filter Bar ── */}
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <div style={{ flex: 1, minWidth: '200px' }}>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Search Cadets</p>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name, course, company, or CN..."
-                className="input-field"
-                style={{ width: '100%' }}
-              />
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
-              <select
-                value={selectedCompanyFilter}
-                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
-              >
-                <option value="All">All Companies</option>
-                {Object.entries(COMPANY_NAMES)
-                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
-                  .map(([key, name]) => (
-                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
-              <div className="tabs-container">
-                {['All', '1CL', '2CL', '3CL'].map(cls => (
-                  <button
-                    key={cls}
-                    onClick={() => setSelectedClassFilter(cls)}
-                    className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
-                  >
-                    {cls}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* ── Results count ── */}
-          <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
-            Showing {filteredData.length} of {deficiencies.length} deficiency records
-          </p>
 
           {/* ── Charts Section ── */}
           <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
@@ -1300,6 +1252,55 @@ export default function Deficiencies() {
               )}
             </div>
           )}
+          {/* ── Search & Filter Bar ── */}
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end', marginTop: '2rem' }}>
+            <div style={{ flex: 1, minWidth: '200px' }}>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Search Cadets</p>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by name, course, company, or CN..."
+                className="input-field"
+                style={{ width: '100%' }}
+              />
+            </div>
+            <div>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
+              <select
+                value={selectedCompanyFilter}
+                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
+                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
+              >
+                <option value="All">All Companies</option>
+                {Object.entries(COMPANY_NAMES)
+                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
+                  .map(([key, name]) => (
+                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
+              <div className="tabs-container">
+                {['All', '1CL', '2CL', '3CL'].map(cls => (
+                  <button
+                    key={cls}
+                    onClick={() => setSelectedClassFilter(cls)}
+                    className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
+                  >
+                    {cls}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Results count ── */}
+          <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
+            Showing {filteredData.length} of {deficiencies.length} deficiency records
+          </p>
+
           {loading ? (
             <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
               <p className="text-muted">Loading records...</p>
