@@ -1216,10 +1216,10 @@ export default function Deficiencies() {
                   </div>
                 )}
 
-                <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
+                <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', minHeight: '380px' }}>
                   <h3 style={{ marginBottom: '0.25rem', fontSize: '1rem' }}>Severity by Company</h3>
                   <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Total deficiency points accumulated</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1 }}>
                     {companySeverity.map((sev) => (
                       <div key={sev.coy}>
                         <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.85rem' }}>
