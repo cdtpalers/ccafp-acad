@@ -937,46 +937,139 @@ export default function Deficiencies() {
         </>
       ) : (
         <>
-          {/* Stats Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem', marginBottom: '3rem' }}>
+          {/* ── Stats Cards ── */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '1.5rem' }}>
             <div className="glass-card" style={{ borderTop: '2px solid var(--accent-crimson)' }}>
               <h3 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}><AnimatedNumber value={new Set(deficiencies.map(d => d.cadet).filter(Boolean)).size} /></h3>
               <p className="text-muted">Deficient Cadets</p>
             </div>
             <div className="glass-card" style={{ borderTop: '2px solid var(--accent-primary)' }}>
-              <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={COMPANY_NAMES[topCompany] || topCompany}>
-                {COMPANY_NAMES[topCompany] || topCompany}
-              </h3>
-              <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>Most Deficient Cadets</span>
-                <span className="badge badge-warning" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{topCompanyCount}</span>
-              </p>
+              <h3 style={{ fontSize: '2rem', marginBottom: '0.25rem' }}><AnimatedNumber value={deficiencies.length} /></h3>
+              <p className="text-muted">Deficiency Records</p>
             </div>
             {mostSevereCompany && (
               <div className="glass-card" style={{ borderTop: '2px solid #f97316' }}>
-                <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '0.5rem' }} title={mostSevereCompany.name}>
-                  <Flame size={22} style={{ color: '#f97316', flexShrink: 0 }} />
+                <h3 style={{ fontSize: '1.6rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: '0.5rem' }} title={mostSevereCompany.name}>
+                  <Flame size={20} style={{ color: '#f97316', flexShrink: 0 }} />
                   {mostSevereCompany.name}
                 </h3>
                 <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span>Most Severe (Total Pts)</span>
+                  <span>Most Severe</span>
                   <span className="badge badge-urgent" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{mostSevereCompany.totalPts} pts</span>
                 </p>
               </div>
             )}
+            <div className="glass-card" style={{ borderTop: '2px solid var(--accent-primary)' }}>
+              <h3 style={{ fontSize: '1.6rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={COMPANY_NAMES[topCompany] || topCompany}>
+                {COMPANY_NAMES[topCompany] || topCompany}
+              </h3>
+              <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span>Most Deficient</span>
+                <span className="badge badge-warning" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{topCompanyCount}</span>
+              </p>
+            </div>
             <div className="glass-card" style={{ borderTop: '2px solid var(--surface-border)' }}>
-              <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={topCourse}>
+              <h3 style={{ fontSize: '1.6rem', marginBottom: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={topCourse}>
                 {topCourse}
               </h3>
               <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span>Course with Most Deficients</span>
+                <span>Top Course</span>
                 <span className="badge badge-warning" style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem' }}>{topCourseCount}</span>
               </p>
             </div>
           </div>
 
-          {/* Charts */}
-          <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem', animationDelay: '0.5s' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
+          {/* ── Deficient Cadets per Class Summary ── */}
+          {(() => {
+            const classCadets = {};
+            deficiencies.forEach(d => {
+              const cls = d.class || 'Unknown';
+              if (!classCadets[cls]) classCadets[cls] = new Set();
+              if (d.cadet) classCadets[cls].add(d.cadet);
+            });
+            const classOrder = ['1CL', '2CL', '3CL'];
+            const orderedClassData = classOrder.filter(c => classCadets[c]).map(c => ({ cls: c, cadets: classCadets[c].size, records: deficiencies.filter(d => d.class === c).length }));
+            if (orderedClassData.length === 0) return null;
+            const maxCadets = Math.max(...orderedClassData.map(c => c.cadets), 1);
+            return (
+              <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
+                <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                  <Users size={18} style={{ color: 'var(--accent-primary)' }} />
+                  Deficient Cadets per Class
+                </h3>
+                <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Unique cadets with at least one deficiency record</p>
+                <div style={{ display: 'grid', gridTemplateColumns: `repeat(${orderedClassData.length}, 1fr)`, gap: '1.5rem' }}>
+                  {orderedClassData.map(({ cls, cadets, records }) => (
+                    <div key={cls} style={{ textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{cls}</div>
+                      <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1 }}>{cadets}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.25rem' }}>cadets</div>
+                      <div style={{ width: '100%', height: '8px', background: 'var(--surface-overlay)', borderRadius: '4px', overflow: 'hidden', marginTop: '0.75rem' }}>
+                        <div style={{ 
+                          width: animateBars ? `${(cadets / maxCadets) * 100}%` : '0%', 
+                          height: '100%', background: 'var(--accent-primary)', borderRadius: '4px', 
+                          transition: 'width 1s ease-out' 
+                        }} />
+                      </div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '0.4rem' }}>{records} records</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* ── Search & Filter Bar ── */}
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+            <div style={{ flex: 1, minWidth: '200px' }}>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Search Cadets</p>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search by name, course, company, or CN..."
+                className="input-field"
+                style={{ width: '100%' }}
+              />
+            </div>
+            <div>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
+              <select
+                value={selectedCompanyFilter}
+                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
+                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
+              >
+                <option value="All">All Companies</option>
+                {Object.entries(COMPANY_NAMES)
+                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
+                  .map(([key, name]) => (
+                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
+                  ))}
+              </select>
+            </div>
+            <div>
+              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
+              <div className="tabs-container">
+                {['All', '1CL', '2CL', '3CL'].map(cls => (
+                  <button
+                    key={cls}
+                    onClick={() => setSelectedClassFilter(cls)}
+                    className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
+                  >
+                    {cls}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Results count ── */}
+          <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
+            Showing {filteredData.length} of {deficiencies.length} deficiency records
+          </p>
+
+          {/* ── Charts Section ── */}
+          <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', padding: '1rem 1.5rem' }} onClick={() => setIsDataChartsCollapsed(!isDataChartsCollapsed)}>
             <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-primary)' }}>
               <Activity size={20} />
               Visual Analysis & Charts
@@ -986,216 +1079,184 @@ export default function Deficiencies() {
 
           {!isDataChartsCollapsed && (
             <>
+              {/* Row 1: Course chart + Severity Breakdown Table */}
               <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ marginBottom: '0.25rem' }}>Deficiencies by Company</h3>
-              <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Count of deficiency records per company</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
-                {sortedCompanies.map(([coy, count]) => {
-                  const sevData = companySeverity.find(c => c.coy === coy);
-                  return (
-                    <div key={coy}>
-                      <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
-                        <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          {COMPANY_NAMES[coy] || coy}
-                          {sevData && (
-                            <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '0.1rem 0.35rem', borderRadius: '4px', background: `color-mix(in srgb, ${sevData.tierColor} 15%, transparent)`, color: sevData.tierColor }}>
-                              {sevData.tier}
-                            </span>
-                          )}
-                        </span>
-                        <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{count}</span>
-                      </div>
-                      <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                        <div 
-                          onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count} deficiencies • ${sevData ? sevData.totalPts : 0} total pts • Avg ${sevData ? sevData.avgPtsPerCadet : 0} pts/cadet` })}
-                          onMouseLeave={() => setHoveredBar(null)}
-                          onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count} deficiencies • ${sevData ? sevData.totalPts : 0} total pts • Avg ${sevData ? sevData.avgPtsPerCadet : 0} pts/cadet` })}
-                          style={{ width: animateBars ? `${(count / maxCompanyCount) * 100}%` : '0%', height: '100%', backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'], borderRadius: '6px', transition: 'width 1s ease-out', cursor: 'pointer' }}>
+                <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+                  <h3 style={{ marginBottom: '0.25rem', fontSize: '1rem' }}>Deficiencies by Course</h3>
+                  <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Stacked by company contribution</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
+                    {sortedCourses.map(([crs, data]) => (
+                      <div key={crs}>
+                        <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
+                          <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%' }} title={crs}>{crs}</span>
+                          <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{data.total}</span>
+                        </div>
+                        <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)', display: 'flex' }}>
+                          {Object.entries(data.companies).sort((a, b) => b[1] - a[1]).map(([coy, count]) => (
+                            <div 
+                              key={coy} 
+                              onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
+                              onMouseLeave={() => setHoveredBar(null)}
+                              onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
+                              style={{ 
+                                width: animateBars ? `${(count / maxCourseCount) * 100}%` : '0%', 
+                                height: '100%', 
+                                backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
+                                transition: 'width 1s ease-out',
+                                cursor: 'pointer'
+                              }} 
+                            />
+                          ))}
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-                {sortedCompanies.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
-              </div>
-            </div>
+                    ))}
+                    {sortedCourses.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
+                  </div>
+                </div>
 
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ marginBottom: '0.25rem' }}>Severity by Company</h3>
-              <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Total deficiency points accumulated per company</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
-                {companySeverity.map((sev) => (
-                  <div key={sev.coy}>
-                    <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
-                      <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        {sev.name}
-                        <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 400 }}>({sev.count} defs)</span>
-                      </span>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: sev.tierColor }}>{sev.totalPts} pts</span>
-                    </div>
-                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
-                      <div 
-                        onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${sev.name}: ${sev.totalPts} total pts • ${sev.uniqueCadets} cadets • Avg ${sev.avgPtsPerCadet} pts/cadet` })}
-                        onMouseLeave={() => setHoveredBar(null)}
-                        onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${sev.name}: ${sev.totalPts} total pts • ${sev.uniqueCadets} cadets • Avg ${sev.avgPtsPerCadet} pts/cadet` })}
-                        style={{ 
-                          width: animateBars ? `${(sev.totalPts / maxTotalPts) * 100}%` : '0%', 
-                          height: '100%', 
-                          background: `linear-gradient(90deg, ${sev.color}, ${sev.tierColor})`,
-                          borderRadius: '6px', 
-                          transition: 'width 1s ease-out', 
-                          cursor: 'pointer'
-                        }}>
-                      </div>
+                {/* Company Severity Breakdown Table */}
+                <div className="glass-panel" style={{ padding: '0', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+                  <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--surface-border)', background: 'var(--surface-overlay)' }}>
+                    <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                      <Zap size={18} style={{ color: '#f97316' }} />
+                      Company Severity Breakdown
+                    </h3>
+                    <p className="text-muted" style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>Ranked by avg deficiency pts per cadet</p>
+                  </div>
+                  <div className="table-container" style={{ flex: 1, overflowY: 'auto' }}>
+                    <table className="data-table" style={{ fontSize: '0.85rem' }}>
+                      <thead>
+                        <tr>
+                          <th>Company</th>
+                          <th style={{ textAlign: 'center' }}>Cadets</th>
+                          <th style={{ textAlign: 'center' }}>Defs</th>
+                          <th style={{ textAlign: 'center' }}>Total Pts</th>
+                          <th style={{ textAlign: 'center' }}>Avg Pts/Cadet</th>
+                          <th style={{ textAlign: 'center' }}>Severity</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[...companySeverity].sort((a, b) => b.avgPtsPerCadet - a.avgPtsPerCadet).map((sev) => (
+                          <tr key={sev.coy}>
+                            <td style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                              <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: sev.color, flexShrink: 0, border: '1px solid var(--surface-border)' }}></div>
+                              {sev.name}
+                            </td>
+                            <td style={{ textAlign: 'center' }}>{sev.uniqueCadets}</td>
+                            <td style={{ textAlign: 'center' }}>{sev.count}</td>
+                            <td style={{ textAlign: 'center', fontWeight: 600 }}>{sev.totalPts}</td>
+                            <td style={{ textAlign: 'center' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
+                                <div style={{ width: '40px', height: '6px', background: 'var(--surface-overlay)', borderRadius: '3px', overflow: 'hidden' }}>
+                                  <div style={{ width: animateBars ? `${Math.min((sev.avgPtsPerCadet / maxAvgPts) * 100, 100)}%` : '0%', height: '100%', background: sev.tierColor, borderRadius: '3px', transition: 'width 0.8s ease' }}></div>
+                                </div>
+                                <span style={{ fontWeight: 600, fontSize: '0.8rem' }}>{sev.avgPtsPerCadet}</span>
+                              </div>
+                            </td>
+                            <td style={{ textAlign: 'center' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                                <span style={{ 
+                                  fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '6px',
+                                  background: `color-mix(in srgb, ${sev.tierColor} 15%, transparent)`, 
+                                  color: sev.tierColor 
+                                }}>
+                                  {sev.tier === 'Critical' && <Flame size={11} style={{ marginRight: '0.2rem', verticalAlign: 'middle' }} />}
+                                  {sev.tier}
+                                </span>
+                                <button
+                                  onClick={() => exportCompanyDeficiencyPdf(sev.coy, activeWeek, deficiencies)}
+                                  title={`Export ${sev.name} Report`}
+                                  style={{ 
+                                    background: 'transparent', border: 'none', cursor: 'pointer', 
+                                    color: 'var(--text-secondary)', padding: '0.2rem', display: 'flex', alignItems: 'center',
+                                    transition: 'color 0.2s ease'
+                                  }}
+                                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                                >
+                                  <FileDown size={16} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              {/* Row 2: Count vs Severity recharts + Deficiencies by Company bars */}
+              <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
+                {companySeverity.length > 0 && (
+                  <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
+                    <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                      <Zap size={18} style={{ color: '#f97316' }} />
+                      Count vs Severity
+                    </h3>
+                    <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Fewer deficiencies can still mean higher total points</p>
+                    <div style={{ flex: 1, width: '100%' }}>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                          <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                          <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                          <Tooltip 
+                            cursor={{ fill: 'var(--surface-overlay)' }} 
+                            contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                            labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                          />
+                          <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                          <Bar yAxisId="left" dataKey="Deficiency Count" fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                          <Bar yAxisId="right" dataKey="Total Points" fill="#f97316" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
-                ))}
-                {companySeverity.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
-              </div>
-            </div>
-          </div>
+                )}
 
-          {/* Course chart + Severity Analysis Table */}
-          <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ marginBottom: '1.5rem' }}>Deficiencies by Course</h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
-                {sortedCourses.map(([crs, data]) => (
-                  <div key={crs}>
-                    <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
-                      <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '85%' }} title={crs}>{crs}</span>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{data.total}</span>
-                    </div>
-                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)', display: 'flex' }}>
-                      {Object.entries(data.companies).sort((a, b) => b[1] - a[1]).map(([coy, count]) => (
-                        <div 
-                          key={coy} 
-                          onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
-                          onMouseLeave={() => setHoveredBar(null)}
-                          onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
-                          style={{ 
-                            width: animateBars ? `${(count / maxCourseCount) * 100}%` : '0%', 
-                            height: '100%', 
-                            backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
-                            transition: 'width 1s ease-out',
-                            cursor: 'pointer'
-                          }} 
-                        />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                {sortedCourses.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
-              </div>
-            </div>
-
-            {/* Company Severity Breakdown Table */}
-            <div className="glass-panel" style={{ padding: '0', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-              <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--surface-border)', background: 'var(--surface-overlay)' }}>
-                <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
-                  <Zap size={18} style={{ color: '#f97316' }} />
-                  Company Severity Breakdown
-                </h3>
-                <p className="text-muted" style={{ fontSize: '0.75rem', marginTop: '0.25rem' }}>Ranked by average deficiency points per cadet — reveals which companies have the deepest academic trouble</p>
-              </div>
-              <div className="table-container" style={{ flex: 1, overflowY: 'auto' }}>
-                <table className="data-table" style={{ fontSize: '0.85rem' }}>
-                  <thead>
-                    <tr>
-                      <th>Company</th>
-                      <th style={{ textAlign: 'center' }}>Cadets</th>
-                      <th style={{ textAlign: 'center' }}>Defs</th>
-                      <th style={{ textAlign: 'center' }}>Total Pts</th>
-                      <th style={{ textAlign: 'center' }}>Avg Pts/Cadet</th>
-                      <th style={{ textAlign: 'center' }}>Severity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[...companySeverity].sort((a, b) => b.avgPtsPerCadet - a.avgPtsPerCadet).map((sev, i) => (
-                      <tr key={sev.coy}>
-                        <td style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: sev.color, flexShrink: 0, border: '1px solid var(--surface-border)' }}></div>
-                          {sev.name}
-                        </td>
-                        <td style={{ textAlign: 'center' }}>{sev.uniqueCadets}</td>
-                        <td style={{ textAlign: 'center' }}>{sev.count}</td>
-                        <td style={{ textAlign: 'center', fontWeight: 600 }}>{sev.totalPts}</td>
-                        <td style={{ textAlign: 'center' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center' }}>
-                            <div style={{ width: '40px', height: '6px', background: 'var(--surface-overlay)', borderRadius: '3px', overflow: 'hidden' }}>
-                              <div style={{ width: animateBars ? `${Math.min((sev.avgPtsPerCadet / maxAvgPts) * 100, 100)}%` : '0%', height: '100%', background: sev.tierColor, borderRadius: '3px', transition: 'width 0.8s ease' }}></div>
-                            </div>
-                            <span style={{ fontWeight: 600, fontSize: '0.8rem' }}>{sev.avgPtsPerCadet}</span>
-                          </div>
-                        </td>
-                        <td style={{ textAlign: 'center' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                            <span style={{ 
-                              fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '6px',
-                              background: `color-mix(in srgb, ${sev.tierColor} 15%, transparent)`, 
-                              color: sev.tierColor 
-                            }}>
-                              {sev.tier === 'Critical' && <Flame size={11} style={{ marginRight: '0.2rem', verticalAlign: 'middle' }} />}
+                <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
+                  <h3 style={{ marginBottom: '0.25rem', fontSize: '1rem' }}>Severity by Company</h3>
+                  <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Total deficiency points accumulated</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
+                    {companySeverity.map((sev) => (
+                      <div key={sev.coy}>
+                        <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.85rem' }}>
+                          <span style={{ fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                            {sev.name}
+                            <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '0.1rem 0.35rem', borderRadius: '4px', background: `color-mix(in srgb, ${sev.tierColor} 15%, transparent)`, color: sev.tierColor }}>
                               {sev.tier}
                             </span>
-                            <button
-                              onClick={() => exportCompanyDeficiencyPdf(sev.coy, activeWeek, deficiencies)}
-                              title={`Export ${sev.name} Report`}
-                              style={{ 
-                                background: 'transparent', border: 'none', cursor: 'pointer', 
-                                color: 'var(--text-secondary)', padding: '0.2rem', display: 'flex', alignItems: 'center',
-                                transition: 'color 0.2s ease'
-                              }}
-                              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-                              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-                            >
-                              <FileDown size={16} />
-                            </button>
+                          </span>
+                          <span style={{ fontWeight: 700, fontSize: '0.9rem', color: sev.tierColor }}>{sev.totalPts} pts</span>
+                        </div>
+                        <div style={{ width: '100%', height: '10px', background: 'var(--surface-overlay)', borderRadius: '5px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)' }}>
+                          <div 
+                            onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${sev.name}: ${sev.totalPts} total pts • ${sev.uniqueCadets} cadets • Avg ${sev.avgPtsPerCadet} pts/cadet` })}
+                            onMouseLeave={() => setHoveredBar(null)}
+                            onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${sev.name}: ${sev.totalPts} total pts • ${sev.uniqueCadets} cadets • Avg ${sev.avgPtsPerCadet} pts/cadet` })}
+                            style={{ 
+                              width: animateBars ? `${(sev.totalPts / maxTotalPts) * 100}%` : '0%', 
+                              height: '100%', 
+                              background: `linear-gradient(90deg, ${sev.color}, ${sev.tierColor})`,
+                              borderRadius: '5px', 
+                              transition: 'width 1s ease-out', 
+                              cursor: 'pointer'
+                            }}>
                           </div>
-                        </td>
-                      </tr>
+                        </div>
+                      </div>
                     ))}
-                  </tbody>
-                </table>
+                    {companySeverity.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Severity Recharts Bar Chart - Count vs Total Pts side by side */}
-          {companySeverity.length > 0 && (
-            <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '3rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
-              <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
-                <Zap size={18} style={{ color: '#f97316' }} />
-                Count vs Severity by Company
-              </h3>
-              <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Side-by-side comparison — a company can have fewer deficiencies but much higher total points</p>
-              <div style={{ flex: 1, width: '100%' }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
-                    <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
-                    <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
-                    <Tooltip 
-                      cursor={{ fill: 'var(--surface-overlay)' }} 
-                      contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
-                      labelFormatter={(label) => COMPANY_NAMES[label] || label}
-                    />
-                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
-                    <Bar yAxisId="left" dataKey="Deficiency Count" fill="#93C5FD" radius={[4, 4, 0, 0]} />
-                    <Bar yAxisId="right" dataKey="Total Points" fill="#f97316" radius={[4, 4, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </div>
-          )}
-          </>
+            </>
           )}
 
-          {/* Cadets of Special Concern */}
           {specialConcernCadets.length > 0 && (
-            <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '3rem', borderLeft: '4px solid var(--accent-crimson)', animationDelay: '0.6s' }}>
+            <div className="glass-panel animate-fade-in-up" style={{ marginBottom: '1.5rem', borderLeft: '4px solid var(--accent-crimson)' }}>
               <div 
                 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', marginBottom: isSpecialConcernCollapsed ? 0 : '1.5rem' }} 
                 onClick={() => setIsSpecialConcernCollapsed(!isSpecialConcernCollapsed)}
@@ -1248,56 +1309,6 @@ export default function Deficiencies() {
               )}
             </div>
           )}
-
-          {/* Search and Filter */}
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-            <div style={{ flex: 1, minWidth: '200px' }}>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Search Cadets</p>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name, course, company, or CN..."
-                className="input-field"
-                style={{ width: '100%' }}
-              />
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
-              <select
-                value={selectedCompanyFilter}
-                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
-              >
-                <option value="All">All Companies</option>
-                {Object.entries(COMPANY_NAMES)
-                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
-                  .map(([key, name]) => (
-                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
-              <div className="tabs-container">
-                {['All', '1CL', '2CL', '3CL'].map(cls => (
-                  <button
-                    key={cls}
-                    onClick={() => setSelectedClassFilter(cls)}
-                    className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
-                  >
-                    {cls}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Results count */}
-          <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
-            Showing {filteredData.length} of {deficiencies.length} deficiency records
-          </p>
-
           {loading ? (
             <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
               <p className="text-muted">Loading records...</p>
@@ -1308,7 +1319,7 @@ export default function Deficiencies() {
             </div>
           ) : (
             Object.entries(groupedData).sort(([a], [b]) => a.localeCompare(b)).map(([cls, courses]) => (
-              <div key={cls} style={{ marginBottom: '3rem' }}>
+              <div key={cls} style={{ marginBottom: '1.5rem' }}>
                 <h2 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <div style={{ width: '4px', height: '1.5rem', background: 'var(--accent-gold)', borderRadius: '2px' }}></div>
                   {cls} Records
