@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { exportDeficiencyPdf } from './exportDeficiencyPdf';
+import { exportCompanyDeficiencyPdf } from './exportCompanyDeficiencyPdf';
 
 function parseCSV(csv) {
   const lines = [];
@@ -1096,14 +1097,29 @@ export default function Deficiencies() {
                           </div>
                         </td>
                         <td style={{ textAlign: 'center' }}>
-                          <span style={{ 
-                            fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '6px',
-                            background: `color-mix(in srgb, ${sev.tierColor} 15%, transparent)`, 
-                            color: sev.tierColor 
-                          }}>
-                            {sev.tier === 'Critical' && <Flame size={11} style={{ marginRight: '0.2rem', verticalAlign: 'middle' }} />}
-                            {sev.tier}
-                          </span>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                            <span style={{ 
+                              fontSize: '0.7rem', fontWeight: 700, padding: '0.15rem 0.5rem', borderRadius: '6px',
+                              background: `color-mix(in srgb, ${sev.tierColor} 15%, transparent)`, 
+                              color: sev.tierColor 
+                            }}>
+                              {sev.tier === 'Critical' && <Flame size={11} style={{ marginRight: '0.2rem', verticalAlign: 'middle' }} />}
+                              {sev.tier}
+                            </span>
+                            <button
+                              onClick={() => exportCompanyDeficiencyPdf(sev.coy, activeWeek, deficiencies)}
+                              title={`Export ${sev.name} Report`}
+                              style={{ 
+                                background: 'transparent', border: 'none', cursor: 'pointer', 
+                                color: 'var(--text-secondary)', padding: '0.2rem', display: 'flex', alignItems: 'center',
+                                transition: 'color 0.2s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+                            >
+                              <FileDown size={16} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
