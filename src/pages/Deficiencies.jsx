@@ -495,7 +495,7 @@ export default function Deficiencies() {
 
   const specialConcernCadets = useMemo(() => {
     const cadetStats = {};
-    filteredData.forEach(def => {
+    deficiencies.forEach(def => {
       const name = def.cadet;
       if (!name) return;
       if (!cadetStats[name]) {
@@ -514,7 +514,7 @@ export default function Deficiencies() {
     return Object.values(cadetStats)
       .filter(c => c.totalPts > 20 || c.subjectCount >= 3)
       .sort((a, b) => b.totalPts - a.totalPts || b.subjectCount - a.subjectCount);
-  }, [filteredData]);
+  }, [deficiencies]);
 
   const renderComparativeInsights = (stats) => {
     if (!stats) return null;
