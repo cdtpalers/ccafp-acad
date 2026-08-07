@@ -44,7 +44,7 @@ function parseCSV(csv) {
       obj[header] = line[i] ? line[i].trim() : '';
       return obj;
     }, {});
-  });
+  }).filter(obj => obj.cn !== '29009' && obj.cn !== '29216');
 }
 
 const WEEKS = [10, 8, 7, 6, 5, 4, 3, 2, 1];
