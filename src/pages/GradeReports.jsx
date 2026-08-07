@@ -1,7 +1,7 @@
 import { FileText, Info, Calendar, BookOpen, Lock, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 
-const WEEKS = [8, 7, 6, 5, 4, 3, 2, 1];
+const WEEKS = [10, 8, 7, 6, 5, 4, 3, 2, 1];
 
 const WEEK_REPORTS = {
   1: [
@@ -46,12 +46,17 @@ const WEEK_REPORTS = {
     "LAW231.pdf", "LDM331.pdf", "MAT231.pdf", "OM231.pdf", "PHI231.pdf",
     "PHY331.pdf", "RES331.pdf", "RES431.pdf", "RM431.pdf", "SGD231.pdf",
     "TI331.pdf", "WIT431.pdf"
+  ],
+  10: [
+    "1CL/COM431.pdf", "1CL/ENGG431.pdf", "1CL/HRP431.pdf", "1CL/RES431.pdf", "1CL/RM431.pdf", "1CL/WIT431.pdf",
+    "2CL/IT331.pdf", "2CL/LDM331.pdf", "2CL/PHY331.pdf", "2CL/RES331.pdf", "2CL/TI331.pdf",
+    "3CL/GIS231.pdf", "3CL/LAW231.pdf", "3CL/MAT231.pdf", "3CL/OM231.pdf", "3CL/PHI231.pdf", "3CL/SGD231.pdf"
   ]
 };
 
 export default function GradeReports() {
-  const [activeWeek, setActiveWeek] = useState(8);
-  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[8]?.[0] || null);
+  const [activeWeek, setActiveWeek] = useState(10);
+  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[10]?.[0] || null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
