@@ -47,7 +47,7 @@ function parseCSV(csv) {
   }).filter(obj => obj.cn !== '29009' && obj.cn !== '29216');
 }
 
-const WEEKS = [10, 8, 7, 6, 5, 4, 3, 2, 1];
+const WEEKS = [11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
 
 const WEEK_CSV_FILES = {
   1: '/week1_deficiencies.csv',
@@ -59,6 +59,7 @@ const WEEK_CSV_FILES = {
   7: '/week7_deficiencies.csv',
   8: '/week8_deficiencies.csv',
   10: '/week10_deficiencies.csv',
+  11: '/week11_deficiencies.csv',
 };
 
 const COMPANY_NAMES = {
@@ -118,7 +119,7 @@ export default function Deficiencies() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
-  const [activeWeek, setActiveWeek] = useState(10);
+  const [activeWeek, setActiveWeek] = useState(11);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
   const [hoveredBar, setHoveredBar] = useState(null);
