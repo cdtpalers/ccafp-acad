@@ -160,13 +160,22 @@ export default function Deficiencies() {
     fetchAllData();
   }, []);
 
+  const validWeeks = useMemo(() => {
+    return Object.keys(allWeeksData).map(w => parseInt(w)).sort((a, b) => a - b);
+  }, [allWeeksData]);
+
+  const prevWeek = useMemo(() => {
+    if (!validWeeks.length) return null;
+    const idx = validWeeks.indexOf(activeWeek);
+    return idx > 0 ? validWeeks[idx - 1] : null;
+  }, [validWeeks, activeWeek]);
+
   // 2. Derive active week and prev week deficiencies
   const deficiencies = allWeeksData[activeWeek] || [];
-  const prevDeficiencies = activeWeek > 1 ? (allWeeksData[activeWeek - 1] || []) : [];
+  const prevDeficiencies = prevWeek ? (allWeeksData[prevWeek] || []) : [];
 
   // 3. Dynamically compute the trend across all weeks based on current filters
   const allWeeksTrend = useMemo(() => {
-    const validWeeks = Object.keys(allWeeksData).map(w => parseInt(w)).sort((a, b) => a - b);
     if (validWeeks.length === 0) return [];
     
     return validWeeks.map(week => {
@@ -202,7 +211,7 @@ export default function Deficiencies() {
         avgGrade: parseFloat(avgGrade.toFixed(2))
       };
     });
-  }, [allWeeksData, selectedClassFilter, selectedCompanyFilter, searchTerm]);
+  }, [validWeeks, allWeeksData, selectedClassFilter, selectedCompanyFilter, searchTerm]);
 
   const handleSort = (key) => {
     let direction = 'asc';
@@ -338,7 +347,7 @@ export default function Deficiencies() {
   const maxAvgPts = companySeverity.length > 0 ? Math.max(...companySeverity.map(c => c.avgPtsPerCadet)) : 1;
 
   const comparisonStats = useMemo(() => {
-    if (viewMode !== 'comparison') return null;
+    if (viewMode !== 'comparison' || !prevWeek) return null;
     
     const currentData = filteredData; 
     
@@ -392,23 +401,23 @@ export default function Deficiencies() {
     const chartData = [
       { 
         name: '1CL', 
-        [`Records W${activeWeek - 1}`]: classCounts['1CL'].prev, 
+        [`Records W${prevWeek}`]: classCounts['1CL'].prev, 
         [`Records W${activeWeek}`]: classCounts['1CL'].curr,
-        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['1CL'].prev.size,
+        [`Cadets W${prevWeek}`]: classUniqueCadets['1CL'].prev.size,
         [`Cadets W${activeWeek}`]: classUniqueCadets['1CL'].curr.size
       },
       { 
         name: '2CL', 
-        [`Records W${activeWeek - 1}`]: classCounts['2CL'].prev, 
+        [`Records W${prevWeek}`]: classCounts['2CL'].prev, 
         [`Records W${activeWeek}`]: classCounts['2CL'].curr,
-        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['2CL'].prev.size,
+        [`Cadets W${prevWeek}`]: classUniqueCadets['2CL'].prev.size,
         [`Cadets W${activeWeek}`]: classUniqueCadets['2CL'].curr.size
       },
       { 
         name: '3CL', 
-        [`Records W${activeWeek - 1}`]: classCounts['3CL'].prev, 
+        [`Records W${prevWeek}`]: classCounts['3CL'].prev, 
         [`Records W${activeWeek}`]: classCounts['3CL'].curr,
-        [`Cadets W${activeWeek - 1}`]: classUniqueCadets['3CL'].prev.size,
+        [`Cadets W${prevWeek}`]: classUniqueCadets['3CL'].prev.size,
         [`Cadets W${activeWeek}`]: classUniqueCadets['3CL'].curr.size
       },
     ];
@@ -428,7 +437,7 @@ export default function Deficiencies() {
     const companyChartData = allCompanies.map(coy => ({
       name: coy,
       fullName: COMPANY_NAMES[coy] || coy,
-      [`Week ${activeWeek - 1}`]: companyCountsPrev[coy] || 0,
+      [`Week ${prevWeek}`]: companyCountsPrev[coy] || 0,
       [`Week ${activeWeek}`]: companyCountsCurr[coy] || 0,
     }));
 
@@ -493,7 +502,7 @@ export default function Deficiencies() {
       cleared: cleared.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
       newlyDeficient: newlyDeficient.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' }))
     };
-  }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm, activeWeek]);
+  }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm, activeWeek, prevWeek]);
 
   const specialConcernCadets = useMemo(() => {
     const cadetStats = {};
@@ -532,7 +541,7 @@ export default function Deficiencies() {
             <span style={{ fontSize: '1.2rem' }}>📊</span> The Big Picture
           </h4>
           <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-            {prefix} saw a net <strong>{stats.diffTotal <= 0 ? 'decrease' : 'increase'} of {Math.abs(stats.diffTotal)}</strong> deficiency records from Week {activeWeek - 1} to Week {activeWeek}. 
+            {prefix} saw a net <strong>{stats.diffTotal <= 0 ? 'decrease' : 'increase'} of {Math.abs(stats.diffTotal)}</strong> deficiency records from Week {prevWeek} to Week {activeWeek}. 
             {stats.cleared.length > 0 && ` Encouragingly, ${stats.cleared.length} cadets managed to completely clear their deficient status.`}
             {stats.newlyDeficient.length > 0 && ` However, ${stats.newlyDeficient.length} new cadets fell into deficient status.`}
           </p>
@@ -583,7 +592,7 @@ export default function Deficiencies() {
             <span style={{ fontSize: '1.2rem' }}>⏱️</span> Chronic Watch
           </h4>
           <p style={{ margin: 0, color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-            Out of {stats.currentCadets} currently deficient cadets, <strong>{stats.chronicCount}</strong> are considered 'chronic' (deficient in both Week {activeWeek - 1} and Week {activeWeek}). 
+            Out of {stats.currentCadets} currently deficient cadets, <strong>{stats.chronicCount}</strong> are considered 'chronic' (deficient in both Week {prevWeek} and Week {activeWeek}). 
             This represents {stats.currentCadets > 0 ? Math.round((stats.chronicCount / stats.currentCadets) * 100) : 0}% of the struggling population.
           </p>
         </div>
@@ -726,7 +735,7 @@ export default function Deficiencies() {
       </div>
 
       {/* Week Tabs */}
-      <div className="glass-panel" style={{ marginBottom: '1.5rem', padding: '0.5rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
+      <div className="glass-panel" style={{ marginBottom: '1rem', padding: '0.5rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
         {WEEKS.map(week => (
           <button
             key={week}
@@ -752,6 +761,77 @@ export default function Deficiencies() {
         ))}
       </div>
 
+      {/* ── Search & Filter Controls (Shared across Data & Comparative Insights) ── */}
+      <div className="glass-panel" style={{ padding: '0.85rem 1.25rem', marginBottom: '1.5rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <div style={{ flex: 1, minWidth: '200px' }}>
+          <p className="text-muted" style={{ marginBottom: '0.35rem', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Search Cadets / Courses</p>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search by name, course, company, or CN..."
+            className="input-field"
+            style={{ width: '100%', height: '38px', fontSize: '0.85rem' }}
+          />
+        </div>
+        <div>
+          <p className="text-muted" style={{ marginBottom: '0.35rem', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Filter by Company</p>
+          <select
+            value={selectedCompanyFilter}
+            onChange={(e) => setSelectedCompanyFilter(e.target.value)}
+            style={{ padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.85rem' }}
+          >
+            <option value="All">All Companies</option>
+            {Object.entries(COMPANY_NAMES)
+              .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
+              .map(([key, name]) => (
+                <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
+              ))}
+          </select>
+        </div>
+        <div>
+          <p className="text-muted" style={{ marginBottom: '0.35rem', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Filter by Class</p>
+          <div className="tabs-container" style={{ height: '38px' }}>
+            {['All', '1CL', '2CL', '3CL'].map(cls => (
+              <button
+                key={cls}
+                onClick={() => setSelectedClassFilter(cls)}
+                className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
+                style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
+              >
+                {cls}
+              </button>
+            ))}
+          </div>
+        </div>
+        {(selectedClassFilter !== 'All' || selectedCompanyFilter !== 'All' || searchTerm.trim()) && (
+          <div>
+            <button
+              onClick={() => {
+                setSelectedClassFilter('All');
+                setSelectedCompanyFilter('All');
+                setSearchTerm('');
+              }}
+              className="btn"
+              style={{
+                height: '38px',
+                padding: '0.4rem 0.8rem',
+                fontSize: '0.8rem',
+                color: 'var(--accent-crimson)',
+                background: 'color-mix(in srgb, var(--accent-crimson) 10%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--accent-crimson) 25%, transparent)',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: 600,
+                whiteSpace: 'nowrap'
+              }}
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
+      </div>
+
       {!WEEK_CSV_FILES[activeWeek] ? (
         <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center' }}>
           <AlertCircle size={48} style={{ color: 'var(--text-muted)', marginBottom: '1rem', display: 'inline-block' }} />
@@ -761,35 +841,130 @@ export default function Deficiencies() {
       ) : viewMode === 'comparison' && comparisonStats ? (
         <>
           {allWeeksTrend.length > 0 && (
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '350px', marginBottom: '1.5rem' }}>
-              <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-                Cadet Corps Deficiency Trend
-              </h3>
-              <div style={{ flex: 1, width: '100%' }}>
+            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
+                    {selectedClassFilter === 'All' && selectedCompanyFilter === 'All' && !searchTerm.trim()
+                      ? 'Cadet Corps Deficiency Trend'
+                      : `${selectedClassFilter !== 'All' ? `${selectedClassFilter} ` : ''}${selectedCompanyFilter !== 'All' ? `${COMPANY_NAMES[selectedCompanyFilter] || selectedCompanyFilter} ` : ''}${searchTerm.trim() ? `"${searchTerm.trim()}" ` : ''}Deficiency Trend`.trim()}
+                  </h3>
+                  <p className="text-muted" style={{ fontSize: '0.75rem', margin: '0.25rem 0 0 0' }}>
+                    Multi-week comparison across all recorded academic weeks (Click legend items to toggle metrics)
+                  </p>
+                </div>
+                {(selectedClassFilter !== 'All' || selectedCompanyFilter !== 'All' || searchTerm.trim()) && (
+                  <span className="badge" style={{ background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)', color: 'var(--accent-primary)', fontSize: '0.75rem' }}>
+                    Filtered View
+                  </span>
+                )}
+              </div>
+              <div style={{ flex: 1, width: '100%', minHeight: '260px' }}>
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={allWeeksTrend} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                  <LineChart data={allWeeksTrend} margin={{ top: 15, right: activeLines.avgGrade ? 30 : 15, left: 0, bottom: 5 }}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
-                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
-                    <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
-                    <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
-                    <Tooltip cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
+                    <XAxis 
+                      dataKey="name" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} 
+                      dy={10} 
+                    />
+                    <YAxis 
+                      yAxisId="count" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} 
+                      allowDecimals={false}
+                    />
+                    {activeLines.avgGrade && (
+                      <YAxis 
+                        yAxisId="grade" 
+                        orientation="right" 
+                        axisLine={false} 
+                        tickLine={false} 
+                        tick={{ fill: '#10B981', fontSize: 12 }} 
+                        domain={[0, 10]}
+                        tickFormatter={(val) => `${val}`}
+                      />
+                    )}
+                    <Tooltip 
+                      cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} 
+                      contentStyle={{ 
+                        backgroundColor: 'var(--surface-glass)', 
+                        borderColor: 'var(--surface-border)', 
+                        borderRadius: '8px',
+                        backdropFilter: 'blur(8px)',
+                        boxShadow: 'var(--shadow-md)',
+                        color: 'var(--text-primary)'
+                      }}
+                      formatter={(value, name) => {
+                        if (name === 'Average Grade') return [`${value} pts`, name];
+                        if (name === 'Affected Cadets') return [`${value} cadets`, name];
+                        if (name === 'Total Deficiencies') return [`${value} records`, name];
+                        return [value, name];
+                      }}
+                    />
                     <Legend 
                       iconType="circle" 
-                      wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} 
+                      wrapperStyle={{ paddingTop: '15px', fontSize: '12px' }} 
                       onClick={(e) => {
                         const { dataKey } = e;
                         setActiveLines(prev => ({ ...prev, [dataKey]: !prev[dataKey] }));
                       }}
-                      formatter={(value, entry, index) => {
+                      formatter={(value, entry) => {
                         const { dataKey } = entry;
                         const isActive = activeLines[dataKey];
-                        return <span style={{ color: isActive ? 'var(--text-primary)' : 'var(--text-muted)', transition: 'color 0.2s', cursor: 'pointer', opacity: isActive ? 1 : 0.5 }}>{value}</span>;
+                        return (
+                          <span style={{ 
+                            color: isActive ? 'var(--text-primary)' : 'var(--text-muted)', 
+                            transition: 'color 0.2s', 
+                            cursor: 'pointer', 
+                            opacity: isActive ? 1 : 0.45,
+                            fontWeight: isActive ? 600 : 400
+                          }}>
+                            {value}
+                          </span>
+                        );
                       }}
                     />
-                    {activeLines.totalDeficiencies && <Line yAxisId="left" type="monotone" dataKey="totalDeficiencies" name="Total Deficiencies" stroke="#93C5FD" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
-                    {activeLines.uniqueCadets && <Line yAxisId="right" type="monotone" dataKey="uniqueCadets" name="Affected Cadets" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
-                    {activeLines.avgGrade && <Line yAxisId="right" type="monotone" dataKey="avgGrade" name="Average Grade" stroke="#10B981" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />}
+                    {activeLines.totalDeficiencies && (
+                      <Line 
+                        yAxisId="count" 
+                        type="monotone" 
+                        dataKey="totalDeficiencies" 
+                        name="Total Deficiencies" 
+                        stroke="#93C5FD" 
+                        strokeWidth={3} 
+                        dot={{ r: 4, strokeWidth: 2, fill: '#1e3a8a' }} 
+                        activeDot={{ r: 6 }} 
+                      />
+                    )}
+                    {activeLines.uniqueCadets && (
+                      <Line 
+                        yAxisId="count" 
+                        type="monotone" 
+                        dataKey="uniqueCadets" 
+                        name="Affected Cadets" 
+                        stroke="#3B82F6" 
+                        strokeWidth={3} 
+                        dot={{ r: 4, strokeWidth: 2, fill: '#1d4ed8' }} 
+                        activeDot={{ r: 6 }} 
+                      />
+                    )}
+                    {activeLines.avgGrade && (
+                      <Line 
+                        yAxisId="grade" 
+                        type="monotone" 
+                        dataKey="avgGrade" 
+                        name="Average Grade" 
+                        stroke="#10B981" 
+                        strokeWidth={3} 
+                        dot={{ r: 4, strokeWidth: 2, fill: '#065f46' }} 
+                        activeDot={{ r: 6 }} 
+                      />
+                    )}
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -815,7 +990,7 @@ export default function Deficiencies() {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
                 <h3 style={{ fontSize: '2.5rem', margin: 0 }}><AnimatedNumber value={comparisonStats.currentTotal} /></h3>
-                <Pill value={comparisonStats.diffTotal} label={`from W${activeWeek - 1}`} positiveIsGood={false} />
+                <Pill value={comparisonStats.diffTotal} label={`from W${prevWeek}`} positiveIsGood={false} />
               </div>
             </div>
             
@@ -825,7 +1000,7 @@ export default function Deficiencies() {
               </div>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem' }}>
                 <h3 style={{ fontSize: '2.5rem', margin: 0 }}><AnimatedNumber value={comparisonStats.currentCadets} /></h3>
-                <Pill value={comparisonStats.diffCadets} label={`from W${activeWeek - 1}`} positiveIsGood={false} />
+                <Pill value={comparisonStats.diffCadets} label={`from W${prevWeek}`} positiveIsGood={false} />
               </div>
             </div>
             
@@ -854,7 +1029,7 @@ export default function Deficiencies() {
             <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', animationDelay: '0.1s' }}>
               <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-                Deficiencies & Cadets per Class (W{activeWeek - 1} vs W{activeWeek})
+                Deficiencies & Cadets per Class (W{prevWeek} vs W{activeWeek})
               </h3>
               <div style={{ flex: 1, width: '100%' }}>
                 <ResponsiveContainer width="100%" height="100%">
@@ -864,9 +1039,9 @@ export default function Deficiencies() {
                     <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
                     <Tooltip cursor={{ fill: 'var(--surface-overlay)' }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
                     <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                    <Bar dataKey={`Records W${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Records W${prevWeek}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
                     <Bar dataKey={`Records W${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey={`Cadets W${activeWeek - 1}`} fill="#86EFAC" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey={`Cadets W${prevWeek}`} fill="#86EFAC" radius={[4, 4, 0, 0]} />
                     <Bar dataKey={`Cadets W${activeWeek}`} fill="#22C55E" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
@@ -893,7 +1068,7 @@ export default function Deficiencies() {
                           <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{c.name}</div>
                           <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{c.class}</div>
                         </div>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--success)' }}>CLEARED (W{activeWeek - 1} to W{activeWeek})</span>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--success)' }}>CLEARED (W{prevWeek} to W{activeWeek})</span>
                       </li>
                     ))}
                     {comparisonStats.newlyDeficient.map((c, i) => (
@@ -914,7 +1089,7 @@ export default function Deficiencies() {
           <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '3rem' }}>
             <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-              Deficiencies per Company (W{activeWeek - 1} vs W{activeWeek})
+              Deficiencies per Company (W{prevWeek} vs W{activeWeek})
             </h3>
             <div style={{ flex: 1, width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
@@ -928,7 +1103,7 @@ export default function Deficiencies() {
                     labelFormatter={(label) => COMPANY_NAMES[label] || label}
                   />
                   <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
-                  <Bar dataKey={`Week ${activeWeek - 1}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey={`Week ${prevWeek}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
                   <Bar dataKey={`Week ${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -1188,50 +1363,6 @@ export default function Deficiencies() {
               )}
             </div>
           )}
-          {/* ── Search & Filter Bar ── */}
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1.5rem', flexWrap: 'wrap', alignItems: 'flex-end', marginTop: '2rem' }}>
-            <div style={{ flex: 1, minWidth: '200px' }}>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Search Cadets</p>
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name, course, company, or CN..."
-                className="input-field"
-                style={{ width: '100%' }}
-              />
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Company</p>
-              <select
-                value={selectedCompanyFilter}
-                onChange={(e) => setSelectedCompanyFilter(e.target.value)}
-                style={{ padding: '0.5rem 1rem', borderRadius: '8px', border: '1px solid var(--surface-border)', background: 'var(--surface-background)', color: 'var(--text-primary)', cursor: 'pointer', outline: 'none', height: '38px', fontSize: '0.9rem' }}
-              >
-                <option value="All">All Companies</option>
-                {Object.entries(COMPANY_NAMES)
-                  .filter(([key]) => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(key))
-                  .map(([key, name]) => (
-                    <option key={key} value={key}>{key === 'A' ? 'Alfa Company' : name}</option>
-                  ))}
-              </select>
-            </div>
-            <div>
-              <p className="text-muted" style={{ marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem' }}>Filter by Class</p>
-              <div className="tabs-container">
-                {['All', '1CL', '2CL', '3CL'].map(cls => (
-                  <button
-                    key={cls}
-                    onClick={() => setSelectedClassFilter(cls)}
-                    className={`tab-item ${selectedClassFilter === cls ? 'active' : ''}`}
-                  >
-                    {cls}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* ── Results count ── */}
           <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
             Showing {filteredData.length} of {deficiencies.length} deficiency records
