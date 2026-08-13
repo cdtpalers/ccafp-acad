@@ -2,88 +2,8 @@ import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, Eye
 import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { exportDeficiencyPdf } from './exportDeficiencyPdf';
-import { exportCompanyDeficiencyPdf } from './exportCompanyDeficiencyPdf';
-
-function parseCSV(csv) {
-  const lines = [];
-  let currentLine = [];
-  let currentVal = '';
-  let insideQuotes = false;
-
-  for (let i = 0; i < csv.length; i++) {
-    const char = csv[i];
-    const nextChar = csv[i + 1];
-
-    if (char === '"' && insideQuotes && nextChar === '"') {
-      currentVal += '"';
-      i++;
-    } else if (char === '"') {
-      insideQuotes = !insideQuotes;
-    } else if (char === ',' && !insideQuotes) {
-      currentLine.push(currentVal);
-      currentVal = '';
-    } else if ((char === '\n' || char === '\r') && !insideQuotes) {
-      if (char === '\r' && nextChar === '\n') ++i;
-      currentLine.push(currentVal);
-      lines.push(currentLine);
-      currentLine = [];
-      currentVal = '';
-    } else {
-      currentVal += char;
-    }
-  }
-  if (currentVal || currentLine.length > 0) {
-    currentLine.push(currentVal);
-    lines.push(currentLine);
-  }
-
-  const headers = lines[0].map(h => h.trim());
-  return lines.slice(1).filter(line => line.join('').trim() !== '').map(line => {
-    return headers.reduce((obj, header, i) => {
-      obj[header] = line[i] ? line[i].trim() : '';
-      return obj;
-    }, {});
-  }).filter(obj => obj.cn !== '29009' && obj.cn !== '29216');
-}
-
-const WEEKS = [11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
-
-const WEEK_CSV_FILES = {
-  1: '/week1_deficiencies.csv',
-  2: '/week2_deficiencies.csv',
-  3: '/week3_deficiencies.csv',
-  4: '/week4_deficiencies.csv',
-  5: '/week5_deficiencies.csv',
-  6: '/week6_deficiencies.csv',
-  7: '/week7_deficiencies.csv',
-  8: '/week8_deficiencies.csv',
-  10: '/week10_deficiencies.csv',
-  11: '/week11_deficiencies.csv',
-};
-
-const COMPANY_NAMES = {
-  'A': 'Alfa Company',
-  'B': 'Bravo Company',
-  'C': 'Charlie Company',
-  'D': 'Delta Company',
-  'E': 'Echo Company',
-  'F': 'Foxtrot Company',
-  'G': 'Golf Company',
-  'H': 'Hawk Company',
-};
-
-const COMPANY_COLORS = {
-  'A': '#22c55e', // Green
-  'B': '#f8fafc', // White
-  'C': '#ef4444', // Red
-  'D': '#3b82f6', // Blue
-  'E': '#f97316', // Orange
-  'F': '#7f1d1d', // Maroon
-  'G': '#eab308', // Yellow
-  'H': '#334155', // Dark colored
-  'Unspecified': '#9ca3af', // Gray
-};
+import { WEEKS, WEEK_CSV_FILES, COMPANY_NAMES, COMPANY_COLORS } from '../utils/constants';
+import { parseCSV } from '../utils/csvParser';
 
 const AnimatedNumber = ({ value, isFloat = false }) => {
   const [displayValue, setDisplayValue] = useState(0);
@@ -677,7 +597,10 @@ export default function Deficiencies() {
         </div>
         {WEEK_CSV_FILES[activeWeek] && deficiencies.length > 0 && (
           <button
-            onClick={() => exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData })}
+            onClick={async () => {
+              const { exportDeficiencyPdf } = await import('./exportDeficiencyPdf');
+              exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData });
+            }}
             className="btn"
             style={{
               display: 'flex', alignItems: 'center', gap: '0.5rem',
@@ -1224,7 +1147,10 @@ export default function Deficiencies() {
                             {sev.tier}
                           </span>
                           <button
-                            onClick={() => exportCompanyDeficiencyPdf(sev.coy, activeWeek, deficiencies)}
+                            onClick={async () => {
+                              const { exportCompanyDeficiencyPdf } = await import('./exportCompanyDeficiencyPdf');
+                              exportCompanyDeficiencyPdf(sev.coy, activeWeek, deficiencies);
+                            }}
                             title={`Export ${sev.name} Report`}
                             style={{ 
                               background: 'transparent', border: 'none', cursor: 'pointer', 
