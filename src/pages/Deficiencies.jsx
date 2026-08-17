@@ -405,9 +405,22 @@ export default function Deficiencies() {
       if (diff < maxCompanyDecrease.diff) maxCompanyDecrease = { company: coy, diff };
     });
 
-    // Chronic Cadets
+    // Chronic Cadets and Worsened/Improved
     const chronicCadets = [...currentUniqueCadets].filter(c => prevUniqueCadets.has(c));
     const chronicCount = chronicCadets.length;
+    
+    const worsenedCadets = [];
+    const improvedCadets = [];
+    
+    chronicCadets.forEach(c => {
+      const prevPts = prevData.filter(d => d.cadet === c).reduce((sum, d) => sum + Math.abs(parseFloat(d.pts) || 0), 0);
+      const currPts = currentData.filter(d => d.cadet === c).reduce((sum, d) => sum + Math.abs(parseFloat(d.pts) || 0), 0);
+      if (currPts > prevPts) {
+        worsenedCadets.push({ name: c, class: cadetClassMap[c] || 'N/A', diff: currPts - prevPts });
+      } else if (currPts < prevPts) {
+        improvedCadets.push({ name: c, class: cadetClassMap[c] || 'N/A', diff: prevPts - currPts });
+      }
+    });
 
     return {
       currentTotal, prevTotal, diffTotal: currentTotal - prevTotal,
@@ -420,7 +433,10 @@ export default function Deficiencies() {
       chartData,
       companyChartData,
       cleared: cleared.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
-      newlyDeficient: newlyDeficient.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' }))
+      newlyDeficient: newlyDeficient.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
+      chronicCadets: chronicCadets.map(c => ({ name: c, class: cadetClassMap[c] || 'N/A' })),
+      worsenedCadets: worsenedCadets.sort((a, b) => b.diff - a.diff),
+      improvedCadets: improvedCadets.sort((a, b) => b.diff - a.diff)
     };
   }, [viewMode, filteredData, prevDeficiencies, selectedClassFilter, selectedCompanyFilter, searchTerm, activeWeek, prevWeek]);
 
@@ -465,6 +481,16 @@ export default function Deficiencies() {
             {stats.cleared.length > 0 && ` Encouragingly, ${stats.cleared.length} cadets managed to completely clear their deficient status.`}
             {stats.newlyDeficient.length > 0 && ` However, ${stats.newlyDeficient.length} new cadets fell into deficient status.`}
           </p>
+          {stats.cleared.length > 0 && (
+            <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--success)' }}>
+              <strong>Cleared:</strong> {stats.cleared.map(c => c.name).join(', ')}
+            </div>
+          )}
+          {stats.newlyDeficient.length > 0 && (
+            <div style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: 'var(--accent-crimson)' }}>
+              <strong>Newly Deficient:</strong> {stats.newlyDeficient.map(c => c.name).join(', ')}
+            </div>
+          )}
         </div>
 
         <div style={{ background: 'var(--surface-overlay)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)' }}>
@@ -475,6 +501,16 @@ export default function Deficiencies() {
             Total deficiency points across the tracked group {stats.diffTotalPts > 0 ? 'worsened' : 'improved'} by <strong>{Math.abs(stats.diffTotalPts).toFixed(2)} pts</strong>. 
             {stats.diffTotalPts > 0 ? " This indicates that existing academic struggles are deepening, even if headcounts remain stable." : " This shows a tangible recovery in grades and academic standing."}
           </p>
+          {stats.worsenedCadets?.length > 0 && (
+            <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--accent-crimson)' }}>
+              <strong>Worsened (Increased Pts):</strong> {stats.worsenedCadets.map(c => `${c.name} (+${c.diff.toFixed(2)})`).join(', ')}
+            </div>
+          )}
+          {stats.improvedCadets?.length > 0 && (
+            <div style={{ marginTop: '0.25rem', fontSize: '0.85rem', color: 'var(--success)' }}>
+              <strong>Improved (Decreased Pts):</strong> {stats.improvedCadets.map(c => `${c.name} (-${c.diff.toFixed(2)})`).join(', ')}
+            </div>
+          )}
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
@@ -515,6 +551,11 @@ export default function Deficiencies() {
             Out of {stats.currentCadets} currently deficient cadets, <strong>{stats.chronicCount}</strong> are considered 'chronic' (deficient in both Week {prevWeek} and Week {activeWeek}). 
             This represents {stats.currentCadets > 0 ? Math.round((stats.chronicCount / stats.currentCadets) * 100) : 0}% of the struggling population.
           </p>
+          {stats.chronicCadets?.length > 0 && (
+            <div style={{ marginTop: '0.5rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+              <strong>Chronic Cadets:</strong> {stats.chronicCadets.map(c => c.name).join(', ')}
+            </div>
+          )}
         </div>
       </div>
     );
