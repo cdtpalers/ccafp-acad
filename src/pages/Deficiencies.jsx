@@ -39,7 +39,7 @@ export default function Deficiencies() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
-  const [activeWeek, setActiveWeek] = useState(11);
+  const [activeWeek, setActiveWeek] = useState(12);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
   const [hoveredBar, setHoveredBar] = useState(null);
