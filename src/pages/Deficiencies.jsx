@@ -266,6 +266,31 @@ export default function Deficiencies() {
   const maxTotalPts = companySeverity.length > 0 ? Math.max(...companySeverity.map(c => c.totalPts)) : 1;
   const maxAvgPts = companySeverity.length > 0 ? Math.max(...companySeverity.map(c => c.avgPtsPerCadet)) : 1;
 
+  const classByCompanyData = useMemo(() => {
+    const stats = {};
+    Object.keys(COMPANY_NAMES).filter(k => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(k)).forEach(coy => {
+      stats[coy] = { name: coy, fullName: COMPANY_NAMES[coy], '1CL': new Set(), '2CL': new Set(), '3CL': new Set() };
+    });
+    
+    deficiencies.forEach(def => {
+      const coy = def.company || def.coy || 'Unspecified';
+      const cls = def.class || 'Unknown';
+      const cadet = def.cadet;
+      if (stats[coy] && stats[coy][cls] !== undefined && cadet) {
+        stats[coy][cls].add(cadet);
+      }
+    });
+    
+    return Object.values(stats).map(s => ({
+      name: s.name,
+      fullName: s.fullName,
+      '1CL': s['1CL'].size,
+      '2CL': s['2CL'].size,
+      '3CL': s['3CL'].size,
+    }));
+  }, [deficiencies]);
+
+
   const comparisonStats = useMemo(() => {
     if (viewMode !== 'comparison' || !prevWeek) return null;
     
@@ -1274,6 +1299,33 @@ export default function Deficiencies() {
                 </div>
               </div>
             )}
+          </div>
+
+          {/* ── Row 3: Class by Company Breakdown ── */}
+          <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '1.5rem' }}>
+            <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+              <Users size={18} style={{ color: 'var(--accent-primary)' }} />
+              Deficient Cadets per Class by Company
+            </h3>
+            <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Unique cadet count breakdown across 1CL, 2CL, and 3CL</p>
+            <div style={{ flex: 1, width: '100%' }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={classByCompanyData} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                  <Tooltip 
+                    cursor={{ fill: 'var(--surface-overlay)' }} 
+                    contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                    labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                  />
+                  <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                  <Bar dataKey="1CL" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="2CL" fill="#10B981" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="3CL" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
           {specialConcernCadets.length > 0 && (
