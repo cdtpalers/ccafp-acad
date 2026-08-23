@@ -1321,7 +1321,7 @@ export default function Deficiencies() {
                   />
                   <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
                   <Bar dataKey="1CL" fill="#3B82F6" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="2CL" fill="#10B981" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="2CL" fill="#ef4444" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="3CL" fill="#F59E0B" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
