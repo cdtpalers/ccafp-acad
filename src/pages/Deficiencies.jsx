@@ -1239,36 +1239,41 @@ export default function Deficiencies() {
 
           {/* ── Row 2: Course Breakdown + Count vs Severity Chart ── */}
           <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
-            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+            <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
               <h3 style={{ marginBottom: '0.25rem', fontSize: '1rem' }}>Deficiencies by Course</h3>
               <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Stacked by company contribution</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1, justifyContent: 'space-between' }}>
-                {sortedCourses.map(([crs, data]) => (
-                  <div key={crs}>
-                    <div className="flex-between" style={{ marginBottom: '0.35rem', fontSize: '0.9rem' }}>
-                      <span style={{ fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '80%' }} title={crs}>{crs}</span>
-                      <span style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>{data.total}</span>
-                    </div>
-                    <div style={{ width: '100%', height: '12px', background: 'var(--surface-overlay)', borderRadius: '6px', overflow: 'hidden', boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)', display: 'flex' }}>
-                      {Object.entries(data.companies).sort((a, b) => b[1] - a[1]).map(([coy, count]) => (
-                        <div 
-                          key={coy} 
-                          onMouseEnter={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
-                          onMouseLeave={() => setHoveredBar(null)}
-                          onMouseMove={(e) => setHoveredBar({ x: e.clientX, y: e.clientY, text: `${COMPANY_NAMES[coy] || coy}: ${count}` })}
-                          style={{ 
-                            width: animateBars ? `${(count / maxCourseCount) * 100}%` : '0%', 
-                            height: '100%', 
-                            backgroundColor: COMPANY_COLORS[coy] || COMPANY_COLORS['Unspecified'],
-                            transition: 'width 1s ease-out',
-                            cursor: 'pointer'
-                          }} 
-                        />
+              <div style={{ flex: 1, width: '100%' }}>
+                {sortedCourses.length === 0 ? (
+                  <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart 
+                      data={sortedCourses.map(([crs, data]) => ({ name: crs, ...data.companies }))} 
+                      margin={{ top: 20, right: 10, left: -20, bottom: 25 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                      <XAxis 
+                        dataKey="name" 
+                        axisLine={false} 
+                        tickLine={false} 
+                        tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} 
+                        dy={10} 
+                        angle={-45} 
+                        textAnchor="end"
+                        height={40}
+                      />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                      <Tooltip 
+                        cursor={{ fill: 'var(--surface-overlay)' }} 
+                        contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                        formatter={(value, name) => [value, COMPANY_NAMES[name] || name]}
+                      />
+                      {Object.keys(COMPANY_NAMES).filter(k => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(k)).map(coy => (
+                        <Bar key={coy} dataKey={coy} stackId="a" fill={COMPANY_COLORS[coy]} />
                       ))}
-                    </div>
-                  </div>
-                ))}
-                {sortedCourses.length === 0 && <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>}
+                    </BarChart>
+                  </ResponsiveContainer>
+                )}
               </div>
             </div>
 
