@@ -1,4 +1,4 @@
-import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, EyeOff, Calendar, Download, Activity, TrendingUp, TrendingDown, BookOpen, Users, Zap, Flame, FileDown } from 'lucide-react';
+import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, EyeOff, Calendar, Download, Activity, TrendingUp, TrendingDown, BookOpen, Users, Zap, Flame, FileDown, Maximize2, X } from 'lucide-react';
 import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
@@ -43,6 +43,7 @@ export default function Deficiencies() {
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
   const [hoveredBar, setHoveredBar] = useState(null);
+  const [zoomedChart, setZoomedChart] = useState(null);
   
   // Collapse States
   const [isDataChartsCollapsed, setIsDataChartsCollapsed] = useState(false);
@@ -843,11 +844,14 @@ export default function Deficiencies() {
                     Multi-week comparison across all recorded academic weeks (Click legend items to toggle metrics)
                   </p>
                 </div>
-                {(selectedClassFilter !== 'All' || selectedCompanyFilter !== 'All' || searchTerm.trim()) && (
-                  <span className="badge" style={{ background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)', color: 'var(--accent-primary)', fontSize: '0.75rem' }}>
-                    Filtered View
-                  </span>
-                )}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  {(selectedClassFilter !== 'All' || selectedCompanyFilter !== 'All' || searchTerm.trim()) && (
+                    <span className="badge" style={{ background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)', color: 'var(--accent-primary)', fontSize: '0.75rem' }}>
+                      Filtered View
+                    </span>
+                  )}
+                  <button onClick={() => setZoomedChart('trend')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+                </div>
               </div>
               <div style={{ flex: 1, width: '100%', minHeight: '260px' }}>
                 <ResponsiveContainer width="100%" height="100%">
@@ -1016,10 +1020,13 @@ export default function Deficiencies() {
             <>
           <div className="grid-cols-2" style={{ marginBottom: '3rem' }}>
             <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', animationDelay: '0.1s' }}>
-              <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-                Deficiencies & Cadets per Class (W{prevWeek} vs W{activeWeek})
-              </h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                <h3 style={{ margin: 0, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
+                  Deficiencies & Cadets per Class (W{prevWeek} vs W{activeWeek})
+                </h3>
+                <button onClick={() => setZoomedChart('class_comparison')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+              </div>
               <div style={{ flex: 1, width: '100%' }}>
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={comparisonStats.chartData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
@@ -1076,10 +1083,13 @@ export default function Deficiencies() {
           </div>
 
           <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '3rem' }}>
-            <h3 style={{ marginBottom: '1.5rem', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-              Deficiencies per Company (W{prevWeek} vs W{activeWeek})
-            </h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <h3 style={{ margin: 0, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
+                Deficiencies per Company (W{prevWeek} vs W{activeWeek})
+              </h3>
+              <button onClick={() => setZoomedChart('company_comparison')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+            </div>
             <div style={{ flex: 1, width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={comparisonStats.companyChartData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
@@ -1240,8 +1250,13 @@ export default function Deficiencies() {
           {/* ── Row 2: Course Breakdown + Count vs Severity Chart ── */}
           <div className="grid-cols-2" style={{ marginBottom: '1.5rem' }}>
             <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
-              <h3 style={{ marginBottom: '0.25rem', fontSize: '1rem' }}>Deficiencies by Course</h3>
-              <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1.25rem' }}>Stacked by company contribution</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <h3 style={{ margin: 0, marginBottom: '0.25rem', fontSize: '1rem' }}>Deficiencies by Course</h3>
+                  <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0, marginBottom: '1.25rem' }}>Stacked by company contribution</p>
+                </div>
+                <button onClick={() => setZoomedChart('course')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+              </div>
               <div style={{ flex: 1, width: '100%' }}>
                 {sortedCourses.length === 0 ? (
                   <p className="text-muted" style={{ fontSize: '0.85rem' }}>No data available.</p>
@@ -1279,11 +1294,16 @@ export default function Deficiencies() {
 
             {companySeverity.length > 0 && (
               <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '380px' }}>
-                <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
-                  <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
-                  Count vs Severity
-                </h3>
-                <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Fewer deficiencies can still mean higher total points</p>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                  <div>
+                    <h3 style={{ margin: 0, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                      <Activity size={18} style={{ color: 'var(--accent-primary)' }} />
+                      Count vs Severity
+                    </h3>
+                    <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0, marginBottom: '1rem' }}>Fewer deficiencies can still mean higher total points</p>
+                  </div>
+                  <button onClick={() => setZoomedChart('severity')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+                </div>
                 <div style={{ flex: 1, width: '100%' }}>
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
@@ -1308,11 +1328,16 @@ export default function Deficiencies() {
 
           {/* ── Row 3: Class by Company Breakdown ── */}
           <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '400px', marginBottom: '1.5rem' }}>
-            <h3 style={{ marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
-              <Users size={18} style={{ color: 'var(--accent-primary)' }} />
-              Deficient Cadets per Class by Company
-            </h3>
-            <p className="text-muted" style={{ fontSize: '0.75rem', marginBottom: '1rem' }}>Unique cadet count breakdown across 1CL, 2CL, and 3CL</p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <h3 style={{ margin: 0, marginBottom: '0.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                  <Users size={18} style={{ color: 'var(--accent-primary)' }} />
+                  Deficient Cadets per Class by Company
+                </h3>
+                <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0, marginBottom: '1rem' }}>Unique cadet count breakdown across 1CL, 2CL, and 3CL</p>
+              </div>
+              <button onClick={() => setZoomedChart('class_coy')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
+            </div>
             <div style={{ flex: 1, width: '100%' }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={classByCompanyData} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
@@ -1496,6 +1521,234 @@ export default function Deficiencies() {
           {hoveredBar.text}
         </div>
       )}
+
+      {zoomedChart && (
+        <div 
+          style={{ position: 'fixed', inset: 0, zIndex: 9999, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}
+          onClick={() => setZoomedChart(null)}
+        >
+          <div 
+            className="glass-panel" 
+            style={{ width: '90vw', height: '85vh', display: 'flex', flexDirection: 'column', position: 'relative', background: 'var(--surface-background)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setZoomedChart(null)} 
+              style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'var(--surface-overlay)', border: '1px solid var(--surface-border)', borderRadius: '50%', padding: '0.5rem', cursor: 'pointer', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <X size={20} style={{ color: 'var(--text-primary)' }} />
+            </button>
+            <div style={{ flex: 1, padding: '2rem 1rem 1rem 1rem', width: '100%', height: '100%' }}>
+              {zoomedChart === 'trend' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                  <LineChart data={allWeeksTrend} margin={{ top: 15, right: activeLines.avgGrade ? 30 : 15, left: 0, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                    <XAxis 
+                                      dataKey="name" 
+                                      axisLine={false} 
+                                      tickLine={false} 
+                                      tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} 
+                                      dy={10} 
+                                    />
+                                    <YAxis 
+                                      yAxisId="count" 
+                                      axisLine={false} 
+                                      tickLine={false} 
+                                      tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} 
+                                      allowDecimals={false}
+                                    />
+                                    {activeLines.avgGrade && (
+                                      <YAxis 
+                                        yAxisId="grade" 
+                                        orientation="right" 
+                                        axisLine={false} 
+                                        tickLine={false} 
+                                        tick={{ fill: '#10B981', fontSize: 12 }} 
+                                        domain={[0, 10]}
+                                        tickFormatter={(val) => `${val}`}
+                                      />
+                                    )}
+                                    <Tooltip 
+                                      cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} 
+                                      contentStyle={{ 
+                                        backgroundColor: 'var(--surface-glass)', 
+                                        borderColor: 'var(--surface-border)', 
+                                        borderRadius: '8px',
+                                        backdropFilter: 'blur(8px)',
+                                        boxShadow: 'var(--shadow-md)',
+                                        color: 'var(--text-primary)'
+                                      }}
+                                      formatter={(value, name) => {
+                                        if (name === 'Average Grade') return [`${value} pts`, name];
+                                        if (name === 'Affected Cadets') return [`${value} cadets`, name];
+                                        if (name === 'Total Deficiencies') return [`${value} records`, name];
+                                        return [value, name];
+                                      }}
+                                    />
+                                    <Legend 
+                                      iconType="circle" 
+                                      wrapperStyle={{ paddingTop: '15px', fontSize: '12px' }} 
+                                      onClick={(e) => {
+                                        const { dataKey } = e;
+                                        setActiveLines(prev => ({ ...prev, [dataKey]: !prev[dataKey] }));
+                                      }}
+                                      formatter={(value, entry) => {
+                                        const { dataKey } = entry;
+                                        const isActive = activeLines[dataKey];
+                                        return (
+                                          <span style={{ 
+                                            color: isActive ? 'var(--text-primary)' : 'var(--text-muted)', 
+                                            transition: 'color 0.2s', 
+                                            cursor: 'pointer', 
+                                            opacity: isActive ? 1 : 0.45,
+                                            fontWeight: isActive ? 600 : 400
+                                          }}>
+                                            {value}
+                                          </span>
+                                        );
+                                      }}
+                                    />
+                                    {activeLines.totalDeficiencies && (
+                                      <Line 
+                                        yAxisId="count" 
+                                        type="monotone" 
+                                        dataKey="totalDeficiencies" 
+                                        name="Total Deficiencies" 
+                                        stroke="#93C5FD" 
+                                        strokeWidth={3} 
+                                        dot={{ r: 4, strokeWidth: 2, fill: '#1e3a8a' }} 
+                                        activeDot={{ r: 6 }} 
+                                      />
+                                    )}
+                                    {activeLines.uniqueCadets && (
+                                      <Line 
+                                        yAxisId="count" 
+                                        type="monotone" 
+                                        dataKey="uniqueCadets" 
+                                        name="Affected Cadets" 
+                                        stroke="#3B82F6" 
+                                        strokeWidth={3} 
+                                        dot={{ r: 4, strokeWidth: 2, fill: '#1d4ed8' }} 
+                                        activeDot={{ r: 6 }} 
+                                      />
+                                    )}
+                                    {activeLines.avgGrade && (
+                                      <Line 
+                                        yAxisId="grade" 
+                                        type="monotone" 
+                                        dataKey="avgGrade" 
+                                        name="Average Grade" 
+                                        stroke="#10B981" 
+                                        strokeWidth={3} 
+                                        dot={{ r: 4, strokeWidth: 2, fill: '#065f46' }} 
+                                        activeDot={{ r: 6 }} 
+                                      />
+                                    )}
+                                  </LineChart>
+                                </ResponsiveContainer>
+              )}
+              {zoomedChart === 'class_comparison' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                  <BarChart data={comparisonStats.chartData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                                    <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                    <Tooltip cursor={{ fill: 'var(--surface-overlay)' }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }} />
+                                    <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
+                                    <Bar dataKey={`Records W${prevWeek}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                                    <Bar dataKey={`Records W${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                                    <Bar dataKey={`Cadets W${prevWeek}`} fill="#86EFAC" radius={[4, 4, 0, 0]} />
+                                    <Bar dataKey={`Cadets W${activeWeek}`} fill="#22C55E" radius={[4, 4, 0, 0]} />
+                                  </BarChart>
+                                </ResponsiveContainer>
+              )}
+              {zoomedChart === 'company_comparison' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={comparisonStats.companyChartData} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                  <Tooltip 
+                                    cursor={{ fill: 'var(--surface-overlay)' }} 
+                                    contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                                    labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                                  />
+                                  <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }} />
+                                  <Bar dataKey={`Week ${prevWeek}`} fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                                  <Bar dataKey={`Week ${activeWeek}`} fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                                </BarChart>
+                              </ResponsiveContainer>
+              )}
+              {zoomedChart === 'course' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart 
+                                      data={sortedCourses.map(([crs, data]) => ({ name: crs, ...data.companies }))} 
+                                      margin={{ top: 20, right: 10, left: -20, bottom: 25 }}
+                                    >
+                                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                      <XAxis 
+                                        dataKey="name" 
+                                        axisLine={false} 
+                                        tickLine={false} 
+                                        tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} 
+                                        dy={10} 
+                                        angle={-45} 
+                                        textAnchor="end"
+                                        height={40}
+                                      />
+                                      <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                      <Tooltip 
+                                        cursor={{ fill: 'var(--surface-overlay)' }} 
+                                        contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                                        formatter={(value, name) => [value, COMPANY_NAMES[name] || name]}
+                                      />
+                                      {Object.keys(COMPANY_NAMES).filter(k => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(k)).map(coy => (
+                                        <Bar key={coy} dataKey={coy} stackId="a" fill={COMPANY_COLORS[coy]} />
+                                      ))}
+                                    </BarChart>
+                                  </ResponsiveContainer>
+              )}
+              {zoomedChart === 'severity' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={companySeverity.map(s => ({ name: s.coy, fullName: s.name, 'Deficiency Count': s.count, 'Total Points': s.totalPts, 'Avg Pts/Cadet': s.avgPtsPerCadet }))} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
+                                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                      <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                                      <YAxis yAxisId="left" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                      <YAxis yAxisId="right" orientation="right" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                      <Tooltip 
+                                        cursor={{ fill: 'var(--surface-overlay)' }} 
+                                        contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                                        labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                                      />
+                                      <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                                      <Bar yAxisId="left" dataKey="Deficiency Count" fill="#93C5FD" radius={[4, 4, 0, 0]} />
+                                      <Bar yAxisId="right" dataKey="Total Points" fill="#f97316" radius={[4, 4, 0, 0]} />
+                                    </BarChart>
+                                  </ResponsiveContainer>
+              )}
+              {zoomedChart === 'class_coy' && (
+                <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={classByCompanyData} margin={{ top: 20, right: 30, left: -10, bottom: 5 }}>
+                                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} dy={10} />
+                                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 12 }} />
+                                  <Tooltip 
+                                    cursor={{ fill: 'var(--surface-overlay)' }} 
+                                    contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px' }}
+                                    labelFormatter={(label) => COMPANY_NAMES[label] || label}
+                                  />
+                                  <Legend iconType="circle" wrapperStyle={{ paddingTop: '10px', fontSize: '12px' }} />
+                                  <Bar dataKey="1CL" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+                                  <Bar dataKey="2CL" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                                  <Bar dataKey="3CL" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                                </BarChart>
+                              </ResponsiveContainer>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
