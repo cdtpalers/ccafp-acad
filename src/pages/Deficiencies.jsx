@@ -324,17 +324,17 @@ export default function Deficiencies() {
       });
 
       const multDefs = {
-        1: { TOTAL: 0 },
         2: { TOTAL: 0 },
         3: { TOTAL: 0 },
         '4+': { TOTAL: 0 },
         TOTAL: { TOTAL: 0 }
       };
-      [1, 2, 3, '4+', 'TOTAL'].forEach(row => {
+      [2, 3, '4+', 'TOTAL'].forEach(row => {
         companies.forEach(c => multDefs[row][c] = 0);
       });
 
       Object.values(cadetDefs).forEach(({ count, company }) => {
+        if (count < 2) return; // Only monitor multiple deficiencies
         let rowKey = count;
         if (count >= 4) rowKey = '4+';
         if (multDefs[rowKey]) {
@@ -1557,7 +1557,7 @@ export default function Deficiencies() {
                           </tr>
                         </thead>
                         <tbody>
-                          {[1, 2, 3, '4+', 'TOTAL'].map((row, idx) => (
+                          {[2, 3, '4+', 'TOTAL'].map((row, idx) => (
                             <tr key={row}>
                               <td style={{ fontWeight: 'bold', backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}>{row === '4+' ? '4' : row}</td>
                               {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
