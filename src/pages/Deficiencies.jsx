@@ -291,9 +291,71 @@ export default function Deficiencies() {
     }));
   }, [deficiencies]);
 
+  const subjectByCompanyData = useMemo(() => {
+    let data = deficiencies;
+    if (selectedClassFilter !== 'All') {
+      data = data.filter(d => (d.class || '').toUpperCase() === selectedClassFilter);
+    }
+    const companies = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const subjects = {};
+    data.forEach(def => {
+      const crs = def.course || 'Unknown';
+      let coy = def.company || def.coy || 'Unspecified';
+      if (!companies.includes(coy)) return; // Only A-H
+      if (!subjects[crs]) {
+        subjects[crs] = { TOTAL: 0 };
+        companies.forEach(c => subjects[crs][c] = 0);
+      }
+      subjects[crs][coy]++;
+      subjects[crs].TOTAL++;
+    });
+    return subjects;
+  }, [deficiencies, selectedClassFilter]);
+
+  const multipleDeficiencyData = useMemo(() => {
+    let data = deficiencies;
+    if (selectedClassFilter !== 'All') {
+      data = data.filter(d => (d.class || '').toUpperCase() === selectedClassFilter);
+    }
+    const companies = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+    const cadetDefs = {};
+    data.forEach(def => {
+      let coy = def.company || def.coy || 'Unspecified';
+      if (!companies.includes(coy)) return;
+      const cadet = def.cadet;
+      if (!cadet) return;
+      if (!cadetDefs[cadet]) cadetDefs[cadet] = { count: 0, company: coy };
+      cadetDefs[cadet].count++;
+    });
+
+    const result = {
+      1: { TOTAL: 0 },
+      2: { TOTAL: 0 },
+      3: { TOTAL: 0 },
+      '4+': { TOTAL: 0 },
+      TOTAL: { TOTAL: 0 }
+    };
+    [1, 2, 3, '4+', 'TOTAL'].forEach(row => {
+      companies.forEach(c => result[row][c] = 0);
+    });
+
+    Object.values(cadetDefs).forEach(({ count, company }) => {
+      let rowKey = count;
+      if (count >= 4) rowKey = '4+';
+      
+      if (result[rowKey]) {
+        result[rowKey][company]++;
+        result[rowKey].TOTAL++;
+        result.TOTAL[company]++;
+        result.TOTAL.TOTAL++;
+      }
+    });
+    return result;
+  }, [deficiencies, selectedClassFilter]);
+
 
   const comparisonStats = useMemo(() => {
-    if (viewMode !== 'comparison' || !prevWeek) return null;
+    if (!prevWeek) return null;
     
     const currentData = filteredData; 
     
@@ -1412,6 +1474,117 @@ export default function Deficiencies() {
               )}
             </div>
           )}
+          {/* ── Row 4: Academic Performance Summary ── */}
+          <div className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
+            <h3 style={{ margin: 0, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem' }}>
+              <BookOpen size={20} style={{ color: 'var(--accent-primary)' }} />
+              {selectedClassFilter === 'All' ? 'Cadet Corps' : selectedClassFilter} Week {activeWeek} Academic Performance
+            </h3>
+            
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
+              {/* Left Column: Tables */}
+              <div style={{ flex: '1 1 60%', minWidth: '300px' }}>
+                <div className="table-container" style={{ marginBottom: '1.5rem' }}>
+                  <table className="data-table" style={{ fontSize: '0.85rem', textAlign: 'center' }}>
+                    <thead>
+                      <tr>
+                        <th style={{ backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}></th>
+                        {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
+                          <th key={c} style={{ backgroundColor: COMPANY_COLORS[c], color: c === 'B' || c === 'G' ? '#000' : '#fff', fontWeight: 'bold' }}>{c}</th>
+                        ))}
+                        <th style={{ backgroundColor: '#4b5563', color: '#fff', fontWeight: 'bold' }}>TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(subjectByCompanyData).sort(([a], [b]) => a.localeCompare(b)).map(([crs, counts]) => (
+                        <tr key={crs}>
+                          <td style={{ fontWeight: 'bold', backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}>{crs}</td>
+                          {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
+                            <td key={c} style={{ backgroundColor: COMPANY_COLORS[c], color: c === 'B' || c === 'G' ? '#000' : '#fff' }}>{counts[c] || ''}</td>
+                          ))}
+                          <td style={{ fontWeight: 'bold', backgroundColor: '#4b5563', color: '#fff' }}>{counts.TOTAL || ''}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="table-container">
+                  <table className="data-table" style={{ fontSize: '0.85rem', textAlign: 'center', border: '2px solid #a855f7' }}>
+                    <thead>
+                      <tr>
+                        <th colSpan="10" style={{ textAlign: 'center', fontWeight: 'bold', backgroundColor: 'var(--surface-overlay)', borderBottom: '1px solid var(--surface-border)' }}>
+                          NUMBER OF CADETS WITH MULTIPLE DEFICIENCY
+                        </th>
+                      </tr>
+                      <tr>
+                        <th style={{ backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}>NO OF<br/>SUBJECTS</th>
+                        {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
+                          <th key={c} style={{ backgroundColor: COMPANY_COLORS[c], color: c === 'B' || c === 'G' ? '#000' : '#fff', fontWeight: 'bold' }}>{c}</th>
+                        ))}
+                        <th style={{ backgroundColor: '#4b5563', color: '#fff', fontWeight: 'bold' }}>TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[1, 2, 3, '4+', 'TOTAL'].map((row, idx) => (
+                        <tr key={row}>
+                          <td style={{ fontWeight: 'bold', backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}>{row === '4+' ? '4' : row}</td>
+                          {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
+                            <td key={c} style={{ backgroundColor: COMPANY_COLORS[c], color: c === 'B' || c === 'G' ? '#000' : '#fff' }}>
+                              {multipleDeficiencyData[row]?.[c] || ''}
+                            </td>
+                          ))}
+                          <td style={{ fontWeight: 'bold', backgroundColor: '#4b5563', color: '#fff' }}>
+                            {multipleDeficiencyData[row]?.TOTAL || ''}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Right Column: Graphs and Text Area */}
+              <div style={{ flex: '1 1 35%', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                <div style={{ flex: 1, backgroundColor: 'color-mix(in srgb, var(--surface-background) 50%, transparent)', borderRadius: '8px', padding: '1rem', display: 'flex', flexDirection: 'column' }}>
+                  <h4 style={{ margin: '0 0 1rem 0', fontSize: '0.9rem', color: 'var(--text-primary)', fontStyle: 'italic', fontWeight: 'normal' }}>
+                    • Insert a line graph here comparing the last week update and the current week
+                  </h4>
+                  <div style={{ flex: 1, minHeight: '200px' }}>
+                    {prevWeek && comparisonStats?.companyChartData ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={comparisonStats.companyChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--surface-border)" />
+                          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: 'var(--text-secondary)', fontSize: 10 }} />
+                          <Tooltip cursor={{ stroke: 'var(--surface-border)', strokeWidth: 1 }} contentStyle={{ backgroundColor: 'var(--surface-glass)', border: '1px solid var(--surface-border)', borderRadius: '8px', fontSize: '10px' }} />
+                          <Legend iconType="circle" wrapperStyle={{ fontSize: '10px' }} />
+                          <Line type="monotone" dataKey={`Week ${prevWeek}`} stroke="#93C5FD" strokeWidth={2} dot={{ r: 3 }} />
+                          <Line type="monotone" dataKey={`Week ${activeWeek}`} stroke="#3B82F6" strokeWidth={2} dot={{ r: 3 }} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        No previous week data to compare.
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div style={{ flex: 1, backgroundColor: 'color-mix(in srgb, var(--surface-background) 50%, transparent)', borderRadius: '8px', padding: '1.5rem' }}>
+                  <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', color: 'var(--text-primary)', fontStyle: 'italic', fontWeight: 'normal' }}>
+                    • Write your assessment, recommendations and comments here
+                  </h4>
+                  <textarea
+                    className="input-field"
+                    style={{ width: '100%', minHeight: '120px', resize: 'vertical', background: 'transparent', border: 'none', boxShadow: 'none', padding: 0, color: 'var(--text-secondary)' }}
+                    placeholder="Enter assessment..."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* ── Results count ── */}
           <p className="text-muted" style={{ marginBottom: '1rem', fontSize: '0.85rem' }}>
             Showing {filteredData.length} of {deficiencies.length} deficiency records
