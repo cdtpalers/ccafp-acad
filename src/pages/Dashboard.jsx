@@ -103,12 +103,12 @@ export default function Dashboard() {
     <div className="dashboard">
       <div className="flex-between" style={{ marginBottom: '2rem' }}>
         <div>
-          <h1>Academic Council Dashboard</h1>
-          <p className="text-muted">Overview • April 2026</p>
+          <h1 className="font-serif" style={{ fontSize: '2.5rem', letterSpacing: '-0.02em' }}>Academic Council Dashboard</h1>
+          <p className="text-muted" style={{ fontSize: '1rem', marginTop: '0.5rem' }}>Overview • April 2026</p>
         </div>
       </div>
 
-      <div className="grid-cols-2" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', marginBottom: '2rem', gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '1.5rem' }}>
         {stats.map((stat, i) => (
           <div 
             key={i} 
@@ -117,78 +117,74 @@ export default function Dashboard() {
             style={{ 
               display: 'flex', 
               flexDirection: 'column', 
-              padding: '1.25rem',
+              padding: '1.5rem',
               cursor: 'pointer',
-              transition: 'transform 0.2s ease, background 0.2s ease'
+              minHeight: '180px',
+              justifyContent: 'space-between'
             }}
           >
-            <div className="flex-between" style={{ alignItems: 'center', marginBottom: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <div style={{ border: '1px solid var(--surface-border)', padding: '0.4rem', borderRadius: 'var(--radius-sm)', display: 'flex', background: 'var(--bg-color)', color: 'var(--text-primary)' }}>
-                  {stat.icon}
-                </div>
-                <span className="text-muted" style={{ fontWeight: 500, fontSize: '0.85rem' }}>{stat.label}</span>
+            <div className="flex-between" style={{ alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+              <span className="text-muted" style={{ fontWeight: 600, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{stat.label}</span>
+              <div style={{ border: '1px solid var(--surface-border)', padding: '0.5rem', borderRadius: 'var(--radius-sm)', display: 'flex', background: 'var(--surface-overlay)', color: 'var(--accent-primary)' }}>
+                {stat.icon}
               </div>
-              {i === 0 && <span style={{ color: 'var(--success)', fontSize: '0.75rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success)' }}></div> Active</span>}
             </div>
             
-            <h3 style={{ fontSize: '2.5rem', fontWeight: 600, margin: 0, lineHeight: 1 }}>{stat.value}</h3>
-            
-            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid var(--surface-border)', fontSize: '0.75rem', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between' }}>
-              <span>{stat.trend}</span>
-              <span style={{ fontSize: '1rem', lineHeight: 1 }}>→</span>
+            <div>
+              <h3 className="font-serif" style={{ fontSize: '3.5rem', fontWeight: 500, margin: 0, lineHeight: 1, color: 'var(--text-primary)' }}>{stat.value}</h3>
+              <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                {i === 0 && <span style={{ color: 'var(--success)', fontSize: '0.75rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}><div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--success)', boxShadow: '0 0 8px var(--success)' }}></div> Live</span>}
+                <span className="text-muted" style={{ fontSize: '0.85rem' }}>{stat.trend} →</span>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {(() => {
-        const todayIdx = new Date().getDate() % ACADEMIC_QUOTES.length;
-        const dailyQuote = ACADEMIC_QUOTES[todayIdx];
-        return (
-          <div className="glass-panel modal-inner" style={{ padding: '2rem', marginBottom: '2rem', display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'center', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: '-15px', right: '-15px', opacity: 0.05, transform: 'rotate(-20deg)' }}>
-              <Quote size={120} weight="fill" />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-color)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--surface-border)', flexShrink: 0 }}>
-              <Quote className="text-accent-primary" size={24} />
-            </div>
-            <div>
-              <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', fontWeight: 500, fontStyle: 'italic', marginBottom: '0.5rem', lineHeight: 1.6 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '1.5rem' }}>
+        {(() => {
+          const todayIdx = new Date().getDate() % ACADEMIC_QUOTES.length;
+          const dailyQuote = ACADEMIC_QUOTES[todayIdx];
+          return (
+            <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', minHeight: '250px', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', top: '-10%', right: '-5%', opacity: 0.03, transform: 'rotate(-10deg)' }}>
+                <Quote size={180} weight="fill" />
+              </div>
+              <Quote className="text-accent-primary" size={32} style={{ marginBottom: '1.5rem' }} />
+              <p className="font-serif" style={{ fontSize: '1.5rem', color: 'var(--text-primary)', fontWeight: 400, fontStyle: 'italic', marginBottom: '1rem', lineHeight: 1.4 }}>
                 "{dailyQuote.text}"
               </p>
-              <p className="text-muted" style={{ fontSize: '0.875rem', fontWeight: 600 }}>
+              <p className="text-muted" style={{ fontSize: '0.9rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 — {dailyQuote.author}
               </p>
             </div>
-          </div>
-        );
-      })()}
+          );
+        })()}
 
-      <div className="grid-cols-2">
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <h3 style={{ marginBottom: '1rem' }}>Recent Announcements</h3>
-          <div className="announcement-list">
+        <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
+          <h3 className="font-serif" style={{ marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: 500 }}>Recent Announcements</h3>
+          <div className="announcement-list" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {loading ? (
-              <p className="text-muted" style={{ padding: '1rem' }}>Loading from Sheets...</p>
+              <p className="text-muted">Loading from Sheets...</p>
             ) : announcements.length === 0 ? (
-              <p className="text-muted" style={{ padding: '1rem' }}>No recent announcements.</p>
+              <p className="text-muted">No recent announcements.</p>
             ) : (
               announcements.slice(0, 3).map((ann, i) => (
-                <div key={i} style={{ padding: '1rem', borderBottom: i !== Math.min(announcements.length, 3) - 1 ? '1px solid var(--surface-border)' : 'none' }}>
-                  <span className={`badge badge-${ann.type?.toLowerCase() || 'info'}`} style={{ marginBottom: '0.5rem' }}>
-                    {ann.type?.toUpperCase() || 'INFO'}
-                  </span>
-                  <h4>{ann.title}</h4>
-                  <p className="text-muted" style={{ fontSize: '0.875rem', marginTop: '0.25rem' }}>
-                    {ann.content ? ann.content.substring(0, 60) + '...' : ''}
+                <div key={i} style={{ padding: '1rem', background: 'var(--surface-overlay)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--surface-border)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+                    <h4 style={{ margin: 0, fontSize: '1rem', fontWeight: 600 }}>{ann.title}</h4>
+                    <span className={`badge badge-${ann.type?.toLowerCase() || 'info'}`} style={{ fontSize: '0.7rem' }}>
+                      {ann.type?.toUpperCase() || 'INFO'}
+                    </span>
+                  </div>
+                  <p className="text-muted" style={{ fontSize: '0.85rem', margin: 0, lineHeight: 1.4 }}>
+                    {ann.content ? ann.content.substring(0, 80) + '...' : ''}
                   </p>
                 </div>
               ))
             )}
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export default function Layout({ children }) {
       <div className="mobile-header">
         <div className="brand flex-center">
           <img src={acadLogo} alt="Academic Council Logo" className="brand-icon-img" />
-          <span className="brand-text">Academic Council</span>
+          <span className="brand-text font-serif" style={{ fontSize: '1.25rem', fontWeight: 600 }}>Academic Council</span>
         </div>
         <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -47,13 +47,13 @@ export default function Layout({ children }) {
       />
 
       {/* Sidebar */}
-      <aside className={`sidebar ${sidebarOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`}>
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''} ${isCollapsed ? 'collapsed' : ''}`} style={{ backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)' }}>
         <div className="sidebar-header hide-mobile">
           <div className="flex-between brand-header" style={{ width: '100%', alignItems: 'center' }}>
             <div className="brand flex-center">
               <img src={acadLogo} alt="Academic Council Logo" className="brand-icon-img" />
               <div className="brand-text-container" style={{ marginLeft: '0.75rem' }}>
-                <h2 style={{ fontSize: '1.5rem', margin: 0 }}>Acad Council</h2>
+                <h2 className="font-serif" style={{ fontSize: '1.6rem', margin: 0, fontWeight: 500, letterSpacing: '-0.01em' }}>Acad Council</h2>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                   <span className="text-muted" style={{ fontSize: '0.90rem', fontWeight: 500 }}>CCAFP</span>
                   <p style={{ 
