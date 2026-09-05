@@ -755,7 +755,11 @@ export default function Deficiencies() {
           <button
             onClick={async () => {
               const { exportDeficiencyPdf } = await import('./exportDeficiencyPdf');
-              exportDeficiencyPdf({ activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData });
+              exportDeficiencyPdf({
+                activeWeek, deficiencies, companySeverity, sortedCourses, specialConcernCadets, groupedData,
+                performanceDataByClass, performanceComparisonByClass, classByCompanyData,
+                prevWeek, selectedClassFilter, selectedCompanyFilter, searchTerm,
+              });
             }}
             className="btn"
             style={{
