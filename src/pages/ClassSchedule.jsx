@@ -122,9 +122,10 @@ export default function ClassSchedule() {
 
   return (
     <div className="schedule-page">
-      <div className="flex-between" style={{ marginBottom: '1.5rem' }}>
+      <div className="page-header flex-between" style={{ alignItems: 'flex-end' }}>
         <div>
-          <h1>HAG CLASS SCHED</h1>
+          <span className="eyebrow">Shifting Schedule</span>
+          <h1 className="font-serif" style={{ margin: 0 }}>HAG Class Sched</h1>
           <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: 'var(--accent-primary)' }}>
             <Calendar size={16} /> 1st TERM shifting schedule, starting 13 JULY
           </p>

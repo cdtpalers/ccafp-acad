@@ -742,9 +742,10 @@ export default function Deficiencies() {
 
   return (
     <div className="deficiencies-page">
-      <div className="flex-between" style={{ marginBottom: '1rem' }}>
+      <div className="page-header flex-between" style={{ alignItems: 'flex-end' }}>
         <div>
-          <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <span className="eyebrow">Deficiency Command</span>
+          <h1 className="font-serif" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', margin: 0 }}>
             <AlertCircle className="text-accent-crimson" size={28} />
             Academic Deficiencies Tracker
           </h1>
@@ -819,17 +820,23 @@ export default function Deficiencies() {
             key={week}
             onClick={() => handleWeekChange(week)}
             style={{
-              padding: '0.75rem 1.5rem',
-              borderRadius: '8px',
-              border: 'none',
-              background: activeWeek === week ? 'var(--accent-primary)' : 'transparent',
-              color: activeWeek === week ? '#fff' : 'var(--text-primary)',
-              fontWeight: activeWeek === week ? '600' : '400',
+              padding: '0.6rem 1.15rem',
+              borderRadius: 'var(--radius-sm)',
+              border: activeWeek === week ? '1px solid transparent' : '1px solid var(--surface-border)',
+              background: activeWeek === week
+                ? 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-deep) 100%)'
+                : 'transparent',
+              color: activeWeek === week ? 'var(--on-accent)' : 'var(--text-secondary)',
+              boxShadow: activeWeek === week ? '0 4px 14px -4px var(--accent-primary)' : 'none',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.78rem',
+              letterSpacing: '0.04em',
+              fontWeight: activeWeek === week ? 700 : 500,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              transition: 'all 0.2s ease',
+              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
               whiteSpace: 'nowrap'
             }}
           >

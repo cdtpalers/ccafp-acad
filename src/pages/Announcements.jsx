@@ -137,12 +137,16 @@ export default function Announcements() {
 
   return (
     <div>
-      <div className="flex-between" style={{ marginBottom: '2rem' }}>
-        <div>
-          <h1>Announcements</h1>
-          <p className="text-muted">Corps-wide broadcasts and urgent academic updates</p>
+      <header className="page-header">
+        <span className="eyebrow">Broadcast Feed</span>
+        <div className="flex-between" style={{ alignItems: 'flex-end', gap: '1.5rem' }}>
+          <div>
+            <h1 className="font-serif" style={{ margin: 0 }}>Announcements</h1>
+            <p className="text-muted" style={{ marginTop: '0.6rem' }}>Corps-wide broadcasts and urgent academic updates</p>
+          </div>
+          <span className="label-tactical hide-mobile" style={{ flexShrink: 0 }}>CCAFP // Live Channel</span>
         </div>
-      </div>
+      </header>
 
       <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
         <div className="flex-between" style={{ gap: '1rem' }}>

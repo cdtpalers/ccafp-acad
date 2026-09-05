@@ -43,8 +43,10 @@ export default function DateTimeWidget({ isCollapsed }) {
               padding: '0.5rem 0.2rem',
               width: '100%',
               fontSize: '1.4rem',
-              fontWeight: 600,
-              fontFamily: 'monospace',
+              fontWeight: 700,
+              fontFamily: 'var(--font-mono)',
+              fontVariantNumeric: 'tabular-nums',
+              color: 'var(--accent-primary)',
               letterSpacing: '0.5px',
               marginBottom: '0.4rem',
               border: '1px solid var(--surface-border)',
@@ -54,7 +56,7 @@ export default function DateTimeWidget({ isCollapsed }) {
             }}>
               {b.value}
             </div>
-            <div style={{ fontSize: '0.55rem', letterSpacing: '1px', color: 'var(--text-secondary)' }}>{b.label}</div>
+            <div className="label-tactical" style={{ fontSize: '0.55rem', letterSpacing: '0.16em' }}>{b.label}</div>
           </div>
         ))}
       </div>
@@ -65,12 +67,12 @@ export default function DateTimeWidget({ isCollapsed }) {
         padding: '0.85rem',
         border: '1px solid var(--surface-border)'
       }}>
-        <div style={{ fontSize: '0.6rem', color: 'var(--accent-primary)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem', fontWeight: 600 }}>CURRENT DATE</div>
-        <div style={{ fontSize: '1.1rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
+        <div className="label-tactical" style={{ fontSize: '0.6rem', color: 'var(--accent-primary)', marginBottom: '0.3rem' }}>Current Date</div>
+        <div className="font-serif" style={{ fontSize: '1.15rem', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
           <span style={{ fontSize: '1.2rem' }}>📅</span>
           {dayName[time.getDay()]}, {monthNames[time.getMonth()]} {time.getDate()}
         </div>
-        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>A.Y. 2026-2027 • 1st TERM</div>
+        <div className="label-tactical" style={{ fontSize: '0.62rem' }}>A.Y. 2026&ndash;2027 &middot; 1st Term</div>
       </div>
     </div>
   );

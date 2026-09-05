@@ -33,7 +33,7 @@ export default function Layout({ children }) {
       <div className="mobile-header">
         <div className="brand flex-center">
           <img src={acadLogo} alt="Academic Council Logo" className="brand-icon-img" />
-          <span className="brand-text font-serif" style={{ fontSize: '1.25rem', fontWeight: 600 }}>Academic Council</span>
+          <span className="brand-text font-serif" style={{ fontSize: '1.2rem', fontWeight: 500, marginLeft: '0.65rem' }}>Academic Council</span>
         </div>
         <button className="mobile-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
           {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
@@ -53,18 +53,19 @@ export default function Layout({ children }) {
             <div className="brand flex-center">
               <img src={acadLogo} alt="Academic Council Logo" className="brand-icon-img" />
               <div className="brand-text-container" style={{ marginLeft: '0.75rem' }}>
-                <h2 className="font-serif" style={{ fontSize: '1.6rem', margin: 0, fontWeight: 500, letterSpacing: '-0.01em' }}>Acad Council</h2>
+                <h2 className="font-serif" style={{ fontSize: '1.55rem', margin: 0, fontWeight: 500, letterSpacing: '-0.02em', lineHeight: 1.1 }}>Acad Council</h2>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span className="text-muted" style={{ fontSize: '0.90rem', fontWeight: 500 }}>CCAFP</span>
-                  <p style={{ 
-                    fontSize: '0.65rem', 
-                    color: 'var(--accent-primary)', 
-                    fontStyle: 'italic', 
-                    marginTop: '0.15rem', 
-                    letterSpacing: '0.3px',
-                    opacity: 0.9
+                  <span className="label-tactical" style={{ fontSize: '0.66rem', marginTop: '0.2rem' }}>CCAFP</span>
+                  <p className="font-serif" style={{
+                    fontSize: '0.72rem',
+                    color: 'var(--accent-primary)',
+                    fontStyle: 'italic',
+                    marginTop: '0.3rem',
+                    letterSpacing: '0.01em',
+                    opacity: 0.95,
+                    lineHeight: 1.3
                   }}>
-                    "Faster, better, stronger CCAFP"
+                    &ldquo;Faster, better, stronger CCAFP&rdquo;
                   </p>
                 </div>
               </div>

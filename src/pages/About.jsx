@@ -126,12 +126,16 @@ function SubordinateCard({ role, name, imageUrl }) {
 export default function About() {
   return (
     <div style={{ paddingBottom: '2rem' }}>
-      <div className="flex-between" style={{ marginBottom: '3rem' }}>
-        <div>
-          <h1>About the Academic Council</h1>
-          <p className="text-muted">Organizational and Command Structure</p>
+      <header className="page-header" style={{ marginBottom: '2.75rem' }}>
+        <span className="eyebrow">Command Structure</span>
+        <div className="flex-between" style={{ alignItems: 'flex-end', gap: '1.5rem' }}>
+          <div>
+            <h1 className="font-serif" style={{ margin: 0 }}>About the Academic Council</h1>
+            <p className="text-muted" style={{ marginTop: '0.6rem' }}>Organizational and Command Structure</p>
+          </div>
+          <span className="label-tactical hide-mobile" style={{ flexShrink: 0 }}>CCAFP // Roster</span>
         </div>
-      </div>
+      </header>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '4rem' }}>
         <div style={{ width: '100%', maxWidth: '400px' }}>

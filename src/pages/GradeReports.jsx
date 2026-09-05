@@ -110,7 +110,8 @@ export default function GradeReports() {
           <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: 'color-mix(in srgb, var(--accent-primary) 15%, transparent)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem auto' }}>
             <Lock size={28} style={{ color: 'var(--accent-primary)' }} />
           </div>
-          <h2 style={{ marginBottom: '0.5rem' }}>Restricted Access</h2>
+          <span className="eyebrow" style={{ justifyContent: 'center' }}>Clearance Required</span>
+          <h2 className="font-serif" style={{ marginBottom: '0.5rem' }}>Restricted Access</h2>
           <p className="text-muted" style={{ marginBottom: '2rem', fontSize: '0.9rem' }}>This section contains sensitive grade reports. Please enter the access code to continue.</p>
           <form onSubmit={(e) => {
             e.preventDefault();
@@ -147,12 +148,16 @@ export default function GradeReports() {
 
   return (
     <div className="grade-reports-page">
-      <div className="flex-between" style={{ marginBottom: '1.5rem' }}>
-        <div>
-          <h1>Deficiency Reports</h1>
-          <p className="text-muted">Weekly Deficiency Reports (1CL - 3CL)</p>
+      <header className="page-header">
+        <span className="eyebrow">Restricted Archive</span>
+        <div className="flex-between" style={{ alignItems: 'flex-end', gap: '1.5rem' }}>
+          <div>
+            <h1 className="font-serif" style={{ margin: 0 }}>Deficiency Reports</h1>
+            <p className="text-muted" style={{ marginTop: '0.6rem' }}>Weekly Deficiency Reports (1CL &ndash; 3CL)</p>
+          </div>
+          <span className="label-tactical hide-mobile" style={{ flexShrink: 0 }}>Week {activeWeek} // Declassified</span>
         </div>
-      </div>
+      </header>
 
       <div className="glass-panel" style={{ marginBottom: '1.5rem', padding: '0.5rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
         {WEEKS.map(week => (
@@ -160,17 +165,23 @@ export default function GradeReports() {
             key={week}
             onClick={() => handleWeekChange(week)}
             style={{
-              padding: '0.75rem 1.5rem',
-              borderRadius: '8px',
-              border: 'none',
-              background: activeWeek === week ? 'var(--accent-primary)' : 'transparent',
-              color: activeWeek === week ? '#fff' : 'var(--text-primary)',
-              fontWeight: activeWeek === week ? '600' : '400',
+              padding: '0.6rem 1.15rem',
+              borderRadius: 'var(--radius-sm)',
+              border: activeWeek === week ? '1px solid transparent' : '1px solid var(--surface-border)',
+              background: activeWeek === week
+                ? 'linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-primary-deep) 100%)'
+                : 'transparent',
+              color: activeWeek === week ? 'var(--on-accent)' : 'var(--text-secondary)',
+              boxShadow: activeWeek === week ? '0 4px 14px -4px var(--accent-primary)' : 'none',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.78rem',
+              letterSpacing: '0.04em',
+              fontWeight: activeWeek === week ? 700 : 500,
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              transition: 'all 0.2s ease',
+              transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
               whiteSpace: 'nowrap'
             }}
           >
