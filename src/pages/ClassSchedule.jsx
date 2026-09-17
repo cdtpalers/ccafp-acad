@@ -238,11 +238,19 @@ export default function ClassSchedule() {
                   </thead>
                   <tbody>
                     {groups[groupKey].map((row, i) => {
-                      let mon = row['Tuesday (T)'] || row['Tuesday'] || '-';
-                      let tue = row['Monday (M)'] || row['Monday'] || '-';
-                      let wed = row['Thursday (TH)'] || row['Thursday'] || '-';
-                      let thu = row['Wednesday (W)'] || row['Wednesday'] || '-';
-                      const fri = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                      let mon = row['Monday (M)'] || row['Monday'] || '-';
+                      let tue = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                      let wed = row['Wednesday (W)'] || row['Wednesday'] || '-';
+                      let thu = row['Thursday (TH)'] || row['Thursday'] || '-';
+                      let fri = row['Friday (F)'] || row['Friday'] || '-';
+
+                      if (selectedClass !== '4CL') {
+                        mon = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                        tue = row['Monday (M)'] || row['Monday'] || '-';
+                        wed = row['Thursday (TH)'] || row['Thursday'] || '-';
+                        thu = row['Wednesday (W)'] || row['Wednesday'] || '-';
+                        fri = row['Tuesday (T)'] || row['Tuesday'] || '-';
+                      }
 
                       return (
                         <tr key={i} style={{ transition: 'background 0.2s' }}>
