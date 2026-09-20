@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Layout from './components/Layout';
 
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Olympics = lazy(() => import('./pages/Olympics'));
 const Announcements = lazy(() => import('./pages/Announcements'));
 const Deficiencies = lazy(() => import('./pages/Deficiencies'));
 const About = lazy(() => import('./pages/About'));
@@ -24,6 +25,7 @@ function App() {
         }>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/olympics" element={<Olympics />} />
             <Route path="/announcements" element={<Announcements />} />
             <Route path="/deficiencies" element={<Deficiencies />} />
             <Route path="/schedule" element={<ClassSchedule />} />

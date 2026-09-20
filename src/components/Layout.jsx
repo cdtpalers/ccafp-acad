@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Bell, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import { Home, Bell, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, FileText, Trophy } from 'lucide-react';
 import acadLogo from '../assets/acad_logo.webp';
 import DateTimeWidget from './DateTimeWidget';
 
@@ -20,6 +20,7 @@ export default function Layout({ children }) {
 
   const navItems = [
     { path: '/', label: 'Overview', icon: <Home size={20} /> },
+    { path: '/olympics', label: 'Academic Olympics', icon: <Trophy size={20} /> },
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
     { path: '/schedule', label: 'HAG CLASS SCHED', icon: <Calendar size={20} /> },
