@@ -8,10 +8,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 /* ------------------------------------------------------------
-   1. DESIGN TOKENS — dark is the canonical theme
+   1. DESIGN TOKENS — light is the default theme
    ------------------------------------------------------------ */
 
+:root {
+  /* Geometry */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --blur-sm: 10px;
+  --blur-md: 18px;
+  --blur-lg: 28px;
+
+  /* Typography stacks */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --font-display: 'Chakra Petch', 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
 :root,
+[data-theme='light'] {
+  /* Surfaces */
+  --bg-color: #F4F6FA;
+  --bg-gradient: linear-gradient(160deg, #F7F9FC 0%, #EFF3F8 55%, #F4F6FA 100%);
+  --surface-glass: rgba(255, 255, 255, 0.88);
+  --surface-glass-hover: rgba(255, 255, 255, 1);
+  --surface-border: rgba(15, 23, 42, 0.09);
+  --surface-border-strong: rgba(15, 23, 42, 0.16);
+  --surface-highlight: rgba(13, 148, 136, 0.07);
+  --surface-highlight-strong: rgba(13, 148, 136, 0.14);
+  --surface-overlay: rgba(241, 245, 249, 0.9);
+  --surface-background: #FFFFFF;
+  --surface-sunken: #EDF1F6;
+
+  /* Sidebar */
+  --sidebar-glass: rgba(255, 255, 255, 0.85);
+  --sidebar-glass-border-top: rgba(15, 23, 42, 0.08);
+  --sidebar-glass-border: rgba(15, 23, 42, 0.08);
+  --sidebar-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --sidebar-shadow: 1px 0 0 rgba(15, 23, 42, 0.06), 8px 0 32px rgba(15, 23, 42, 0.05);
+
+  /* Text */
+  --text-primary: #0F172A;
+  --text-secondary: #55637A;
+  --text-tertiary: #7C8AA0;
+  --text-muted: #7C8AA0;
+
+  /* Accents — teal primary, gold secondary */
+  --accent-primary: #0D9488;
+  --accent-primary-hover: #0F766E;
+  --accent-primary-deep: #0F766E;
+  --accent-primary-light: rgba(13, 148, 136, 0.12);
+  --accent-gold: #B45309;
+  --accent-gold-hover: #92400E;
+  --accent-crimson: #E11D48;
+  --accent-violet: #7C3AED;
+  --success: #059669;
+  --on-accent: #FFFFFF;
+
+  /* Ambient gradient blur field */
+  --blur-orb-1: rgba(13, 148, 136, 0.13);
+  --blur-orb-2: rgba(245, 158, 11, 0.10);
+  --blur-orb-3: rgba(99, 102, 241, 0.11);
+  --grid-line: rgba(15, 23, 42, 0.045);
+  --grid-line-strong: rgba(15, 23, 42, 0.075);
+
+  /* Elevation */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 6px 18px -4px rgba(15, 23, 42, 0.09);
+  --shadow-lg: 0 18px 40px -10px rgba(15, 23, 42, 0.16);
+  --shadow-glow: 0 10px 30px -8px rgba(13, 148, 136, 0.22);
+
+  /* Badges */
+  --badge-warning-color: #B45309;
+  --badge-success-color: #059669;
+  --badge-info-color: #0D9488;
+  --badge-urgent-color: #E11D48;
+  --badge-important-color: #7C3AED;
+
+  color-scheme: light;
+}
+
 [data-theme='dark'] {
   /* Surfaces */
   --bg-color: #070B14;
@@ -58,15 +137,6 @@
   --grid-line: rgba(255, 255, 255, 0.030);
   --grid-line-strong: rgba(255, 255, 255, 0.055);
 
-  /* Geometry */
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 26px;
-  --blur-sm: 10px;
-  --blur-md: 18px;
-  --blur-lg: 28px;
-
   /* Elevation */
   --shadow-sm: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
   --shadow-md: 0 8px 26px -4px rgba(0, 0, 0, 0.6);
@@ -80,68 +150,7 @@
   --badge-urgent-color: #F43F5E;
   --badge-important-color: #A78BFA;
 
-  /* Typography stacks */
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
-  --font-display: 'Chakra Petch', 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
   color-scheme: dark;
-}
-
-[data-theme='light'] {
-  --bg-color: #F4F6FA;
-  --bg-gradient: linear-gradient(160deg, #F7F9FC 0%, #EFF3F8 55%, #F4F6FA 100%);
-  --surface-glass: rgba(255, 255, 255, 0.88);
-  --surface-glass-hover: rgba(255, 255, 255, 1);
-  --surface-border: rgba(15, 23, 42, 0.09);
-  --surface-border-strong: rgba(15, 23, 42, 0.16);
-  --surface-highlight: rgba(13, 148, 136, 0.07);
-  --surface-highlight-strong: rgba(13, 148, 136, 0.14);
-  --surface-overlay: rgba(241, 245, 249, 0.9);
-  --surface-background: #FFFFFF;
-  --surface-sunken: #EDF1F6;
-
-  --sidebar-glass: rgba(255, 255, 255, 0.85);
-  --sidebar-glass-border-top: rgba(15, 23, 42, 0.08);
-  --sidebar-glass-border: rgba(15, 23, 42, 0.08);
-  --sidebar-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --sidebar-shadow: 1px 0 0 rgba(15, 23, 42, 0.06), 8px 0 32px rgba(15, 23, 42, 0.05);
-
-  --text-primary: #0F172A;
-  --text-secondary: #55637A;
-  --text-tertiary: #7C8AA0;
-  --text-muted: #7C8AA0;
-
-  --accent-primary: #0D9488;
-  --accent-primary-hover: #0F766E;
-  --accent-primary-deep: #0F766E;
-  --accent-primary-light: rgba(13, 148, 136, 0.12);
-  --accent-gold: #B45309;
-  --accent-gold-hover: #92400E;
-  --accent-crimson: #E11D48;
-  --accent-violet: #7C3AED;
-  --success: #059669;
-  --on-accent: #FFFFFF;
-
-  --blur-orb-1: rgba(13, 148, 136, 0.13);
-  --blur-orb-2: rgba(245, 158, 11, 0.10);
-  --blur-orb-3: rgba(99, 102, 241, 0.11);
-  --grid-line: rgba(15, 23, 42, 0.045);
-  --grid-line-strong: rgba(15, 23, 42, 0.075);
-
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
-  --shadow-md: 0 6px 18px -4px rgba(15, 23, 42, 0.09);
-  --shadow-lg: 0 18px 40px -10px rgba(15, 23, 42, 0.16);
-  --shadow-glow: 0 10px 30px -8px rgba(13, 148, 136, 0.22);
-
-  --badge-warning-color: #B45309;
-  --badge-success-color: #059669;
-  --badge-info-color: #0D9488;
-  --badge-urgent-color: #E11D48;
-  --badge-important-color: #7C3AED;
-
-  color-scheme: light;
 }
 
 /* ------------------------------------------------------------

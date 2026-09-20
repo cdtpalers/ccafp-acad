@@ -10,7 +10,7 @@ export default function Layout({ children }) {
   const location = useLocation();
 
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'dark';
+    return localStorage.getItem('theme') || 'light';
   });
 
   useEffect(() => {

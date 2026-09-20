@@ -1,14 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CCAFP Academic Council</title>
     <meta name="description" content="Centralized Academic Dissemination Platform for the Cadet Corps AFP" />
 
+    <!-- Theme Initialization: default light, apply saved theme immediately -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('theme');
+          document.documentElement.setAttribute('data-theme', saved || 'light');
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#070B14" />
+    <meta name="theme-color" content="#F4F6FA" />
 
     <!-- iOS Support -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
