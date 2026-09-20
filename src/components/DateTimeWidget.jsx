@@ -72,7 +72,7 @@ export default function DateTimeWidget({ isCollapsed }) {
           <span style={{ fontSize: '1.2rem' }}>📅</span>
           {dayName[time.getDay()]}, {monthNames[time.getMonth()]} {time.getDate()}
         </div>
-        <div className="label-tactical" style={{ fontSize: '0.62rem' }}>A.Y. 2026&ndash;2027 &middot; 1st Term</div>
+        <div className="label-tactical" style={{ fontSize: '0.62rem' }}>A.Y. 2026&ndash;2027 &middot; 2nd Term</div>
       </div>
     </div>
   );

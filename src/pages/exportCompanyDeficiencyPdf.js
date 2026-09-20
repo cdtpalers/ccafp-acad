@@ -73,7 +73,7 @@ export function exportCompanyDeficiencyPdf(companyCode, activeWeek, allDeficienc
   
   doc.setFontSize(12);
   doc.setTextColor(...slate);
-  doc.text(`AY 2026-2027 • 1st Term • Week ${activeWeek}`, margin, y);
+  doc.text(`AY 2026-2027 • 2nd Term • Week ${activeWeek}`, margin, y);
   y += 5;
 
   doc.setDrawColor(...midGray);

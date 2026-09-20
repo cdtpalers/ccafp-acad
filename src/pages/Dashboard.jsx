@@ -116,7 +116,7 @@ export default function Dashboard() {
           </div>
           <div className="label-tactical hide-mobile" style={{ textAlign: 'right', lineHeight: 1.9, flexShrink: 0 }}>
             <div>A.Y. 2026&ndash;2027</div>
-            <div style={{ color: 'var(--accent-primary)' }}>1st Term &middot; Active</div>
+            <div style={{ color: 'var(--accent-primary)' }}>2nd Term &middot; Active</div>
           </div>
         </div>
       </header>

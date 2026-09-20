@@ -323,7 +323,7 @@ export function exportDeficiencyPdf({
   doc.setFont(SERIF, 'italic');
   doc.setFontSize(13);
   doc.setTextColor(...teal);
-  doc.text(`AY 2026-2027  .  1st Term  .  Week ${activeWeek}`, margin, heroY + 33);
+  doc.text(`AY 2026-2027  .  2nd Term  .  Week ${activeWeek}`, margin, heroY + 33);
 
   tacticalLabel(scopeLabel, margin, heroY + 40, { color: [148, 163, 184], size: 6, spacing: 0.4 });
 
