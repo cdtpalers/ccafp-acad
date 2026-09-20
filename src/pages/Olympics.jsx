@@ -17,6 +17,23 @@ export default function Olympics() {
     { company: 'Hawk', gold: 0, silver: 0, bronze: 0, points: 0 },
   ];
 
+  const competitions = [
+    { title: 'Robotics Competition: Autonomous Ground Drone Racing Challenge', type: 'Team Event', desc: 'High-intensity autonomous ground drone racing challenge testing rapid integration, autonomous programming, sensor utilization, and mission-oriented decision-making.' },
+    { title: 'Python Programming', type: 'Team Event', desc: 'Python-based programming challenge testing logic formulation, algorithmic thinking, and basic data handling relevant to military scenarios.' },
+    { title: 'Data Analytics and Artificial Intelligence Datathon', type: 'Team Event', desc: 'Structured competition for cadets to exhibit systematic use of data, algorithms, and intelligent systems to support military decision-making.' },
+    { title: 'Defense Systems Innovation Challenge', type: 'Team Event', desc: 'Interdisciplinary competition to conceptualize, design, and develop innovative military systems supporting modern Multi-Domain Operations.' },
+    { title: 'SIMEX: Inter-Company Crisis Management Simulation Exercise', type: 'Team Event', desc: 'A national security decision simulation where company teams operate simultaneously analyzing and responding to identical scenario injects.' },
+    { title: 'Academic Mustering: Military Undergraduate Symposium', type: 'Team Event', desc: 'Culminating research competition challenging companies to conduct original research and defend their work before a panel of evaluators.' },
+    { title: 'Advocacy Film', type: 'Team Event', desc: 'Creative messaging competition to develop communication skills, critical thinking, and artistic expression through visual storytelling.' },
+    { title: 'Position Paper Challenge', type: 'Team Event', desc: 'Cadets prepare a position paper based on a contemporary issue or operational scenario, emphasizing critical thinking and analytical writing.' },
+    { title: 'Magsaysay Cup: Debate Open', type: 'Team Event', desc: 'Asian Parliamentary format debate testing effective communication, persuasion, and critical thinking on motions revolving around national security.' },
+    { title: 'Language Proficiency Contest', type: 'Team Event', desc: 'Academic competition promoting the development and enhancement of English language skills in reading, listening, vocabulary, and grammar.' },
+    { title: 'Company Mural', type: 'Team Event', desc: 'Focused on creative thinking and artistic expression that leads toward civic engagement, education, and advocacy demonstration.' },
+    { title: 'Mathenik: Mathematical Excellence and Knowledge Challenge', type: 'Team Event', desc: 'Mathematics competition designed to develop and showcase mathematical knowledge, analytical thinking, teamwork, and problem-solving skills.' },
+    { title: 'Lawpardy: A Law Jeopardy Game', type: 'Team Event', desc: 'Jeopardy-inspired competition to reinforce knowledge of law subjects like Law and Discipline, Human Rights, and International Humanitarian Law.' },
+    { title: 'Tactix: The E-games Challenge', type: 'Team Event', desc: 'E-games competition (World of Warships, CoH3, Wargame: Red Dragon) to enhance decision-making and performance in tactical operations.' }
+  ];
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       
@@ -146,29 +163,15 @@ export default function Olympics() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-              <div className="glass-card" style={{ padding: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Debate Tournament</h4>
-                <span className="badge badge-secondary" style={{ marginBottom: '1rem', display: 'inline-block' }}>Team Event</span>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                  Asian Parliamentary format. Mechanics to be released.
-                </p>
-              </div>
-              
-              <div className="glass-card" style={{ padding: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Math Olympiad</h4>
-                <span className="badge badge-secondary" style={{ marginBottom: '1rem', display: 'inline-block' }}>Individual & Team</span>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                  Problem-solving relays and individual written exams.
-                </p>
-              </div>
-
-              <div className="glass-card" style={{ padding: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Quiz Bee</h4>
-                <span className="badge badge-secondary" style={{ marginBottom: '1rem', display: 'inline-block' }}>Team Event</span>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-                  General Knowledge, Military History, and Current Events.
-                </p>
-              </div>
+              {competitions.map((comp, i) => (
+                <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
+                  <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{comp.title}</h4>
+                  <span className="badge badge-secondary" style={{ marginBottom: '1rem', display: 'inline-block' }}>{comp.type}</span>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+                    {comp.desc}
+                  </p>
+                </div>
+              ))}
             </div>
 
           </div>
