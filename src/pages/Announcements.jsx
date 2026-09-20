@@ -77,6 +77,18 @@ export default function Announcements() {
     async function fetchData() {
       const hardcodedAnns = [
         {
+          title: "Classroom Assignment for 2nd Term",
+          type: "Info",
+          date: "Permanent",
+          image: "/classroom_assignment_1.png",
+          isHtml: true,
+          content: `
+            <div style="display: flex; flex-direction: column; gap: 1.5rem; align-items: center;">
+              <img src="/classroom_assignment_2.png" alt="Classroom Assignment 2" style="max-width: 100%; border-radius: var(--radius-sm);" />
+            </div>
+          `
+        },
+        {
           title: "IFMH Formations",
           type: "Info",
           date: "Permanent",
@@ -239,7 +251,7 @@ export default function Announcements() {
                             )}
                             <div style={{ color: 'var(--text-secondary)', lineHeight: '1.5', fontSize: '0.8rem', flex: 1 }}>
                               {ann.isHtml ? (
-                                "Click to view full table details..."
+                                "Click to view full details..."
                               ) : (
                                 ann.content && ann.content.length > 80 ? ann.content.substring(0, 80) + '...' : ann.content
                               )}
