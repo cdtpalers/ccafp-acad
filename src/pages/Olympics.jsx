@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Medal, BookOpen, AlertCircle, TrendingUp } from 'lucide-react';
+import { Medal, BookOpen, AlertCircle, TrendingUp, X } from 'lucide-react';
 import olympicsLogo from '../assets/acad_olympics_logo.png';
+import { competitionsData } from '../data/olympicsRules';
 
 export default function Olympics() {
   const [activeTab, setActiveTab] = useState('standings');
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   // Placeholder data for standings (Company A-H)
   const standings = [
@@ -17,22 +19,7 @@ export default function Olympics() {
     { company: 'Hawk', gold: 0, silver: 0, bronze: 0, points: 0 },
   ];
 
-  const competitions = [
-    { title: 'Robotics Competition: Autonomous Ground Drone Racing Challenge', type: 'Team Event', desc: 'High-intensity autonomous ground drone racing challenge testing rapid integration, autonomous programming, sensor utilization, and mission-oriented decision-making.' },
-    { title: 'Python Programming', type: 'Team Event', desc: 'Python-based programming challenge testing logic formulation, algorithmic thinking, and basic data handling relevant to military scenarios.' },
-    { title: 'Data Analytics and Artificial Intelligence Datathon', type: 'Team Event', desc: 'Structured competition for cadets to exhibit systematic use of data, algorithms, and intelligent systems to support military decision-making.' },
-    { title: 'Defense Systems Innovation Challenge', type: 'Team Event', desc: 'Interdisciplinary competition to conceptualize, design, and develop innovative military systems supporting modern Multi-Domain Operations.' },
-    { title: 'SIMEX: Inter-Company Crisis Management Simulation Exercise', type: 'Team Event', desc: 'A national security decision simulation where company teams operate simultaneously analyzing and responding to identical scenario injects.' },
-    { title: 'Academic Mustering: Military Undergraduate Symposium', type: 'Team Event', desc: 'Culminating research competition challenging companies to conduct original research and defend their work before a panel of evaluators.' },
-    { title: 'Advocacy Film', type: 'Team Event', desc: 'Creative messaging competition to develop communication skills, critical thinking, and artistic expression through visual storytelling.' },
-    { title: 'Position Paper Challenge', type: 'Team Event', desc: 'Cadets prepare a position paper based on a contemporary issue or operational scenario, emphasizing critical thinking and analytical writing.' },
-    { title: 'Magsaysay Cup: Debate Open', type: 'Team Event', desc: 'Asian Parliamentary format debate testing effective communication, persuasion, and critical thinking on motions revolving around national security.' },
-    { title: 'Language Proficiency Contest', type: 'Team Event', desc: 'Academic competition promoting the development and enhancement of English language skills in reading, listening, vocabulary, and grammar.' },
-    { title: 'Company Mural', type: 'Team Event', desc: 'Focused on creative thinking and artistic expression that leads toward civic engagement, education, and advocacy demonstration.' },
-    { title: 'Mathenik: Mathematical Excellence and Knowledge Challenge', type: 'Team Event', desc: 'Mathematics competition designed to develop and showcase mathematical knowledge, analytical thinking, teamwork, and problem-solving skills.' },
-    { title: 'Lawpardy: A Law Jeopardy Game', type: 'Team Event', desc: 'Jeopardy-inspired competition to reinforce knowledge of law subjects like Law and Discipline, Human Rights, and International Humanitarian Law.' },
-    { title: 'Tactix: The E-games Challenge', type: 'Team Event', desc: 'E-games competition (World of Warships, CoH3, Wargame: Red Dragon) to enhance decision-making and performance in tactical operations.' }
-  ];
+  const competitions = competitionsData;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
@@ -164,7 +151,14 @@ export default function Olympics() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
               {competitions.map((comp, i) => (
-                <div key={i} className="glass-card" style={{ padding: '1.5rem' }}>
+                <div 
+                  key={i} 
+                  className="glass-card" 
+                  style={{ padding: '1.5rem', cursor: 'pointer', transition: 'transform 0.2s', position: 'relative' }}
+                  onClick={() => setSelectedEvent(comp)}
+                  onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                  onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                >
                   <h4 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>{comp.title}</h4>
                   <span className="badge badge-secondary" style={{ marginBottom: '1rem', display: 'inline-block' }}>{comp.type}</span>
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
@@ -173,10 +167,27 @@ export default function Olympics() {
                 </div>
               ))}
             </div>
-
           </div>
         )}
       </div>
+
+      {selectedEvent && (
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.6)', WebkitBackdropFilter: 'blur(4px)', backdropFilter: 'blur(4px)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={() => setSelectedEvent(null)}>
+          <div className="glass-panel modal-inner" style={{ background: 'var(--bg-color)', width: '100%', maxWidth: '800px', maxHeight: '90vh', overflowY: 'auto', position: 'relative', padding: '2.5rem', borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-lg)' }} onClick={e => e.stopPropagation()}>
+            <button onClick={() => setSelectedEvent(null)} style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', background: 'var(--surface-overlay)', border: '1px solid var(--surface-border)', color: 'var(--text-primary)', borderRadius: '50%', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'background 0.2s' }}>
+              <X size={18} />
+            </button>
+            <div className="flex-between" style={{ marginBottom: '1rem', marginTop: '0.5rem' }}>
+              <span className="badge badge-secondary">{selectedEvent.type}</span>
+            </div>
+            <h1 style={{ marginBottom: '1.5rem', fontSize: '1.8rem', color: 'var(--accent-primary)', lineHeight: 1.3 }}>{selectedEvent.title}</h1>
+            <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '2rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--surface-border)' }}>
+              {selectedEvent.desc}
+            </p>
+            <div className="rules-content" style={{ color: 'var(--text-primary)', lineHeight: '1.7', fontSize: '1rem' }} dangerouslySetInnerHTML={{ __html: selectedEvent.rulesHtml }} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
