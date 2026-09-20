@@ -127,7 +127,7 @@ export default function ClassSchedule() {
           <span className="eyebrow">Shifting Schedule</span>
           <h1 className="font-serif" style={{ margin: 0 }}>HAG Class Sched</h1>
           <p className="text-muted" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600, color: 'var(--accent-primary)' }}>
-            <Calendar size={16} /> 1st TERM shifting schedule, starting 13 JULY
+            <Calendar size={16} /> 2nd TERM 1st shift schedule, starting 21 SEP
           </p>
         </div>
       </div>
@@ -243,14 +243,6 @@ export default function ClassSchedule() {
                       let wed = row['Wednesday (W)'] || row['Wednesday'] || '-';
                       let thu = row['Thursday (TH)'] || row['Thursday'] || '-';
                       let fri = row['Friday (F)'] || row['Friday'] || '-';
-
-                      if (selectedClass !== '4CL') {
-                        mon = row['Tuesday (T)'] || row['Tuesday'] || '-';
-                        tue = row['Monday (M)'] || row['Monday'] || '-';
-                        wed = row['Thursday (TH)'] || row['Thursday'] || '-';
-                        thu = row['Wednesday (W)'] || row['Wednesday'] || '-';
-                        fri = row['Tuesday (T)'] || row['Tuesday'] || '-';
-                      }
 
                       return (
                         <tr key={i} style={{ transition: 'background 0.2s' }}>

@@ -1,6 +1,5 @@
-export const WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
-
-export const WEEK_CSV_FILES = {
+export const TERM1_WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
+export const TERM1_WEEK_CSV_FILES = {
   1: '/week1_deficiencies.csv',
   2: '/week2_deficiencies.csv',
   3: '/week3_deficiencies.csv',
@@ -15,6 +14,9 @@ export const WEEK_CSV_FILES = {
   13: '/week13_deficiencies.csv',
   14: '/week14_deficiencies.csv',
 };
+
+export const TERM2_WEEKS = [];
+export const TERM2_WEEK_CSV_FILES = {};
 
 export const COMPANY_NAMES = {
   'A': 'Alfa Company',

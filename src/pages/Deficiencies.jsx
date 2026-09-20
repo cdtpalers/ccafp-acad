@@ -2,7 +2,7 @@ import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, Eye
 import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { WEEKS, WEEK_CSV_FILES, COMPANY_NAMES, COMPANY_COLORS } from '../utils/constants';
+import { TERM1_WEEKS, TERM1_WEEK_CSV_FILES, TERM2_WEEKS, TERM2_WEEK_CSV_FILES, COMPANY_NAMES, COMPANY_COLORS } from '../utils/constants';
 import { parseCSV } from '../utils/csvParser';
 
 const AnimatedNumber = ({ value, isFloat = false }) => {
@@ -30,6 +30,10 @@ const AnimatedNumber = ({ value, isFloat = false }) => {
 };
 
 export default function Deficiencies() {
+  const [selectedTerm, setSelectedTerm] = useState(2);
+  const WEEKS = selectedTerm === 1 ? TERM1_WEEKS : TERM2_WEEKS;
+  const WEEK_CSV_FILES = selectedTerm === 1 ? TERM1_WEEK_CSV_FILES : TERM2_WEEK_CSV_FILES;
+
   const [allWeeksData, setAllWeeksData] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedClassFilter, setSelectedClassFilter] = useState('All');
@@ -39,7 +43,7 @@ export default function Deficiencies() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
-  const [activeWeek, setActiveWeek] = useState(14);
+  const [activeWeek, setActiveWeek] = useState(WEEKS.length > 0 ? WEEKS[0] : 1);
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState('data');
   const [hoveredBar, setHoveredBar] = useState(null);
@@ -53,7 +57,12 @@ export default function Deficiencies() {
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
 
-  // 1. Fetch ALL data on mount
+  // Update activeWeek when term changes
+  useEffect(() => {
+    setActiveWeek(WEEKS.length > 0 ? WEEKS[0] : 1);
+  }, [selectedTerm]);
+
+  // 1. Fetch ALL data on mount and term change
   useEffect(() => {
     async function fetchAllData() {
       setLoading(true);
@@ -79,7 +88,7 @@ export default function Deficiencies() {
       }
     }
     fetchAllData();
-  }, []);
+  }, [WEEK_CSV_FILES]);
 
   const validWeeks = useMemo(() => {
     return Object.keys(allWeeksData).map(w => parseInt(w)).sort((a, b) => a - b);
@@ -817,10 +826,47 @@ export default function Deficiencies() {
         )}
       </div>
 
-      {/* Week Tabs */}
-      <div className="glass-panel" style={{ marginBottom: '1rem', padding: '0.5rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
-        {WEEKS.map(week => (
+      {/* Term & Week Tabs */}
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--surface-overlay)', padding: '0.25rem', borderRadius: '8px', border: '1px solid var(--surface-border)' }}>
           <button
+            onClick={() => setSelectedTerm(1)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 1 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 1 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            1st Term
+          </button>
+          <button
+            onClick={() => setSelectedTerm(2)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 2 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 2 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            2nd Term
+          </button>
+        </div>
+
+        <div className="glass-panel" style={{ padding: '0.25rem', display: 'flex', gap: '0.5rem', overflowX: 'auto', flex: 1, alignItems: 'center' }}>
+        {WEEKS.length === 0 ? (
+          <div style={{ padding: '0.25rem 1rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>No deficiency data available for this term yet.</div>
+        ) : (
+          WEEKS.map(week => (
+            <button
             key={week}
             onClick={() => handleWeekChange(week)}
             style={{
@@ -847,7 +893,9 @@ export default function Deficiencies() {
             <Calendar size={18} />
             Week {week}
           </button>
-        ))}
+          ))
+        )}
+        </div>
       </div>
 
       {/* ── Search & Filter Controls (Shared across Data & Comparative Insights) ── */}
