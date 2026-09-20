@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Bell, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, FileText, Trophy } from 'lucide-react';
+import { Home, Bell, ShieldAlert, Calendar, Menu, X, Info, Moon, Sun, ChevronLeft, ChevronRight, FileText, Crown } from 'lucide-react';
 import acadLogo from '../assets/acad_logo.webp';
 import DateTimeWidget from './DateTimeWidget';
 
@@ -20,7 +20,7 @@ export default function Layout({ children }) {
 
   const navItems = [
     { path: '/', label: 'Overview', icon: <Home size={20} /> },
-    { path: '/olympics', label: 'Academic Olympics', icon: <Trophy size={20} /> },
+    { path: '/olympics', label: 'Academic Olympics', icon: <Crown size={20} /> },
     { path: '/announcements', label: 'Announcements', icon: <Bell size={20} /> },
     { path: '/deficiencies', label: 'Deficiencies', icon: <ShieldAlert size={20} /> },
     { path: '/schedule', label: 'HAG CLASS SCHED', icon: <Calendar size={20} /> },
@@ -87,28 +87,17 @@ export default function Layout({ children }) {
                 to={item.path}
                 className={`nav-link ${isActive ? 'active' : ''}`}
                 style={isOlympics && !isActive ? {
-                  background: 'linear-gradient(90deg, rgba(14, 165, 233, 0.1), transparent)',
-                  borderLeft: '2px solid var(--accent-primary)',
-                  color: 'var(--accent-primary)'
+                  background: 'linear-gradient(90deg, rgba(234, 179, 8, 0.15), transparent)',
+                  borderLeft: '2px solid #eab308',
+                  color: '#eab308'
+                } : isOlympics && isActive ? {
+                  borderLeft: '2px solid #eab308',
                 } : {}}
                 onClick={() => setSidebarOpen(false)}
               >
                 {item.icon}
                 <div style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
                   <span>{item.label}</span>
-                  {isOlympics && !isCollapsed && (
-                    <span style={{ 
-                      background: 'var(--accent-primary)', 
-                      color: 'var(--on-accent)', 
-                      fontSize: '0.55rem', 
-                      padding: '0.15rem 0.4rem', 
-                      borderRadius: '4px',
-                      fontWeight: 700,
-                      letterSpacing: '0.05em'
-                    }}>
-                      NEW
-                    </span>
-                  )}
                 </div>
               </Link>
             );
