@@ -78,17 +78,41 @@ export default function Layout({ children }) {
         </div>
 
         <nav className="sidebar-nav">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
-              onClick={() => setSidebarOpen(false)}
-            >
-              {item.icon}
-              <span>{item.label}</span>
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isOlympics = item.path === '/olympics';
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-link ${isActive ? 'active' : ''}`}
+                style={isOlympics && !isActive ? {
+                  background: 'linear-gradient(90deg, rgba(14, 165, 233, 0.1), transparent)',
+                  borderLeft: '2px solid var(--accent-primary)',
+                  color: 'var(--accent-primary)'
+                } : {}}
+                onClick={() => setSidebarOpen(false)}
+              >
+                {item.icon}
+                <div style={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+                  <span>{item.label}</span>
+                  {isOlympics && !isCollapsed && (
+                    <span style={{ 
+                      background: 'var(--accent-primary)', 
+                      color: 'var(--on-accent)', 
+                      fontSize: '0.55rem', 
+                      padding: '0.15rem 0.4rem', 
+                      borderRadius: '4px',
+                      fontWeight: 700,
+                      letterSpacing: '0.05em'
+                    }}>
+                      NEW
+                    </span>
+                  )}
+                </div>
+              </Link>
+            );
+          })}
         </nav>
 
         <DateTimeWidget isCollapsed={isCollapsed} />
