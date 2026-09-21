@@ -42,7 +42,8 @@ export default function Olympics() {
             transform: 'translate(-50%, -50%)',
             height: '180%',
             opacity: 0.15,
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            mixBlendMode: 'multiply'
           }} 
         />
         <img 
@@ -55,7 +56,8 @@ export default function Olympics() {
             transform: 'translate(50%, -50%)',
             height: '180%',
             opacity: 0.15,
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            mixBlendMode: 'multiply'
           }} 
         />
         <h1 className="font-serif" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Academic Olympics 2027</h1>
