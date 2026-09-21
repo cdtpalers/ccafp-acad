@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Medal, BookOpen, AlertCircle, TrendingUp, X } from 'lucide-react';
-import olympicsLogo from '../assets/acad_olympics_logo.png';
+import olympicsLogo from '../assets/new_olympics_logo.jpg';
 import { competitionsData } from '../data/olympicsRules';
 
 export default function Olympics() {
@@ -33,8 +33,16 @@ export default function Olympics() {
         }} />
         <img 
           src={olympicsLogo} 
-          alt="Academic Olympics 2027 Logo" 
-          style={{ width: '140px', height: '140px', objectFit: 'contain', margin: '0 auto 1.5rem', display: 'block', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))' }} 
+          alt="Academic Olympics Background" 
+          style={{ 
+            position: 'absolute',
+            right: 0,
+            top: '50%',
+            transform: 'translate(50%, -50%)',
+            height: '180%',
+            opacity: 0.15,
+            pointerEvents: 'none'
+          }} 
         />
         <h1 className="font-serif" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Academic Olympics 2027</h1>
         <p className="text-muted" style={{ maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
