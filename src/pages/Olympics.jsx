@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Medal, BookOpen, AlertCircle, TrendingUp, X } from 'lucide-react';
-import olympicsLogo from '../assets/new_olympics_logo.jpg';
-import olympicsLeftBanner from '../assets/olympics_left_banner.png';
+import olympicsLogo from '../assets/new_olympics_logo-removebg-preview.png';
+import olympicsLeftBanner from '../assets/olympics_left_banner-removebg-preview.png';
 import { competitionsData } from '../data/olympicsRules';
 
 export default function Olympics() {
@@ -42,8 +42,7 @@ export default function Olympics() {
             transform: 'translate(-50%, -50%)',
             height: '180%',
             opacity: 0.15,
-            pointerEvents: 'none',
-            mixBlendMode: 'multiply'
+            pointerEvents: 'none'
           }} 
         />
         <img 
@@ -56,8 +55,7 @@ export default function Olympics() {
             transform: 'translate(50%, -50%)',
             height: '180%',
             opacity: 0.15,
-            pointerEvents: 'none',
-            mixBlendMode: 'multiply'
+            pointerEvents: 'none'
           }} 
         />
         <h1 className="font-serif" style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-primary)' }}>Academic Olympics 2027</h1>
