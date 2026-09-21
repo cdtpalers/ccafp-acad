@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Medal, BookOpen, AlertCircle, TrendingUp, X } from 'lucide-react';
 import olympicsLogo from '../assets/new_olympics_logo.jpg';
+import olympicsLeftBanner from '../assets/olympics_left_banner.png';
 import { competitionsData } from '../data/olympicsRules';
 
 export default function Olympics() {
@@ -31,6 +32,19 @@ export default function Olympics() {
           background: 'radial-gradient(circle at 50% -20%, var(--accent-primary) 0%, transparent 60%)', 
           opacity: 0.1 
         }} />
+        <img 
+          src={olympicsLeftBanner} 
+          alt="Academic Olympics Left Background" 
+          style={{ 
+            position: 'absolute',
+            left: 0,
+            top: '50%',
+            transform: 'translate(-50%, -50%)',
+            height: '180%',
+            opacity: 0.15,
+            pointerEvents: 'none'
+          }} 
+        />
         <img 
           src={olympicsLogo} 
           alt="Academic Olympics Background" 
