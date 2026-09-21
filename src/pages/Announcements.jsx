@@ -215,13 +215,15 @@ export default function Announcements() {
 
         // Render Kanban Board
         return (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', alignItems: 'start', paddingBottom: '1rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', alignItems: 'flex-start', paddingBottom: '1rem' }}>
             {columns.map(col => {
                const colAnns = categorizedAnns[col];
                if (colAnns.length === 0 && (searchTerm || typeFilter !== 'All Types') && col === 'Other') return null;
 
+               const isInfo = col === 'Info';
+
                return (
-                 <div key={col} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                 <div key={col} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flex: isInfo ? '2 1 400px' : '1 1 250px' }}>
                    <div className="flex-between" style={{ padding: '0 0.5rem', marginBottom: '0.5rem' }}>
                      <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.15rem' }}>
                        <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: `var(--badge-${col.toLowerCase()}-color, var(--text-secondary))` }}></div>
