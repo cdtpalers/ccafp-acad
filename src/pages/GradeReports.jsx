@@ -1,9 +1,11 @@
 import { FileText, Info, Calendar, BookOpen, Lock, Eye, EyeOff } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
+const TERM1_WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
+const TERM2_WEEKS = [];
+const TERM1_4CL_WEEKS = [7];
 
-const WEEK_REPORTS = {
+const TERM1_WEEK_REPORTS = {
   1: [
     "COM431.pdf", "ENGG431.pdf", "GIS231.pdf", "HRP431.pdf", "IT331.pdf", 
     "LAW231.pdf", "LDM331.pdf", "OM231.pdf", "PHI231.pdf", "PHY331.pdf", 
@@ -74,14 +76,36 @@ const WEEK_REPORTS = {
   ]
 };
 
+const TERM2_WEEK_REPORTS = {};
+const TERM1_4CL_WEEK_REPORTS = {
+  7: [
+    "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
+  ]
+};
+
 export default function GradeReports() {
-  const [activeWeek, setActiveWeek] = useState(14);
-  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[14]?.[0] || null);
+  const [selectedTerm, setSelectedTerm] = useState(1);
+  const WEEKS = selectedTerm === 1 ? TERM1_WEEKS : (selectedTerm === 3 ? TERM1_4CL_WEEKS : TERM2_WEEKS);
+  const WEEK_REPORTS = selectedTerm === 1 ? TERM1_WEEK_REPORTS : (selectedTerm === 3 ? TERM1_4CL_WEEK_REPORTS : TERM2_WEEK_REPORTS);
+  
+  const [activeWeek, setActiveWeek] = useState(WEEKS.length > 0 ? WEEKS[0] : 14);
+  const [selectedReport, setSelectedReport] = useState(WEEK_REPORTS[activeWeek]?.[0] || null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [authError, setAuthError] = useState('');
+
+  useEffect(() => {
+    const defaultWeek = WEEKS.length > 0 ? WEEKS[0] : 14;
+    setActiveWeek(defaultWeek);
+    if (WEEK_REPORTS[defaultWeek] && WEEK_REPORTS[defaultWeek].length > 0) {
+      setSelectedReport(WEEK_REPORTS[defaultWeek][0]);
+    } else {
+      setSelectedReport(null);
+    }
+  }, [selectedTerm]);
+
 
   const handleWeekChange = (week) => {
     setActiveWeek(week);
@@ -100,6 +124,9 @@ export default function GradeReports() {
 
   const getPdfUrl = () => {
     if (!selectedReport) return '';
+    if (selectedTerm === 3) {
+      return `/4CL_week${activeWeek}/${selectedReport}#toolbar=0&navpanes=0&scrollbar=0`;
+    }
     return `/week${activeWeek}(def)/${selectedReport}#toolbar=0&navpanes=0&scrollbar=0`;
   };
 
@@ -153,14 +180,67 @@ export default function GradeReports() {
         <div className="flex-between" style={{ alignItems: 'flex-end', gap: '1.5rem' }}>
           <div>
             <h1 className="font-serif" style={{ margin: 0 }}>Deficiency Reports</h1>
-            <p className="text-muted" style={{ marginTop: '0.6rem' }}>Weekly Deficiency Reports (1CL &ndash; 3CL)</p>
+            <p className="text-muted" style={{ marginTop: '0.6rem' }}>Weekly Deficiency Reports (1CL &ndash; 4CL)</p>
           </div>
           <span className="label-tactical hide-mobile" style={{ flexShrink: 0 }}>Week {activeWeek} // Declassified</span>
         </div>
       </header>
 
-      <div className="glass-panel" style={{ marginBottom: '1.5rem', padding: '0.5rem', display: 'flex', gap: '0.5rem', overflowX: 'auto' }}>
-        {WEEKS.map(week => (
+      {/* Term & Week Tabs */}
+      <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--surface-overlay)', padding: '0.25rem', borderRadius: '8px', border: '1px solid var(--surface-border)' }}>
+          <button
+            onClick={() => setSelectedTerm(1)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 1 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 1 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            1st Term
+          </button>
+          <button
+            onClick={() => setSelectedTerm(3)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 3 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 3 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            1st Term (4CL)
+          </button>
+          <button
+            onClick={() => setSelectedTerm(2)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 2 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 2 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            2nd Term
+          </button>
+        </div>
+
+        <div className="glass-panel" style={{ padding: '0.25rem', display: 'flex', gap: '0.5rem', overflowX: 'auto', flex: 1, alignItems: 'center' }}>
+          {WEEKS.length === 0 ? (
+            <div style={{ padding: '0.25rem 1rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>No reports available for this term.</div>
+          ) : (
+            WEEKS.map(week => (
           <button
             key={week}
             onClick={() => handleWeekChange(week)}
@@ -188,7 +268,9 @@ export default function GradeReports() {
             <Calendar size={18} />
             Week {week}
           </button>
-        ))}
+          ))
+        )}
+        </div>
       </div>
 
       {!WEEK_REPORTS[activeWeek] ? (
@@ -222,7 +304,7 @@ export default function GradeReports() {
               >
                 {(() => {
                   const reports = WEEK_REPORTS[activeWeek];
-                  const groups = { '1CL': [], '2CL': [], '3CL': [], 'Other': [] };
+                  const groups = { '1CL': [], '2CL': [], '3CL': [], '4CL': [], 'Other': [] };
                   reports.forEach(report => {
                     const basename = report.split('/').pop();
                     const match = basename.match(/\d/);
@@ -230,6 +312,7 @@ export default function GradeReports() {
                       if (match[0] === '4') groups['1CL'].push(report);
                       else if (match[0] === '3') groups['2CL'].push(report);
                       else if (match[0] === '2') groups['3CL'].push(report);
+                      else if (match[0] === '1') groups['4CL'].push(report);
                       else groups['Other'].push(report);
                     } else {
                       groups['Other'].push(report);

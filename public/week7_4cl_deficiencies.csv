@@ -1,0 +1,141 @@
+class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,unit_cnt,final_exam,pts,grade
+4CL,ECO132,Global Economic Governance,"LUBAY, J, V",28206,L,G,32.6000,5,24.0000,1,0,-13.40,5.66
+4CL,ECO132,Global Economic Governance,"MANUEL, A, A",30228,B,A,36.7000,6,27.0000,1,0,-13.30,5.79090
+4CL,ECO132,Global Economic Governance,"DAYAG, V, R",30112,I,E,40.6000,6,24.0000,1,0,-12.40,5.87272
+4CL,ECO132,Global Economic Governance,"MANGINSAY, B, M",30227,J,F,37.9000,5,22.0000,1,0,-10.10,5.99
+4CL,ECO132,Global Economic Governance,"REMO, X, A",29271,B,A,37.8000,6,32.0000,1,0,-7.20,6.34545
+4CL,ECO132,Global Economic Governance,"BRAZIL, K, L",30061,K,F,40.8000,5,22.0000,1,0,-7.20,6.27999
+4CL,ECO132,Global Economic Governance,"MORGA, J, F",30249,F,D,43.4000,6,27.0000,1,0,-6.60,6.4
+4CL,ECO132,Global Economic Governance,"GALVEZ, R, C",29140,F,C,37.4000,5,26.0000,1,0,-6.60,6.34
+4CL,ECO132,Global Economic Governance,"COLIPANO, C, L",30097,K,F,49.5000,6,21.0000,1,0,-6.50,6.40909
+4CL,ECO132,Global Economic Governance,"PROVIDO, J, T",30294,F,C,42.0000,6,29.0000,1,0,-6.00,6.45454
+4CL,ECO132,Global Economic Governance,"CUDAL, K, F",30107,G,D,44.2000,6,27.0000,1,0,-5.80,6.47272
+4CL,ECO132,Global Economic Governance,"POBLADOR, C, S",30292,H,D,47.2000,6,24.0000,1,0,-5.80,6.47272
+4CL,ECO132,Global Economic Governance,"LALEO, J, W",30194,M,G,49.3000,6,22.0000,1,0,-5.70,6.48181
+4CL,ECO132,Global Economic Governance,"JALALON, J, B",30185,B,A,42.5000,6,29.0000,1,0,-5.50,6.5
+4CL,ECO132,Global Economic Governance,"BULIYAT, A, R",30066,J,F,47.9000,6,24.0000,1,0,-5.10,6.53636
+4CL,ECO132,Global Economic Governance,"GAYAO, J, S",30162,K,F,48.0000,6,24.0000,1,0,-5.00,6.54545
+4CL,ECO132,Global Economic Governance,"DELOS SANTOS, R, V",30119,K,F,39.6000,5,26.0000,1,0,-4.40,6.56
+4CL,ECO132,Global Economic Governance,"LADERA, L, G",30192,B,A,46.0000,6,27.0000,1,0,-4.00,6.63636
+4CL,ECO132,Global Economic Governance,"ESCAT, R, C",30132,C,B,42.3000,6,31.0000,1,0,-3.70,6.66363
+4CL,ECO132,Global Economic Governance,"CALAO-IT, C, B",30075,I,E,47.5000,6,26.0000,1,0,-3.50,6.68181
+4CL,ECO132,Global Economic Governance,"BALAZON, J, L",29036,H,E,43.1000,6,31.0000,1,0,-2.90,6.73636
+4CL,ECO132,Global Economic Governance,"SANCHEZ, J, Z",29293,F,C,32.1000,5,35.0000,1,0,-2.90,6.70999
+4CL,ECO132,Global Economic Governance,"ABAN, E, P",30001,N,H,45.5000,6,29.0000,1,0,-2.50,6.77272
+4CL,ECO132,Global Economic Governance,"LUMICQUIO, C, K",30209,D,B,47.1000,6,28.0000,1,0,-1.90,6.82727
+4CL,ECO132,Global Economic Governance,"TENA, L, S",29319,N,H,50.2000,6,25.0000,1,0,-1.80,6.83636
+4CL,ECO132,Global Economic Governance,"FERROLINO, M, H",29133,H,E,38.5000,5,30.0000,1,0,-1.50,6.85
+4CL,ECO132,Global Economic Governance,"SODE, A, S",30328,I,E,44.9000,6,31.0000,1,0,-1.10,6.9
+4CL,ECO132,Global Economic Governance,"DELA CRUZ, M, M",30118,A,A,53.9000,6,22.0000,1,0,-1.10,6.9
+4CL,ECO132,Global Economic Governance,"LAYAGAN, A, T",30198,K,F,42.0000,6,34.0000,1,0,-1.00,6.90909
+4CL,ECO132,Global Economic Governance,"MACALISANG, M, R",30213,G,D,49.4000,6,27.0000,1,0,-0.60,6.94545
+4CL,ECO132,Global Economic Governance,"MAYGAY, J, A",30239,J,E,48.5000,6,28.0000,1,0,-0.50,6.95454
+4CL,ECO132,Global Economic Governance,"GUINDALOS, N, C",30173,F,D,42.9000,6,34.0000,1,0,-0.10,6.99090
+4CL,ECO132,Global Economic Governance,"TELAN, J, D",30342,C,B,35.9000,5,34.0000,1,0,-0.10,6.99
+4CL,MAT132,Algebra with Trigonometry,"BALICDANG, K, A",30033,N,H,32.0000,6,19.0000,1,0,-26.00,4.63636
+4CL,MAT132,Algebra with Trigonometry,"GRANIL, B, B",30168,O,H,28.2000,6,23.0000,1,0,-25.80,4.65454
+4CL,MAT132,Algebra with Trigonometry,"MORGA, J, F",30249,F,D,27.6000,6,26.0000,1,0,-23.40,4.87272
+4CL,MAT132,Algebra with Trigonometry,"GALVEZ, R, C",29140,F,C,32.5000,6,24.0000,1,0,-20.50,5.13636
+4CL,MAT132,Algebra with Trigonometry,"CRUZADA, M, G",30103,K,F,27.8500,6,29.0000,1,0,-20.15,5.16818
+4CL,MAT132,Algebra with Trigonometry,"GANO, J, C",30157,G,D,29.0000,6,29.0000,1,0,-19.00,5.27272
+4CL,MAT132,Algebra with Trigonometry,"ABCALEN, J, B",30003,I,E,36.8500,6,22.0000,1,0,-18.15,5.35000
+4CL,MAT132,Algebra with Trigonometry,"PAJE, Y, A",30272,B,A,32.0000,6,28.0000,1,0,-17.00,5.45454
+4CL,MAT132,Algebra with Trigonometry,"JALALON, J, B",30185,B,A,31.8500,6,29.5000,1,0,-15.65,5.57727
+4CL,MAT132,Algebra with Trigonometry,"REBITA, A, A",30302,H,D,29.7000,6,32.0000,1,0,-15.30,5.60909
+4CL,MAT132,Algebra with Trigonometry,"DELA CRUZ, M, M",30118,A,A,39.3500,6,24.0000,1,0,-13.65,5.75909
+4CL,MAT132,Algebra with Trigonometry,"REMO, X, A",29271,B,A,34.3500,6,29.0000,1,0,-13.65,5.75909
+4CL,MAT132,Algebra with Trigonometry,"LUBAY, J, V",28206,L,G,30.4000,6,33.0000,1,0,-13.60,5.76363
+4CL,MAT132,Algebra with Trigonometry,"VITE, M, P",30364,B,A,33.0000,5,24.0000,1,0,-13.00,5.7
+4CL,MAT132,Algebra with Trigonometry,"NATO, D, S",30253,F,C,37.1000,6,27.0000,1,0,-12.90,5.82727
+4CL,MAT132,Algebra with Trigonometry,"PAHIMUTANG, J, D",30271,D,B,34.7500,6,30.0000,1,0,-12.25,5.88636
+4CL,MAT132,Algebra with Trigonometry,"SANTIAGO, J, C",30318,B,A,34.2000,6,31.0000,1,0,-11.80,5.92727
+4CL,MAT132,Algebra with Trigonometry,"SUSAS, J, A",30332,J,E,37.3000,6,28.0000,1,0,-11.70,5.93636
+4CL,MAT132,Algebra with Trigonometry,"LIBATIQUE, D, G",30202,A,A,38.4500,6,27.0000,1,0,-11.55,5.95
+4CL,MAT132,Algebra with Trigonometry,"CANONIGO, E, M",30081,C,B,30.6000,6,35.0000,1,0,-11.40,5.96363
+4CL,MAT132,Algebra with Trigonometry,"BULIYAT, A, R",30066,J,F,33.7500,6,34.0000,1,0,-9.25,6.15909
+4CL,MAT132,Algebra with Trigonometry,"TANGCAY, L, S",30338,A,A,39.8000,6,28.0000,1,0,-9.20,6.16363
+4CL,MAT132,Algebra with Trigonometry,"ANIMAS, E, G",29017,M,H,34.0000,5,27.0000,1,0,-9.00,6.1
+4CL,MAT132,Algebra with Trigonometry,"LADERA, L, G",30192,B,A,32.0000,5,30.0000,1,0,-8.00,6.2
+4CL,MAT132,Algebra with Trigonometry,"RUTE, M, P",29281,H,E,38.0000,6,31.0000,1,0,-8.00,6.27272
+4CL,MAT132,Algebra with Trigonometry,"ESQUEJO, J, S",30135,M,G,31.1000,5,31.0000,1,0,-7.90,6.21
+4CL,MAT132,Algebra with Trigonometry,"BALILI, E, F",30034,B,B,39.5000,6,30.0000,1,0,-7.50,6.31818
+4CL,MAT132,Algebra with Trigonometry,"JIMENEZ, J, C",30186,H,E,38.5000,6,31.0000,1,0,-7.50,6.31818
+4CL,MAT132,Algebra with Trigonometry,"MANABAT, J, R",30225,D,B,34.5000,5,28.0000,1,0,-7.50,6.25
+4CL,MAT132,Algebra with Trigonometry,"LUMICQUIO, C, K",30209,D,B,32.8500,6,36.7500,1,0,-7.40,6.32727
+4CL,MAT132,Algebra with Trigonometry,"DELOS SANTOS, R, V",30119,K,F,39.0500,6,31.0000,1,0,-6.95,6.36818
+4CL,MAT132,Algebra with Trigonometry,"MORATA, C, H",30247,O,H,37.2000,6,33.0000,1,0,-6.80,6.38181
+4CL,MAT132,Algebra with Trigonometry,"BALAZON, J, L",29036,H,E,33.7500,5,29.5000,1,0,-6.75,6.325
+4CL,MAT132,Algebra with Trigonometry,"PIQUERO, S, B",30291,I,E,40.2500,6,30.0000,1,0,-6.75,6.38636
+4CL,MAT132,Algebra with Trigonometry,"SERISOLA, A, D",30323,J,E,38.5000,6,32.0000,1,0,-6.50,6.40909
+4CL,MAT132,Algebra with Trigonometry,"GALANDE, C, D",30154,I,E,40.2000,6,30.5000,1,0,-6.30,6.42727
+4CL,MAT132,Algebra with Trigonometry,"TELAN, J, D",30342,C,B,37.5000,6,34.0000,1,0,-5.50,6.5
+4CL,MAT132,Algebra with Trigonometry,"GELVEZON, C, D",30163,A,A,41.7500,6,30.0000,1,0,-5.25,6.52272
+4CL,MAT132,Algebra with Trigonometry,"GACCAD, C, M",30152,I,E,42.2000,6,30.0000,1,0,-4.80,6.56363
+4CL,MAT132,Algebra with Trigonometry,"AGUSTIN, D, D",30013,N,H,38.9500,6,33.5000,1,0,-4.55,6.58636
+4CL,MAT132,Algebra with Trigonometry,"DEMAFILES, C, E",30120,C,B,38.5000,6,34.0000,1,0,-4.50,6.59090
+4CL,MAT132,Algebra with Trigonometry,"ATILANO, D, Z",30028,N,H,41.7000,6,31.0000,1,0,-4.30,6.60909
+4CL,MAT132,Algebra with Trigonometry,"VILLAVER, M, J",30359,K,F,36.5000,6,36.5000,1,0,-4.00,6.63636
+4CL,MAT132,Algebra with Trigonometry,"DAYAG, V, R",30112,I,E,38.0500,6,35.0000,1,0,-3.95,6.64090
+4CL,MAT132,Algebra with Trigonometry,"ADOBE, C, V",30007,K,F,3.2500,1,0,0,0,-3.75,3.25
+4CL,MAT132,Algebra with Trigonometry,"LECAROZ, L, G",30199,M,G,43.9500,6,29.5000,1,0,-3.55,6.67727
+4CL,MAT132,Algebra with Trigonometry,"LAYAGAN, A, T",30198,K,F,42.1000,6,32.0000,1,0,-2.90,6.73636
+4CL,MAT132,Algebra with Trigonometry,"GALVE, C, S",30156,M,G,42.2500,6,32.0000,1,0,-2.75,6.75
+4CL,MAT132,Algebra with Trigonometry,"BRAZIL, K, L",30061,K,F,42.5000,6,32.0000,1,0,-2.50,6.77272
+4CL,MAT132,Algebra with Trigonometry,"GICOLE, K, B",29150,J,F,31.7500,5,36.0000,1,0,-2.25,6.775
+4CL,MAT132,Algebra with Trigonometry,"NAWI, R, B",30254,H,D,45.7500,6,29.0000,1,0,-2.25,6.79545
+4CL,MAT132,Algebra with Trigonometry,"DE VERA, R, P",30117,I,E,43.2000,6,31.7500,1,0,-2.05,6.81363
+4CL,MAT132,Algebra with Trigonometry,"GUTIERREZ, C, R",30177,B,A,40.5000,6,35.0000,1,0,-1.50,6.86363
+4CL,MAT132,Algebra with Trigonometry,"BAUTISTA, G, B",30046,L,G,5.6500,1,0,0,0,-1.35,5.65
+4CL,MAT132,Algebra with Trigonometry,"PANLICAN, N, L",30278,O,H,6.0000,1,0,0,0,-1.00,6.0
+4CL,MAT132,Algebra with Trigonometry,"SIMPAO, A, S",30326,H,D,20.0000,3,0,0,0,-1.00,6.66666
+4CL,MAT132,Algebra with Trigonometry,"MANGA, L, P",29208,E,G,36.2000,6,40.0000,1,0,-0.80,6.92727
+4CL,MAT132,Algebra with Trigonometry,"COPREROS, R, R",30100,A,A,40.5000,6,36.0000,1,0,-0.50,6.95454
+4CL,MAT132,Algebra with Trigonometry,"MORELO, R, L",30248,B,A,37.5000,6,39.0000,1,0,-0.50,6.95454
+4CL,MAT132,Algebra with Trigonometry,"BONOS, V, G",30057,N,H,38.7500,6,38.0000,1,0,-0.25,6.97727
+4CL,MAT132,Algebra with Trigonometry,"PELAEZ, J, H",30285,O,H,35.8500,6,41.0000,1,0,-0.15,6.98636
+4CL,PHI132,Philosophy and Ethical Reasoning,"WAHAB, K, J",30365,K,F,64.0000,7,8.0000,1,0,-12.00,6.0
+4CL,PHI132,Philosophy and Ethical Reasoning,"OJO, E, M",30261,K,F,68.5000,7,8.0000,1,0,-7.50,6.375
+4CL,PHI132,Philosophy and Ethical Reasoning,"ESPIRITU, J, C",30134,D,B,42.0000,7,0,0,0,-7.00,6.0
+4CL,PHI132,Philosophy and Ethical Reasoning,"LALEO, J, W",30194,M,G,45.0000,7,0,0,0,-4.00,6.42857
+4CL,PHI132,Philosophy and Ethical Reasoning,"FERROLINO, M, H",29133,H,E,41.0000,6,0,0,0,-1.00,6.83333
+4CL,PHI132,Philosophy and Ethical Reasoning,"GICOLE, K, B",29150,J,F,48.5000,7,0,0,0,-0.50,6.92857
+4CL,PHI132,Philosophy and Ethical Reasoning,"LUBAY, J, V",28206,L,G,41.5000,6,0,0,0,-0.50,6.91666
+4CL,PHI132,Philosophy and Ethical Reasoning,"PROVIDO, J, T",30294,F,C,48.5000,7,0,0,0,-0.50,6.92857
+4CL,POM132,Principles of Management,"LUBAY, J, V",28206,L,G,38.3000,6,25.2000,1,0,-13.50,5.77272
+4CL,POM132,Principles of Management,"TENA, L, S",29319,N,H,48.0500,6,20.8000,1,0,-8.15,6.25909
+4CL,POM132,Principles of Management,"MORGA, J, F",30249,F,D,47.2000,6,22.0000,1,0,-7.80,6.29090
+4CL,POM132,Principles of Management,"CEJOCO, V, T",30093,E,C,45.1500,6,24.4000,1,0,-7.45,6.32272
+4CL,POM132,Principles of Management,"BALAZON, J, L",29036,H,E,47.4500,6,22.3000,1,0,-7.25,6.34090
+4CL,POM132,Principles of Management,"ABAN, E, P",30001,N,H,45.4500,6,25.0000,1,0,-6.55,6.40454
+4CL,POM132,Principles of Management,"PROVIDO, J, T",30294,F,C,44.7000,6,26.0000,1,0,-6.30,6.42727
+4CL,POM132,Principles of Management,"PAGHARION, A, H",30266,F,D,48.8000,6,22.3000,1,0,-5.90,6.46363
+4CL,POM132,Principles of Management,"BULIYAT, A, R",30066,J,F,45.3500,6,25.8000,1,0,-5.85,6.46818
+4CL,POM132,Principles of Management,"SODE, A, S",30328,I,E,52.2000,7,26.8000,1,0,-5.00,6.58333
+4CL,POM132,Principles of Management,"AQUINO, K, T",30025,G,D,46.8000,6,25.8000,1,0,-4.40,6.6
+4CL,POM132,Principles of Management,"MORATA, C, H",30247,O,H,49.9500,6,22.8000,1,0,-4.25,6.61363
+4CL,POM132,Principles of Management,"REMO, X, A",29271,B,A,46.3500,6,26.4000,1,0,-4.25,6.61363
+4CL,POM132,Principles of Management,"TORRES, D, E",30349,L,F,53.3000,7,26.8000,1,0,-3.90,6.67500
+4CL,POM132,Principles of Management,"DELOS SANTOS, R, V",30119,K,F,39.2000,5,27.6000,1,0,-3.20,6.68000
+4CL,POM132,Principles of Management,"MANGINSAY, B, M",30227,J,F,38.9000,5,27.9000,1,0,-3.20,6.68
+4CL,POM132,Principles of Management,"ABCALEN, J, B",30003,I,E,51.8500,7,29.2000,1,0,-2.95,6.75416
+4CL,POM132,Principles of Management,"LALEO, J, W",30194,M,G,49.4000,6,25.2000,1,0,-2.40,6.78181
+4CL,POM132,Principles of Management,"SONGALIA, C, M",30329,O,H,42.4500,5,25.2000,1,0,-2.35,6.76500
+4CL,POM132,Principles of Management,"JALALON, J, B",30185,B,A,48.7000,6,26.0000,1,0,-2.30,6.79090
+4CL,POM132,Principles of Management,"FANGAYEN, A, L",30143,B,A,41.6500,6,33.2000,1,0,-2.15,6.80454
+4CL,POM132,Principles of Management,"CORRE, B, C",30102,I,E,57.7000,7,24.4000,1,0,-1.90,6.84166
+4CL,POM132,Principles of Management,"AUSTRIA, N, B",29031,I,H,51.7500,7,30.8000,1,0,-1.45,6.87916
+4CL,POM132,Principles of Management,"GRANIL, B, B",30168,O,H,41.5500,6,34.0000,1,0,-1.45,6.86818
+4CL,POM132,Principles of Management,"MACALISANG, M, R",30213,G,D,44.4000,6,31.4000,1,0,-1.20,6.89090
+4CL,POM132,Principles of Management,"LANGKIT, F, B",30195,I,E,56.1000,7,26.8000,1,0,-1.10,6.90833
+4CL,POM132,Principles of Management,"ATILANO, D, Z",30028,N,H,46.1500,6,30.0000,1,0,-0.85,6.92272
+4CL,POM132,Principles of Management,"BRAZIL, K, L",30061,K,F,41.8500,5,27.6000,1,0,-0.55,6.945
+4CL,POM132,Principles of Management,"ESCAT, R, C",30132,C,B,42.4500,6,34.0000,1,0,-0.55,6.95
+4CL,POM132,Principles of Management,"SUMAYA, J, O",30331,L,F,55.9000,7,27.6000,1,0,-0.50,6.95833
+4CL,POM132,Principles of Management,"ESTRELLA, J, L",29129,I,F,44.9000,6,31.6000,1,0,-0.50,6.95454
+4CL,POM132,Principles of Management,"VINCOY, J, F",30361,B,A,45.7500,6,30.8000,1,0,-0.45,6.95909
+4CL,POM132,Principles of Management,"PANAGA, C, F",30276,J,E,42.5000,5,27.1000,1,0,-0.40,6.95999
+4CL,POM132,Principles of Management,"NOEL, M, C",30257,J,F,47.4000,6,29.2000,1,0,-0.40,6.96363
+4CL,POM132,Principles of Management,"GRACIA, P, M",29153,H,D,40.2500,6,36.4000,1,0,-0.35,6.96818
+4CL,POM132,Principles of Management,"HUBILLA, H, D",30182,J,F,50.3000,6,26.4000,1,0,-0.30,6.97272
+4CL,POM132,Principles of Management,"ABIGA, A, E",30004,N,H,40.5500,5,29.2000,1,0,-0.25,6.975
+4CL,STES132,"Science, Technology, and Environmental Studies","PUMIHIC, H, N",30295,O,H,10.0000,1,31.0000,1,0,-1.00,6.83333

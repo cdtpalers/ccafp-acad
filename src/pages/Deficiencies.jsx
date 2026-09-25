@@ -2,7 +2,7 @@ import { AlertCircle, UserX, ChevronUp, ChevronDown, ArrowUpDown, Lock, Eye, Eye
 import { Fragment } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { TERM1_WEEKS, TERM1_WEEK_CSV_FILES, TERM2_WEEKS, TERM2_WEEK_CSV_FILES, COMPANY_NAMES, COMPANY_COLORS } from '../utils/constants';
+import { TERM1_WEEKS, TERM1_WEEK_CSV_FILES, TERM2_WEEKS, TERM2_WEEK_CSV_FILES, TERM1_4CL_WEEKS, TERM1_4CL_WEEK_CSV_FILES, COMPANY_NAMES, COMPANY_COLORS } from '../utils/constants';
 import { parseCSV } from '../utils/csvParser';
 
 const AnimatedNumber = ({ value, isFloat = false }) => {
@@ -30,9 +30,9 @@ const AnimatedNumber = ({ value, isFloat = false }) => {
 };
 
 export default function Deficiencies() {
-  const [selectedTerm, setSelectedTerm] = useState(2);
-  const WEEKS = selectedTerm === 1 ? TERM1_WEEKS : TERM2_WEEKS;
-  const WEEK_CSV_FILES = selectedTerm === 1 ? TERM1_WEEK_CSV_FILES : TERM2_WEEK_CSV_FILES;
+  const [selectedTerm, setSelectedTerm] = useState(1);
+  const WEEKS = selectedTerm === 1 ? TERM1_WEEKS : (selectedTerm === 3 ? TERM1_4CL_WEEKS : TERM2_WEEKS);
+  const WEEK_CSV_FILES = selectedTerm === 1 ? TERM1_WEEK_CSV_FILES : (selectedTerm === 3 ? TERM1_4CL_WEEK_CSV_FILES : TERM2_WEEK_CSV_FILES);
 
   const [allWeeksData, setAllWeeksData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -279,7 +279,7 @@ export default function Deficiencies() {
   const classByCompanyData = useMemo(() => {
     const stats = {};
     Object.keys(COMPANY_NAMES).filter(k => ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].includes(k)).forEach(coy => {
-      stats[coy] = { name: coy, fullName: COMPANY_NAMES[coy], '1CL': new Set(), '2CL': new Set(), '3CL': new Set() };
+      stats[coy] = { name: coy, fullName: COMPANY_NAMES[coy], '1CL': new Set(), '2CL': new Set(), '3CL': new Set(), '4CL': new Set() };
     });
     
     deficiencies.forEach(def => {
@@ -297,6 +297,7 @@ export default function Deficiencies() {
       '1CL': s['1CL'].size,
       '2CL': s['2CL'].size,
       '3CL': s['3CL'].size,
+      '4CL': s['4CL'].size,
     }));
   }, [deficiencies]);
 
@@ -425,8 +426,8 @@ export default function Deficiencies() {
     const currentAvg = currentGrades.length ? (currentGrades.reduce((a, b) => a + b, 0) / currentGrades.length) : 0;
     const prevAvg = prevGrades.length ? (prevGrades.reduce((a, b) => a + b, 0) / prevGrades.length) : 0;
 
-    const classCounts = { '1CL': { prev: 0, curr: 0 }, '2CL': { prev: 0, curr: 0 }, '3CL': { prev: 0, curr: 0 } };
-    const classUniqueCadets = { '1CL': { prev: new Set(), curr: new Set() }, '2CL': { prev: new Set(), curr: new Set() }, '3CL': { prev: new Set(), curr: new Set() } };
+    const classCounts = { '1CL': { prev: 0, curr: 0 }, '2CL': { prev: 0, curr: 0 }, '3CL': { prev: 0, curr: 0 }, '4CL': { prev: 0, curr: 0 } };
+    const classUniqueCadets = { '1CL': { prev: new Set(), curr: new Set() }, '2CL': { prev: new Set(), curr: new Set() }, '3CL': { prev: new Set(), curr: new Set() }, '4CL': { prev: new Set(), curr: new Set() } };
 
     currentData.forEach(d => { 
       if (classCounts[d.class]) {
@@ -462,6 +463,13 @@ export default function Deficiencies() {
         [`Records W${activeWeek}`]: classCounts['3CL'].curr,
         [`Cadets W${prevWeek}`]: classUniqueCadets['3CL'].prev.size,
         [`Cadets W${activeWeek}`]: classUniqueCadets['3CL'].curr.size
+      },
+      { 
+        name: '4CL', 
+        [`Records W${prevWeek}`]: classCounts['4CL'].prev, 
+        [`Records W${activeWeek}`]: classCounts['4CL'].curr,
+        [`Cadets W${prevWeek}`]: classUniqueCadets['4CL'].prev.size,
+        [`Cadets W${activeWeek}`]: classUniqueCadets['4CL'].curr.size
       },
     ];
 
@@ -845,6 +853,21 @@ export default function Deficiencies() {
             1st Term
           </button>
           <button
+            onClick={() => setSelectedTerm(3)}
+            style={{
+              padding: '0.5rem 1rem',
+              borderRadius: '6px',
+              border: 'none',
+              background: selectedTerm === 3 ? 'var(--accent-primary)' : 'transparent',
+              color: selectedTerm === 3 ? 'var(--on-accent)' : 'var(--text-secondary)',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            1st Term (4CL)
+          </button>
+          <button
             onClick={() => setSelectedTerm(2)}
             style={{
               padding: '0.5rem 1rem',
@@ -929,7 +952,7 @@ export default function Deficiencies() {
         <div>
           <p className="text-muted" style={{ marginBottom: '0.35rem', fontWeight: 600, fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Filter by Class</p>
           <div className="tabs-container" style={{ height: '38px' }}>
-            {['All', '1CL', '2CL', '3CL'].map(cls => (
+            {['All', '1CL', '2CL', '3CL', '4CL'].map(cls => (
               <button
                 key={cls}
                 onClick={() => setSelectedClassFilter(cls)}
@@ -1278,7 +1301,7 @@ export default function Deficiencies() {
                     <p className="text-muted" style={{ margin: 0 }}>Deficient Cadets</p>
                   </div>
                   <div style={{ display: 'flex', gap: '1rem' }}>
-                    {['1CL', '2CL', '3CL'].filter(c => classCadets[c]).map(c => (
+                    {['1CL', '2CL', '3CL', '4CL'].filter(c => classCadets[c]).map(c => (
                       <div key={c} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                         <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{classCadets[c].size}</span>
                         <span>{c}</span>
@@ -1481,7 +1504,7 @@ export default function Deficiencies() {
                   <Users size={18} style={{ color: 'var(--accent-primary)' }} />
                   Deficient Cadets per Class by Company
                 </h3>
-                <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0, marginBottom: '1rem' }}>Unique cadet count breakdown across 1CL, 2CL, and 3CL</p>
+                <p className="text-muted" style={{ fontSize: '0.75rem', margin: 0, marginBottom: '1rem' }}>Unique cadet count breakdown across 1CL, 2CL, 3CL, and 4CL</p>
               </div>
               <button onClick={() => setZoomedChart('class_coy')} style={{ background: 'transparent', border: '1px solid var(--surface-border)', borderRadius: '4px', padding: '0.25rem', color: 'var(--text-secondary)', cursor: 'pointer', display: 'flex' }} title="Zoom Chart"><Maximize2 size={16} /></button>
             </div>
@@ -1500,6 +1523,7 @@ export default function Deficiencies() {
                   <Bar dataKey="1CL" fill="#3B82F6" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="2CL" fill="#ef4444" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="3CL" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="4CL" fill="#10B981" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -2006,6 +2030,7 @@ export default function Deficiencies() {
                                   <Bar dataKey="1CL" fill="#3B82F6" radius={[4, 4, 0, 0]} />
                                   <Bar dataKey="2CL" fill="#ef4444" radius={[4, 4, 0, 0]} />
                                   <Bar dataKey="3CL" fill="#F59E0B" radius={[4, 4, 0, 0]} />
+                                  <Bar dataKey="4CL" fill="#10B981" radius={[4, 4, 0, 0]} />
                                 </BarChart>
                               </ResponsiveContainer>
               )}

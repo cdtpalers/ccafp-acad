@@ -18,6 +18,11 @@ export const TERM1_WEEK_CSV_FILES = {
 export const TERM2_WEEKS = [];
 export const TERM2_WEEK_CSV_FILES = {};
 
+export const TERM1_4CL_WEEKS = [7];
+export const TERM1_4CL_WEEK_CSV_FILES = {
+  7: '/week7_4cl_deficiencies.csv',
+};
+
 export const COMPANY_NAMES = {
   'A': 'Alfa Company',
   'B': 'Bravo Company',

@@ -593,7 +593,7 @@ export function exportDeficiencyPdf({
 
   // ─── Cadet distribution by class and company ───
   if (classByCompanyData && classByCompanyData.length > 0) {
-    const hasAny = classByCompanyData.some(r => (r['1CL'] || 0) + (r['2CL'] || 0) + (r['3CL'] || 0) > 0);
+    const hasAny = classByCompanyData.some(r => (r['1CL'] || 0) + (r['2CL'] || 0) + (r['3CL'] || 0) + (r['4CL'] || 0) > 0);
     if (hasAny) {
       y = ensureSpace(y, 56);
       y = sectionHeading('Distribution', 'Deficient Cadets by Class and Company', y, gold);
@@ -602,7 +602,7 @@ export function exportDeficiencyPdf({
         startY: y,
         margin: { left: margin, right: margin },
         head: [['Class', ...classByCompanyData.map(r => r.name), 'TOTAL']],
-        body: ['1CL', '2CL', '3CL'].map(cls => {
+        body: ['1CL', '2CL', '3CL', '4CL'].map(cls => {
           const rowTotal = classByCompanyData.reduce((sum, r) => sum + (r[cls] || 0), 0);
           return [cls, ...classByCompanyData.map(r => (r[cls] ? String(r[cls]) : '')), String(rowTotal)];
         }),
@@ -784,7 +784,7 @@ export function exportDeficiencyPdf({
   // ═══════════════════════════════════════════════════════════════
   // FULL RECORDS BY CLASS -> COURSE
   // ═══════════════════════════════════════════════════════════════
-  const classOrder = ['1CL', '2CL', '3CL'];
+  const classOrder = ['1CL', '2CL', '3CL', '4CL'];
   const orderedClasses = Object.entries(groupedData).sort(([a], [b]) => {
     const aIdx = classOrder.indexOf(a);
     const bIdx = classOrder.indexOf(b);

@@ -11,16 +11,23 @@ import re
 import sys
 
 week_str = "1"
+is_4cl = False
 if len(sys.argv) > 1:
     week_str = sys.argv[1]
+if len(sys.argv) > 2 and sys.argv[2] == "4cl":
+    is_4cl = True
 
-INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}(def)")
-OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_deficiencies.csv")
+if is_4cl:
+    INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"4CL_week{week_str}")
+    OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_4cl_deficiencies.csv")
+else:
+    INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}(def)")
+    OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_deficiencies.csv")
 
 
 def get_class_level(filename):
     """Derive class level from course code number.
-    4xx = 1CL, 3xx = 2CL, 2xx = 3CL
+    4xx = 1CL, 3xx = 2CL, 2xx = 3CL, 1xx = 4CL
     """
     match = re.search(r'(\d)', filename)
     if match:
@@ -31,6 +38,8 @@ def get_class_level(filename):
             return '2CL'
         elif digit == '2':
             return '3CL'
+        elif digit == '1':
+            return '4CL'
     return 'Unknown'
 
 
