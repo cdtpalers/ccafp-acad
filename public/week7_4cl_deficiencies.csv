@@ -2,7 +2,7 @@ class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,uni
 4CL,ECO132,Global Economic Governance,"LUBAY, J, V",28206,L,G,32.6000,5,24.0000,1,0,-13.40,5.66
 4CL,ECO132,Global Economic Governance,"MANUEL, A, A",30228,B,A,44.2000,7,27.0000,1,0,-12.80,5.93333
 4CL,ECO132,Global Economic Governance,"DAYAG, V, R",30112,I,E,49.1000,7,24.0000,1,0,-10.90,6.09166
-4CL,ECO132,Global Economic Governance,"MACASIRAY, W, G",30214,B,1st,44.4000,6,22.0000,1,0,-10.60,6.03636
+4CL,ECO132,Global Economic Governance,"MACASIRAY, W, G",30214,B,A,44.4000,6,22.0000,1,0,-10.60,6.03636
 4CL,ECO132,Global Economic Governance,"BRAZIL, K, L",30061,K,F,47.3000,6,22.0000,1,0,-7.70,6.3
 4CL,ECO132,Global Economic Governance,"JALALON, J, B",30185,B,A,47.5000,7,29.0000,1,0,-7.50,6.375
 4CL,ECO132,Global Economic Governance,"MANGINSAY, B, M",30227,J,F,47.9000,6,22.0000,1,0,-7.10,6.35454
@@ -53,7 +53,7 @@ class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,uni
 4CL,MAT132,Algebra with Trigonometry,"CANONIGO, E, M",30081,C,B,52.2500,9,60.5000,2,0,-20.25,5.93421
 4CL,MAT132,Algebra with Trigonometry,"BALAZON, J, L",29036,H,E,43.7500,8,29.5000,1,0,-17.75,5.63461
 4CL,MAT132,Algebra with Trigonometry,"LUMICQUIO, C, K",30209,D,B,44.0000,9,36.7500,1,0,-17.25,5.76785
-4CL,MAT132,Algebra with Trigonometry,"MACASIRAY, W, G",30214,B,1st,57.3000,9,58.5000,2,0,-17.20,6.09473
+4CL,MAT132,Algebra with Trigonometry,"MACASIRAY, W, G",30214,B,A,57.3000,9,58.5000,2,0,-17.20,6.09473
 4CL,MAT132,Algebra with Trigonometry,"PAHIMUTANG, J, D",30271,D,B,51.5500,9,30.0000,1,0,-16.45,5.825
 4CL,MAT132,Algebra with Trigonometry,"NATO, D, S",30253,F,C,54.6500,9,27.0000,1,0,-16.35,5.83214
 4CL,MAT132,Algebra with Trigonometry,"DE TORRES, S, P",30116,C,B,61.0500,9,56.2500,2,0,-15.70,6.17368
@@ -129,7 +129,7 @@ class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,uni
 4CL,POM132,Principles of Management,"SODE, A, S",30328,I,E,52.2000,7,26.8000,1,0,-5.00,6.58333
 4CL,POM132,Principles of Management,"BALAZON, J, L",29036,H,E,57.4500,7,22.3000,1,0,-4.25,6.64583
 4CL,POM132,Principles of Management,"ABAN, E, P",30001,N,H,54.8500,7,25.0000,1,0,-4.15,6.65416
-4CL,POM132,Principles of Management,"MACASIRAY, W, G",30214,B,1st,36.0500,5,30.0000,1,0,-3.95,6.60499
+4CL,POM132,Principles of Management,"MACASIRAY, W, G",30214,B,A,36.0500,5,30.0000,1,0,-3.95,6.60499
 4CL,POM132,Principles of Management,"TORRES, D, E",30349,L,F,53.3000,7,26.8000,1,0,-3.90,6.67500
 4CL,POM132,Principles of Management,"PROVIDO, J, T",30294,F,C,54.4000,7,26.0000,1,0,-3.60,6.7
 4CL,POM132,Principles of Management,"DELOS SANTOS, R, V",30119,K,F,45.9000,6,27.6000,1,0,-3.50,6.68181
