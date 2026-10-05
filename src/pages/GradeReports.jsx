@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const TERM1_WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
 const TERM2_WEEKS = [];
-const TERM1_4CL_WEEKS = [7];
+const TERM1_4CL_WEEKS = [7, 6];
 
 const TERM1_WEEK_REPORTS = {
   1: [
@@ -78,6 +78,9 @@ const TERM1_WEEK_REPORTS = {
 
 const TERM2_WEEK_REPORTS = {};
 const TERM1_4CL_WEEK_REPORTS = {
+  6: [
+    "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
+  ],
   7: [
     "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
   ]
