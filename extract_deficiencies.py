@@ -11,15 +11,21 @@ import re
 import sys
 
 week_str = "1"
-is_4cl = False
+mode = "term1"
 if len(sys.argv) > 1:
     week_str = sys.argv[1]
-if len(sys.argv) > 2 and sys.argv[2] == "4cl":
-    is_4cl = True
+if len(sys.argv) > 2:
+    if sys.argv[2] == "4cl":
+        mode = "4cl"
+    elif sys.argv[2] in ["term2", "2nd_term", "t2"]:
+        mode = "term2"
 
-if is_4cl:
+if mode == "4cl":
     INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"4CL_week{week_str}")
     OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_4cl_deficiencies.csv")
+elif mode == "term2":
+    INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", "2nd TERM", f"Deficiency Week {week_str}")
+    OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"term2_week{week_str}_deficiencies.csv")
 else:
     INPUT_DIR = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}(def)")
     OUTPUT_FILE = os.path.join(os.path.dirname(__file__), "public", f"week{week_str}_deficiencies.csv")

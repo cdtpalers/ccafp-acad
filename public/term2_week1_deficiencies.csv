@@ -1,0 +1,211 @@
+class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,unit_cnt,final_exam,pts,grade
+1CL,CD432,Community Development,"ATUN, A, P",27018,L,H,13.0000,2,0,0,0,-1.00,6.5
+1CL,CD432,Community Development,"ARIP, R, A",25030,E,C,13.5000,2,0,0,0,-0.50,6.75
+1CL,ED432,Expanded Drawing,"ALBERTO, M, P",27278,F,E,6.5000,1,0,0,0,-0.50,6.5
+1CL,ED432,Expanded Drawing,"BALQUIN, A, B",27022,B,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,ED432,Expanded Drawing,"OLASO, A, B",27176,A,B,6.5000,1,0,0,0,-0.50,6.5
+1CL,ED432,Expanded Drawing,"REONAL, C, H",27207,A,A,6.5000,1,0,0,0,-0.50,6.5
+1CL,ED432,Expanded Drawing,"TY, R, R",25330,D,H,6.8000,1,0,0,0,-0.20,6.8
+1CL,HMA432,History of Military Arts,"ENCARNACION, N, M",27090,C,G,3.5000,1,0,0,0,-3.50,3.5
+1CL,HMA432,History of Military Arts,"SAGER, D, A",27211,C,F,3.5000,1,0,0,0,-3.50,3.5
+1CL,HMA432,History of Military Arts,"URQUIZA, V, M",27247,C,F,3.5000,1,0,0,0,-3.50,3.5
+1CL,HMA432,History of Military Arts,"VILLANUEVA, D, V",27301,C,E,3.5000,1,0,0,0,-3.50,3.5
+1CL,HMA432,History of Military Arts,"ADORACION, N, E",26009,C,G,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"CARO, Y, M",26086,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"CATACUTAN, J, D",27052,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"DUQUE, E, P",27086,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"GARCIA, R, B",27105,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"MANDAC, J, C",26233,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"SALEM, K, J",27298,C,E,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"VILLANUEVA, E, M",26345,C,F,5.5000,1,0,0,0,-1.50,5.5
+1CL,HMA432,History of Military Arts,"FARNACIO, P, L",27096,E,B,5.7500,1,0,0,0,-1.25,5.75
+1CL,HMA432,History of Military Arts,"JORNALES, J, P",27128,E,C,5.7500,1,0,0,0,-1.25,5.75
+1CL,HMA432,History of Military Arts,"MARIBAO, V, -",27156,E,B,5.7500,1,0,0,0,-1.25,5.75
+1CL,HMA432,History of Military Arts,"MARTINEZ, D, P",27157,E,B,5.7500,1,0,0,0,-1.25,5.75
+1CL,HMA432,History of Military Arts,"MELISA, C, B",27160,E,B,5.7500,1,0,0,0,-1.25,5.75
+1CL,HMA432,History of Military Arts,"BUENO, J, C",26066,C,F,6.0000,1,0,0,0,-1.00,6.0
+1CL,HMA432,History of Military Arts,"DE VENANCIO, L, R",27076,C,G,6.0000,1,0,0,0,-1.00,6.0
+1CL,HMA432,History of Military Arts,"GUMARU, D, R",27120,C,G,6.0000,1,0,0,0,-1.00,6.0
+1CL,HMA432,History of Military Arts,"VISARIO, D, T",26348,C,E,6.0000,1,0,0,0,-1.00,6.0
+1CL,HMA432,History of Military Arts,"AGUSTIN, R, B",26351,J,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"BOGñALBAL, I, C",27035,J,E,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"CASTILLO, J, E",26087,J,E,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"COCOY, J, C",27056,J,A,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"INTING, D, S",27124,J,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"MALIWANG, G, B",27148,J,C,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"PINTO, D, C",27191,J,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"QUILILAN, J, V",27199,J,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,HMA432,History of Military Arts,"REOJA, J, D",27206,J,D,6.5000,1,0,0,0,-0.50,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"AQUINO, J, M",27015,F,E,10.5000,2,0,0,0,-3.50,5.25
+1CL,LAW432,International Law and International Humanitarian Law,"VILLANUEVA, D, V",27301,C,E,11.0000,2,0,0,0,-3.00,5.5
+1CL,LAW432,International Law and International Humanitarian Law,"LATUPAN, J, M",27294,F,C,11.5000,2,0,0,0,-2.50,5.75
+1CL,LAW432,International Law and International Humanitarian Law,"VISARIO, D, T",26348,C,E,12.0000,2,0,0,0,-2.00,6.0
+1CL,LAW432,International Law and International Humanitarian Law,"ESCALONA, D, E",27092,J,C,12.5000,2,0,0,0,-1.50,6.25
+1CL,LAW432,International Law and International Humanitarian Law,"KIMAKIM, N, O",27293,F,C,12.5000,2,0,0,0,-1.50,6.25
+1CL,LAW432,International Law and International Humanitarian Law,"UNDANG, N, S",26338,F,C,12.5000,2,0,0,0,-1.50,6.25
+1CL,LAW432,International Law and International Humanitarian Law,"VILELA, M, T",26344,B,C,12.5000,2,0,0,0,-1.50,6.25
+1CL,LAW432,International Law and International Humanitarian Law,"BENITEZ, J, D",27282,F,D,12.5100,2,0,0,0,-1.49,6.255
+1CL,LAW432,International Law and International Humanitarian Law,"LOBETE, J, M",26221,F,D,12.5500,2,0,0,0,-1.45,6.275
+1CL,LAW432,International Law and International Humanitarian Law,"BOGADOR, R, G",27034,J,E,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"DURAN, A, J",27290,B,D,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"ENDINO, J, A",27091,L,A,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"MANDAC, J, C",26233,C,F,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"SALEM, K, J",27298,C,E,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"ZERRUDO, Y, R",27264,K,E,13.0000,2,0,0,0,-1.00,6.5
+1CL,LAW432,International Law and International Humanitarian Law,"ADORACION, N, E",26009,C,G,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"DARVIN, V, G",27070,A,C,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"INTING, D, S",27124,J,D,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"SABILLA, G, B",26301,D,H,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"SALVE, K, L",26304,G,G,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"TRUMATA, M, C",27246,A,A,13.5000,2,0,0,0,-0.50,6.75
+1CL,LAW432,International Law and International Humanitarian Law,"RAñA, J, P",27203,F,C,13.5100,2,0,0,0,-0.49,6.755
+1CL,LAW432,International Law and International Humanitarian Law,"ALBERTO, M, P",27278,F,E,13.5400,2,0,0,0,-0.46,6.77
+1CL,RES432,Thesis Writing 2,"AQUINO, M, D",27016,E,B,20.0000,3,0,0,0,-1.00,6.66666
+1CL,RES432,Thesis Writing 2,"BEDAÑA, M, A",26352,E,B,20.0000,3,0,0,0,-1.00,6.66666
+1CL,RES432,Thesis Writing 2,"CABUTAJE, E, S",27041,E,B,20.0000,3,0,0,0,-1.00,6.66666
+1CL,RES432,Thesis Writing 2,"SINUMLAG, D, B",27275,E,B,20.0000,3,0,0,0,-1.00,6.66666
+1CL,STSS432,Spec'l Topics in Security Studies,"LAO-ING, R, B",27135,F,D,5.0000,1,0,0,0,-2.00,5.0
+1CL,STSS432,Spec'l Topics in Security Studies,"ATIWEN, R, T",26027,H,A,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"CASIGAY, J, P",27285,F,E,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"CUTOR, M, V",27066,G,G,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"KIMAKIM, N, O",27293,F,C,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"LOBETE, J, M",26221,F,D,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"MACARAYA, F, S",27145,G,F,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"MONTEFALCON, J, N",27167,F,D,6.0000,1,0,0,0,-1.00,6.0
+1CL,STSS432,Spec'l Topics in Security Studies,"PLAZA, B, D",27193,L,G,6.0000,1,0,0,0,-1.00,6.0
+2CL,IR332,International Relations,"CORDOVA, R, I",28099,E,H,11.0000,2,0,0,0,-3.00,5.5
+2CL,IR332,International Relations,"REODIQUE, K, R",27205,E,C,11.0000,2,0,0,0,-3.00,5.5
+2CL,IR332,International Relations,"SESUCA, W, P",27220,E,C,11.0000,2,0,0,0,-3.00,5.5
+2CL,IR332,International Relations,"ALEJO, A, C",27008,F,B,11.5000,2,0,0,0,-2.50,5.75
+2CL,IR332,International Relations,"ESTOPIN, M, A",27094,F,C,11.5000,2,0,0,0,-2.50,5.75
+2CL,IR332,International Relations,"GUANZON, C, A",28169,E,H,12.0000,2,0,0,0,-2.00,6.0
+2CL,IR332,International Relations,"ILANO, M, C",28177,E,E,12.0000,2,0,0,0,-2.00,6.0
+2CL,IR332,International Relations,"IRLANDA, V, P",28179,E,E,12.0000,2,0,0,0,-2.00,6.0
+2CL,IR332,International Relations,"VILA, J, J",28346,E,G,12.0000,2,0,0,0,-2.00,6.0
+2CL,IR332,International Relations,"CRUZ, C, G",28101,O,H,12.5000,2,0,0,0,-1.50,6.25
+2CL,IR332,International Relations,"PACLIBAR, R, G",28254,O,G,12.5000,2,0,0,0,-1.50,6.25
+2CL,IR332,International Relations,"TANONGON, R, W",28329,O,H,12.5000,2,0,0,0,-1.50,6.25
+2CL,IR332,International Relations,"ABELLON, B, A",26003,N,G,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"ACIDO, G, M",28004,N,G,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"ARAWAS, M, S",28032,N,G,6.0000,1,0,0,0,-1.00,6.0
+2CL,IR332,International Relations,"BIADO, A, C",26057,I,G,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"CANGAYO, V, S",28080,E,H,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"CASIÑO, M, J",28362,E,H,6.0000,1,0,0,0,-1.00,6.0
+2CL,IR332,International Relations,"CUDIAMAT, J, H",28102,H,E,6.0000,1,0,0,0,-1.00,6.0
+2CL,IR332,International Relations,"DE JESUS, J, S",27073,O,H,6.0000,1,0,0,0,-1.00,6.0
+2CL,IR332,International Relations,"ESTRADA, J, C",28139,I,F,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"GUIEB, J, M",28171,N,F,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"LLAGAS, C, C",28199,N,F,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"MANODON, J, T",28378,I,F,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"SEVILLA, A, G",28315,N,F,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"TE-OD, I, D",27239,G,D,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"TOLERO, L, L",28333,G,D,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"YABUT, A, G",28351,G,D,13.0000,2,0,0,0,-1.00,6.5
+2CL,IR332,International Relations,"BINWAG, H, B",28058,K,B,13.5000,2,0,0,0,-0.50,6.75
+2CL,IR332,International Relations,"GUTING, J, A",28174,K,A,13.5000,2,0,0,0,-0.50,6.75
+2CL,IR332,International Relations,"UMOSO, R, M",28339,K,B,13.5000,2,0,0,0,-0.50,6.75
+3CL,PSY232,Psychology,"PADILLA, M, P",29242,B,A,6.0000,2,0,0,0,-8.00,3.0
+3CL,PSY232,Psychology,"LORENZO, J, S",29188,I,F,6.5000,2,0,0,0,-7.50,3.25
+3CL,PSY232,Psychology,"PALAHANG, V, T",29244,B,A,0.0000,1,0,0,0,-7.00,0.0
+3CL,PSY232,Psychology,"CATIMBANG, K, Y",29085,D,C,1.5000,1,0,0,0,-5.50,1.5
+3CL,PSY232,Psychology,"BADE, K, A",29032,A,A,9.2500,2,0,0,0,-4.75,4.625
+3CL,PSY232,Psychology,"ALIADO, J, M",29011,J,G,9.3000,2,0,0,0,-4.70,4.65
+3CL,PSY232,Psychology,"ESPENIDA, E, G",29127,K,G,9.5000,2,0,0,0,-4.50,4.75
+3CL,PSY232,Psychology,"IMPAS, L, L",29163,D,C,2.5000,1,0,0,0,-4.50,2.5
+3CL,PSY232,Psychology,"MANANGAN, M, A",28220,E,C,9.5000,2,0,0,0,-4.50,4.75
+3CL,PSY232,Psychology,"SILVA, G, S",29303,E,C,2.5000,1,0,0,0,-4.50,2.5
+3CL,PSY232,Psychology,"TORREFRANCA, M, Q",28334,D,B,9.7500,2,0,0,0,-4.25,4.875
+3CL,PSY232,Psychology,"CABAUATAN, J, B",29064,D,C,10.0000,2,0,0,0,-4.00,5.0
+3CL,PSY232,Psychology,"GALILA, L, S",29138,A,A,3.0000,1,0,0,0,-4.00,3.0
+3CL,PSY232,Psychology,"LAYLAY, J, B",29176,I,F,10.0000,2,0,0,0,-4.00,5.0
+3CL,PSY232,Psychology,"SACLOLO, V, M",29285,K,G,10.0000,2,0,0,0,-4.00,5.0
+3CL,PSY232,Psychology,"UNDANG, J, G",29332,M,G,10.2500,2,0,0,0,-3.75,5.125
+3CL,PSY232,Psychology,"TAN, S, F",29317,J,F,10.3000,2,0,0,0,-3.70,5.15
+3CL,PSY232,Psychology,"CHIMMON, C, O",29092,B,B,10.5000,2,0,0,0,-3.50,5.25
+3CL,PSY232,Psychology,"LUSAC, L, M",29195,H,E,3.5000,1,0,0,0,-3.50,3.5
+3CL,PSY232,Psychology,"RIVERA, J, G",29274,E,C,10.5000,2,0,0,0,-3.50,5.25
+3CL,PSY232,Psychology,"SUMAOY, K, S",29309,B,A,10.5000,2,0,0,0,-3.50,5.25
+3CL,PSY232,Psychology,"BALMERA, J, D",29038,B,B,10.7500,2,0,0,0,-3.25,5.375
+3CL,PSY232,Psychology,"JUANICO, M, V",29165,G,E,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"LUNIZO, L, P",29194,K,G,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"MAATA, T, S",29196,E,C,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"MALAWANI, A, M",29203,H,E,4.0000,1,0,0,0,-3.00,4.0
+3CL,PSY232,Psychology,"PIZON, V, A",29258,B,A,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"RAMILLANO, E, D",29264,F,D,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"RAMOGA, N, B",29266,E,C,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"SILVERIO, M, V",29305,B,A,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"SUPLIDO, C, G",29312,H,E,4.0000,1,0,0,0,-3.00,4.0
+3CL,PSY232,Psychology,"VITAO, G, C",29343,G,D,11.0000,2,0,0,0,-3.00,5.5
+3CL,PSY232,Psychology,"ABULENCIA, M, P",29003,M,H,11.0500,2,0,0,0,-2.95,5.525
+3CL,PSY232,Psychology,"CUÑADO, L, L",29100,M,H,11.0500,2,0,0,0,-2.95,5.525
+3CL,PSY232,Psychology,"ARIG, C, H",29024,A,A,11.2500,2,0,0,0,-2.75,5.625
+3CL,PSY232,Psychology,"CARSON, A, E",29080,E,D,11.2500,2,0,0,0,-2.75,5.625
+3CL,PSY232,Psychology,"OLIVEROS, J, P",29237,C,B,11.2500,2,0,0,0,-2.75,5.625
+3CL,PSY232,Psychology,"CANADA, P, -",29074,J,G,11.3000,2,0,0,0,-2.70,5.65
+3CL,PSY232,Psychology,"LOMIGO, R, G",29186,C,B,11.3000,2,0,0,0,-2.70,5.65
+3CL,PSY232,Psychology,"BOWAKEN, L, P",28062,J,G,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"CESNEROS, L, T",29091,F,D,4.5000,1,0,0,0,-2.50,4.5
+3CL,PSY232,Psychology,"EDURISE, K, N",29119,M,H,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"GABUYA, Y, P",29137,B,B,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"SUNGA, L, A",29311,C,B,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"TOLENTINO, S, C",29324,J,F,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"VILORIA, R, C",29342,E,C,11.5000,2,0,0,0,-2.50,5.75
+3CL,PSY232,Psychology,"ANGCON, J, T",29015,D,C,11.5500,2,0,0,0,-2.45,5.775
+3CL,PSY232,Psychology,"AURISTELA, S, L",29030,J,G,11.7500,2,0,0,0,-2.25,5.875
+3CL,PSY232,Psychology,"CANOY, R, N",29076,D,C,11.7500,2,0,0,0,-2.25,5.875
+3CL,PSY232,Psychology,"CASTILLO, L, M",29082,G,E,11.8000,2,0,0,0,-2.20,5.9
+3CL,PSY232,Psychology,"MONDING, J, G",29223,I,F,11.8000,2,0,0,0,-2.20,5.9
+3CL,PSY232,Psychology,"CARABIO, J, K",29077,G,E,12.0000,2,0,0,0,-2.00,6.0
+3CL,PSY232,Psychology,"CASIPE, P, L",29081,F,D,12.0000,2,0,0,0,-2.00,6.0
+3CL,PSY232,Psychology,"DAET, X, G",29103,K,G,12.0000,2,0,0,0,-2.00,6.0
+3CL,PSY232,Psychology,"REGANIT, V, R",29269,K,G,12.0000,2,0,0,0,-2.00,6.0
+3CL,PSY232,Psychology,"ROSALES, J, B",29279,B,A,5.0000,1,0,0,0,-2.00,5.0
+3CL,PSY232,Psychology,"SANICO, R, D",29297,F,D,12.0000,2,0,0,0,-2.00,6.0
+3CL,PSY232,Psychology,"VILLARIAZA, J, C",29341,D,B,12.0500,2,0,0,0,-1.95,6.025
+3CL,PSY232,Psychology,"CERBO, J, P",29089,M,H,12.2500,2,0,0,0,-1.75,6.125
+3CL,PSY232,Psychology,"HILARIO, P, O",29157,D,C,12.2500,2,0,0,0,-1.75,6.125
+3CL,PSY232,Psychology,"BORRES, J, C",29055,M,H,12.3000,2,0,0,0,-1.70,6.15
+3CL,PSY232,Psychology,"ENCIO, V, P",29121,M,H,12.3000,2,0,0,0,-1.70,6.15
+3CL,PSY232,Psychology,"ABONITA, R, C",29001,E,D,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"BELONIA, D, D",29048,B,B,5.5000,1,0,0,0,-1.50,5.5
+3CL,PSY232,Psychology,"HINDAC, W, O",28175,I,F,5.5000,1,0,0,0,-1.50,5.5
+3CL,PSY232,Psychology,"HUMIWAT, S, B",29160,G,E,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"LIMPIOSO, E, B",29179,D,C,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"MUALLIL, H, F",28382,N,H,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"NAMBONG, C, A",29227,B,A,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"RUBIO, J, R",29280,K,G,12.5000,2,0,0,0,-1.50,6.25
+3CL,PSY232,Psychology,"TUBURAN, K, N",29328,D,B,12.5500,2,0,0,0,-1.45,6.275
+3CL,PSY232,Psychology,"CUARESMA, A, T",29098,M,H,12.7500,2,0,0,0,-1.25,6.375
+3CL,PSY232,Psychology,"DANGARAN, J, C",29105,G,E,12.7500,2,0,0,0,-1.25,6.375
+3CL,PSY232,Psychology,"ANTIMANO, M, P",29019,G,E,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"LORENZO, C, A",29187,C,B,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"MACROHON, G, B",29200,F,D,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"MERIDA, P, F",29221,K,G,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"NADAL, L, P",29226,H,E,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"PEDRO, R, S",29251,E,C,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"PEÑAREDONDO, P, L",29252,C,B,6.0000,1,0,0,0,-1.00,6.0
+3CL,PSY232,Psychology,"POLLESCAS, L, L",29259,C,B,6.0000,1,0,0,0,-1.00,6.0
+3CL,PSY232,Psychology,"RAMOS, J, T",29267,F,D,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"RODRIGUEZ, R, S",29276,B,A,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"SANTIAGO, M, D",29298,H,E,13.0000,2,0,0,0,-1.00,6.5
+3CL,PSY232,Psychology,"DELA CRUZ, Y, .",29108,G,E,13.2500,2,0,0,0,-0.75,6.625
+3CL,PSY232,Psychology,"LIMSON, C, E",29180,A,A,13.3000,2,0,0,0,-0.70,6.65
+3CL,PSY232,Psychology,"REJANO, S, -",29270,J,F,13.3000,2,0,0,0,-0.70,6.65
+3CL,PSY232,Psychology,"TIHOK, K, M",29321,D,B,13.3000,2,0,0,0,-0.70,6.65
+3CL,PSY232,Psychology,"TRINIDAD, D, P",29326,J,F,13.3000,2,0,0,0,-0.70,6.65
+3CL,PSY232,Psychology,"UMALI, S, B",29331,J,F,13.3000,2,0,0,0,-0.70,6.65
+3CL,PSY232,Psychology,"CATAPANG, J, D",29084,I,F,6.5000,1,0,0,0,-0.50,6.5
+3CL,PSY232,Psychology,"MANALO, L, T",29205,F,D,6.5000,1,0,0,0,-0.50,6.5
+3CL,PSY232,Psychology,"OBCEMANE, J, G",29233,N,H,13.5000,2,0,0,0,-0.50,6.75
+3CL,PSY232,Psychology,"SAN DIEGO, G, L",29292,N,H,13.5000,2,0,0,0,-0.50,6.75
+3CL,PSY232,Psychology,"CAVADA, G, C",29087,J,G,13.5500,2,0,0,0,-0.45,6.775
+3CL,PSY232,Psychology,"GEVERO, A, B",29149,D,C,13.5500,2,0,0,0,-0.45,6.775
+3CL,PSY232,Psychology,"TEÑOSO, R, M",29320,D,B,13.5500,2,0,0,0,-0.45,6.775
+3CL,PSY232,Psychology,"CARPIO, J, C",29079,M,H,13.7500,2,0,0,0,-0.25,6.875
+3CL,PSY232,Psychology,"DELA VIÑA, L, G",29109,G,E,6.7500,1,0,0,0,-0.25,6.75
+3CL,PSY232,Psychology,"GELLANG, C, J",29147,I,F,13.7500,2,0,0,0,-0.25,6.875
+3CL,PSY232,Psychology,"PECDASEN, A, D",29250,J,F,13.7500,2,0,0,0,-0.25,6.875
+3CL,PSY232,Psychology,"VILLAR, K, F",29340,M,G,13.7500,2,0,0,0,-0.25,6.875
+3CL,PSY232,Psychology,"IBRAHIM, M, S",29161,G,E,6.8000,1,0,0,0,-0.20,6.8
+3CL,PSY232,Psychology,"BUYAYO, A, C",28067,G,E,13.8000,2,0,0,0,-0.20,6.9
+3CL,PSY232,Psychology,"CERO, A, A",29090,I,F,13.8000,2,0,0,0,-0.20,6.9

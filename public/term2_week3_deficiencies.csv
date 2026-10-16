@@ -1,0 +1,394 @@
+class,course,course_name,cadet,cn,sec,company,lesson_sum,lesson_cnt,unit_sum,unit_cnt,final_exam,pts,grade
+1CL,ED432,Expanded Drawing,"REONAL, C, H",27207,A,A,27.6000,4,0,0,0,-0.40,6.9
+1CL,HMA432,History of Military Arts,"CAJELES, E, P",26076,E,C,26.7500,3,28.0000,1,0,-1.25,6.84375
+1CL,LAW432,International Law and International Humanitarian Law,"UNDANG, N, S",26338,F,C,33.9400,5,0,0,0,-1.06,6.78799
+2CL,COM332,Purposive Communication,"AUSTRIA, A, B",28038,A,A,20.1000,3,0,0,0,-0.90,6.7
+2CL,IR332,International Relations,"CORDOVA, R, I",28099,E,H,30.5400,5,0,0,0,-4.46,6.108
+2CL,IR332,International Relations,"IRLANDA, V, P",28179,E,E,33.7800,5,0,0,0,-1.22,6.756
+2CL,IR332,International Relations,"CASIÑO, M, J",28362,E,H,27.6000,4,0,0,0,-0.40,6.9
+2CL,IR332,International Relations,"GUANZON, C, A",28169,E,H,34.7200,5,0,0,0,-0.28,6.944
+2CL,IR332,International Relations,"BINWAG, H, B",28058,K,B,34.9200,5,0,0,0,-0.08,6.984
+2CL,STAT332,Research Statistics,"BLANCO, E, C",27033,L,B,0.0000,1,0,0,0,-7.00,0.0
+2CL,STAT332,Research Statistics,"CANGAYO, V, S",28080,E,H,8.4000,2,0,0,0,-5.60,4.2
+2CL,STAT332,Research Statistics,"GALITGUIT, J, G",28149,D,F,5.2500,1,0,0,0,-1.75,5.25
+2CL,STAT332,Research Statistics,"BACULI, J, G",28040,A,A,13.2500,2,0,0,0,-0.75,6.625
+2CL,WIT332,War and its Theorists,"ALAYA AY, C, A",28015,J,H,18.0000,4,0,0,0,-10.00,4.5
+2CL,WIT332,War and its Theorists,"PALMA, F, A",27183,B,B,18.0000,4,0,0,0,-10.00,4.5
+2CL,WIT332,War and its Theorists,"AMPALAYOHAN, R, U",28022,H,F,19.0000,4,0,0,0,-9.00,4.75
+2CL,WIT332,War and its Theorists,"ESPIRITU, L, M",28136,O,H,19.0000,4,0,0,0,-9.00,4.75
+2CL,WIT332,War and its Theorists,"FERANDO, J, P",28142,N,F,19.0000,4,0,0,0,-9.00,4.75
+2CL,WIT332,War and its Theorists,"TANGCOLO, S, P",28328,O,H,19.0000,4,0,0,0,-9.00,4.75
+2CL,WIT332,War and its Theorists,"AGUILAR, M, M",28010,E,H,20.0000,4,0,0,0,-8.00,5.0
+2CL,WIT332,War and its Theorists,"BIADO, A, O",26058,D,A,20.0000,4,0,0,0,-8.00,5.0
+2CL,WIT332,War and its Theorists,"CARONAN, J, D",28085,C,E,20.0000,4,0,0,0,-8.00,5.0
+2CL,WIT332,War and its Theorists,"CASTRO, K, A",27051,H,F,20.0000,4,0,0,0,-8.00,5.0
+2CL,WIT332,War and its Theorists,"DELA PEÑA, J, F",28115,M,E,13.0000,3,0,0,0,-8.00,4.33333
+2CL,WIT332,War and its Theorists,"ALIUDDEN, R, A",28355,J,H,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"DIGMA, J, C",28366,N,F,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"DUEÑAS, I, G",28127,N,F,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"DULAY, N, M",28129,C,B,7.0000,2,0,0,0,-7.00,3.5
+2CL,WIT332,War and its Theorists,"GARCIA, J, R",28157,C,E,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"ILANO, M, C",28177,E,E,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"IQUIN, E, B",28178,N,F,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"JIMENEZ, E, C",28184,C,D,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"PAGA, B, G",27181,O,G,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"POLO, L, S",28279,J,G,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"SESUCA, W, P",27220,E,C,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"SIOCO, M, R",27299,C,D,14.0000,3,0,0,0,-7.00,4.66666
+2CL,WIT332,War and its Theorists,"VALENCIA, J, C",27250,H,E,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"VERGARA, J, D",28344,J,G,21.0000,4,0,0,0,-7.00,5.25
+2CL,WIT332,War and its Theorists,"AVILA, M, D",27280,G,E,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"CUEVA, L, C",27064,I,A,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"DERILO, A, N",28120,C,D,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"DIVINA, J, A",28123,K,A,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"MAQUILAN, A, A",28226,E,H,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"NARAG, R, T",28245,N,F,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"NAVARRO, R, R",28247,M,E,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"QUINO, R, C",28284,M,D,15.0000,3,0,0,0,-6.00,5.0
+2CL,WIT332,War and its Theorists,"SORIANO, R, V",28318,E,H,22.0000,4,0,0,0,-6.00,5.5
+2CL,WIT332,War and its Theorists,"ALBURO, D, A",27005,H,F,16.0000,3,0,0,0,-5.00,5.33333
+2CL,WIT332,War and its Theorists,"BANGNGAGAN, S, T",28048,H,F,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"BULAWAN, J, N",28066,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"CERVAS, A, L",28093,H,A,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"CUDIAMAT, J, H",28102,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"DE GUZMAN, I, B",28109,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"EBON, R, P",27088,J,H,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"GARCIA, J, D",28156,I,F,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"GUANZON, C, A",28169,E,H,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"IRLANDA, V, P",28179,E,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"LADIONG, G, M",27132,K,A,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"LINDA, R, A",28376,O,H,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"LLAGAS, C, C",28199,N,F,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"MACALINTAL, V, L",27144,B,C,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"MACAS, J, G",28211,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"MALACA, J, B",28215,B,C,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"OROPESA, R, A",28251,K,B,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"PACLIBAR, R, G",28254,O,G,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"PALATTAO, C, C",28260,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"QUIZON, K, I",27200,H,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"SANSON, P, E",28310,O,G,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"TUARIO, J, J",28335,I,F,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"VICLAR, J, B",27254,M,E,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"VILA, J, J",28346,E,G,23.0000,4,0,0,0,-5.00,5.75
+2CL,WIT332,War and its Theorists,"ARAWAS, M, S",28032,N,G,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"BALUYA, K, E",28047,E,H,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"BAYOT, S, G",28360,B,C,3.0000,1,0,0,0,-4.00,3.0
+2CL,WIT332,War and its Theorists,"BERSO, A, B",28056,B,C,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"BINWAG, H, B",28058,K,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"BLANCO, E, C",27033,L,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"BUENO, J, C",28064,B,A,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"DAPPAY, R, T",28107,M,F,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"ERMAC, P, B",28368,H,E,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"ESCALA, V, P",28134,D,F,17.0000,3,0,0,0,-4.00,5.66666
+2CL,WIT332,War and its Theorists,"IRAL, K, R",28375,F,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"LADERA, S, G",28191,G,C,17.0000,3,0,0,0,-4.00,5.66666
+2CL,WIT332,War and its Theorists,"LLARENAS, R, P",28201,K,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"MAADIL, A, B",28209,L,C,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"MAESTRO, L, M",27146,I,F,17.0000,3,0,0,0,-4.00,5.66666
+2CL,WIT332,War and its Theorists,"MANODON, J, B",28377,B,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"PARAS, C, R",28266,O,G,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"REGIS, X, I",28289,N,F,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"RICAFORT, S, G",27208,K,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"SALAZAR, G, R",28389,O,G,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"TAGLE, V, G",27300,M,D,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"VALENCIA, L, A",28342,K,B,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"VILLAMOR, C, Z",27257,O,H,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"YABUT, A, G",28351,G,D,24.0000,4,0,0,0,-4.00,6.0
+2CL,WIT332,War and its Theorists,"ABELLON, B, A",26003,N,G,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"AGUTAYA, A, B",28013,C,E,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"ALIVEN, J, V",28018,K,A,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"ARELLANO, A, P",28034,E,H,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"ARIÑO, J, B",28036,H,F,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"BALANIYAN, W, A",28045,O,H,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"BORJA, C, S",28061,I,G,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"DE GUZMAN, J, R",27072,I,A,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"GOMEZ, R, E",28168,C,D,18.0000,3,0,0,0,-3.00,6.0
+2CL,WIT332,War and its Theorists,"GUMASING, Z, T",28172,F,C,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"LABARINTO, J, S",28188,C,D,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"LEONOR, Z, B",27137,H,E,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"MENESES, M, P",28234,H,E,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"NALLIW, A, C",28242,K,B,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"OMANDAM, C, A",27177,N,G,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"PASION, B, F",26271,D,E,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"REODIQUE, K, R",27205,E,C,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"RODRIGUEZ, J, M",28298,D,G,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"ROLDAN, I, O",28299,O,H,18.0000,3,0,0,0,-3.00,6.0
+2CL,WIT332,War and its Theorists,"SOLIVEN, D, N",28390,J,G,25.0000,4,0,0,0,-3.00,6.25
+2CL,WIT332,War and its Theorists,"ACIDO, G, M",28004,N,G,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"ALCUBILLA, G, A",27006,J,H,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"BARQUILLA, J, B",28359,J,H,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"CALIXTO, J, A",28074,I,G,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"CORDOVA, R, I",28099,E,H,19.0000,3,0,0,0,-2.00,6.33333
+2CL,WIT332,War and its Theorists,"CRUZ, C, G",28101,O,H,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"DABALOS, I, O",28105,C,D,19.0000,3,0,0,0,-2.00,6.33333
+2CL,WIT332,War and its Theorists,"DE GUZMAN, M, B",26123,D,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"DEW-ALAN, V, A",27269,B,C,19.0000,3,0,0,0,-2.00,6.33333
+2CL,WIT332,War and its Theorists,"ENAGE, J, A",27089,E,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"EVANGELISTA, J, M",28140,G,D,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"GADO, J, A",25139,C,D,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"GRAFE, E, .",26180,I,G,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"GUTIERREZ, M, C",28173,N,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"GUTING, J, A",28174,K,A,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"LLONO, K, P",28204,K,B,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"MACLANG, R, P",28212,D,E,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"MANAPOL, J, J",28222,L,C,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"MENDOZA, K, P",27161,G,C,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"POGATA, K, F",28278,L,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"POQUITA, D, A",28281,M,E,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"PULIDO, J, N",26284,G,C,19.0000,3,0,0,0,-2.00,6.33333
+2CL,WIT332,War and its Theorists,"SALIPSIP, E, S",27214,B,B,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"SAPINIT, G, G",27217,K,B,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"TAMANU, J, A",28326,I,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"TAMAYO, D, C",28327,N,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"TAMBADOC, J, C",27234,O,G,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"TE-OD, I, D",27239,G,D,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"UNDANG, K, P",26337,L,B,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"VICENTE, J, P",27253,N,F,26.0000,4,0,0,0,-2.00,6.5
+2CL,WIT332,War and its Theorists,"AGUSTIN, M, L",28011,G,E,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"BANOG, B, B",28049,M,G,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"BELIGAN, S, G",27029,I,G,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"BONGAO, R, J",28060,B,B,20.0000,3,0,0,0,-1.00,6.66666
+2CL,WIT332,War and its Theorists,"CASAMAYOR, A, D",28088,F,B,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"CASTRO, R, O",28090,C,E,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"COLOBONG, C, B",28095,K,A,20.0000,3,0,0,0,-1.00,6.66666
+2CL,WIT332,War and its Theorists,"COLUMNA, M, D",26101,L,C,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"DEMARAYE, F, C",27082,E,H,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"DE VENANCIO, M, D",28113,H,E,20.0000,3,0,0,0,-1.00,6.66666
+2CL,WIT332,War and its Theorists,"ESTOPIN, M, A",27094,F,C,20.0000,3,0,0,0,-1.00,6.66666
+2CL,WIT332,War and its Theorists,"ESTRADA, J, C",28139,I,F,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"FERRER, K, C",28143,G,D,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"GABAS, C, T",27101,G,D,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"GALITGUIT, J, G",28149,D,F,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"GANET, R, M",28153,N,G,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"JAVIER, J, E",28183,I,G,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"JUNIO, Y, J",28187,I,F,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"MANGILOG, J, M",27152,B,C,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"NAOHA, R, G",28244,J,H,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"OTTAO, S, S",28252,H,E,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"RAMOS, J, V",26357,M,D,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"SALANG, P, C",28305,O,H,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"TANONGON, R, W",28329,O,H,27.0000,4,0,0,0,-1.00,6.75
+2CL,WIT332,War and its Theorists,"TITO, M, C",27244,K,A,20.0000,3,0,0,0,-1.00,6.66666
+2CL,WIT332,War and its Theorists,"URELLAN, J, B",28341,M,D,27.0000,4,0,0,0,-1.00,6.75
+3CL,MAT232,Differential Calculus,"CALAMBRO, L, Z",28070,L,A,9.0000,2,0,0,0,-5.00,4.5
+3CL,MAT232,Differential Calculus,"COLETO, J, M",27057,O,F,10.5000,2,0,0,0,-3.50,5.25
+3CL,MAT232,Differential Calculus,"GORGOD, R, D",27119,L,C,11.0000,2,0,0,0,-3.00,5.5
+3CL,MAT232,Differential Calculus,"ARENAS, J, G",28035,L,A,11.5000,2,0,0,0,-2.50,5.75
+3CL,MAT232,Differential Calculus,"RAMIRO, R, G",28286,L,C,11.5000,2,0,0,0,-2.50,5.75
+3CL,MAT232,Differential Calculus,"BALANTA, J, C",28046,L,C,13.0000,2,0,0,0,-1.00,6.5
+3CL,MAT232,Differential Calculus,"BORRES, Q, J",27037,L,B,13.0000,2,0,0,0,-1.00,6.5
+3CL,MAT232,Differential Calculus,"MARCELO, R, C",28228,L,F,13.0000,2,0,0,0,-1.00,6.5
+3CL,MAT232,Differential Calculus,"ALAUYA, U, N",28014,L,A,13.5000,2,0,0,0,-0.50,6.75
+3CL,MAT232,Differential Calculus,"DIONES, J, M",28122,L,C,13.5000,2,0,0,0,-0.50,6.75
+3CL,MAT232,Differential Calculus,"LEBRILLA, R, P",28196,L,B,13.5000,2,0,0,0,-0.50,6.75
+3CL,MAT232,Differential Calculus,"PAGUIA, J, B",28259,O,C,13.5000,2,0,0,0,-0.50,6.75
+3CL,MAT232,Differential Calculus,"REYES, J, U",28292,L,F,13.5000,2,0,0,0,-0.50,6.75
+3CL,MAT232,Differential Calculus,"SAPIGAO, M, H",28311,L,F,13.5000,2,0,0,0,-0.50,6.75
+3CL,PHY232,Physics with Military Application I,"PADILLA, M, P",29242,B,A,1.8000,1,0,0,0,-5.20,1.8
+3CL,PHY232,Physics with Military Application I,"MANALO, L, T",29205,F,D,2.4000,1,0,0,0,-4.60,2.4
+3CL,PHY232,Physics with Military Application I,"GORGOD, R, D",27119,L,C,2.8000,1,0,0,0,-4.20,2.8
+3CL,PHY232,Physics with Military Application I,"FLORES, J, E",29134,F,D,3.0000,1,0,0,0,-4.00,3.0
+3CL,PHY232,Physics with Military Application I,"JAVELOSA, R, C",28182,N,H,3.4000,1,0,0,0,-3.60,3.4
+3CL,PHY232,Physics with Military Application I,"MARQUESES, R, E",29213,N,H,3.4000,1,0,0,0,-3.60,3.4
+3CL,PHY232,Physics with Military Application I,"PIMENTEL, C, B",29256,K,G,3.4000,1,0,0,0,-3.60,3.4
+3CL,PHY232,Physics with Military Application I,"BADE, K, A",29032,A,A,3.6000,1,0,0,0,-3.40,3.6
+3CL,PHY232,Physics with Military Application I,"PAG-A, K, P",29243,C,B,3.6000,1,0,0,0,-3.40,3.6
+3CL,PHY232,Physics with Military Application I,"BUGAYONG, J, M",29059,I,F,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"CERO, A, A",29090,I,F,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"DILAG, K, A",29112,K,G,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"GERONIMO, P, F",29148,N,H,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"PARONE, P, F",28268,F,D,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"REGANIT, V, R",29269,K,G,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"ROSAROSO, T, G",28300,H,E,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"SAA, C, O",29282,N,H,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"SULTIA, K, A",29307,M,G,4.0000,1,0,0,0,-3.00,4.0
+3CL,PHY232,Physics with Military Application I,"ARCIAGA, H, E",28033,O,C,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"BAPTISTA, K, C",29040,A,A,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"DIONES, J, M",28122,L,C,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"HINDAC, W, O",28175,I,F,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"LLANETA, S, F",28200,O,C,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"MARCIAL, A, O",29212,I,F,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"MOJICA, J, E",27165,O,A,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"RAMASTA, C, S",29263,C,B,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"SANCHEZ, R, N",29295,C,B,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"SANTOS, C, L",29299,F,D,4.2000,1,0,0,0,-2.80,4.2
+3CL,PHY232,Physics with Military Application I,"ARENAS, J, G",28035,L,A,4.3000,1,0,0,0,-2.70,4.3
+3CL,PHY232,Physics with Military Application I,"VALENCERINA, B, L",29334,M,G,4.5000,1,0,0,0,-2.50,4.5
+3CL,PHY232,Physics with Military Application I,"ARIG, C, H",29024,A,A,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"AURISTELA, S, L",29030,J,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"BALMERA, J, D",29038,B,B,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"CARPIO, J, C",29079,M,H,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"ESPENIDA, E, G",29127,K,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"GARCIA, J, L",28154,L,A,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"GAYAGAY, J, C",29145,N,H,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"LUNIZO, L, P",29194,K,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"MARTINEZ, D, M",29215,K,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"MUALLIL, H, F",28382,N,H,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"ONDOY, A, M",29239,N,H,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"PALAHANG, V, T",29244,B,A,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"ROJAS, M, K",29277,K,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"ROSALES, J, B",29279,B,A,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"RUBIO, J, R",29280,K,G,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"SALUNAT, E, A",29290,C,B,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"TAN, S, F",29317,J,F,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"TIONGCO, A, A",28332,D,B,4.6000,1,0,0,0,-2.40,4.6
+3CL,PHY232,Physics with Military Application I,"CATOLICO, W, J",29086,F,D,4.8000,1,0,0,0,-2.20,4.8
+3CL,PHY232,Physics with Military Application I,"CUSTODIO, M, A",29101,F,D,4.8000,1,0,0,0,-2.20,4.8
+3CL,PHY232,Physics with Military Application I,"MENDOZA, G, A",28233,O,F,4.8000,1,0,0,0,-2.20,4.8
+3CL,PHY232,Physics with Military Application I,"RAMILLANO, E, D",29264,F,D,4.8000,1,0,0,0,-2.20,4.8
+3CL,PHY232,Physics with Military Application I,"RODEROS, T, _",28297,O,D,4.8000,1,0,0,0,-2.20,4.8
+3CL,PHY232,Physics with Military Application I,"RAMIRO, R, G",28286,L,C,4.9000,1,0,0,0,-2.10,4.9
+3CL,PHY232,Physics with Military Application I,"ANTIMANO, M, P",29019,G,E,5.0000,1,0,0,0,-2.00,5.0
+3CL,PHY232,Physics with Military Application I,"ANGCON, J, T",29015,D,C,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"APOSTOL, S, T",29020,J,G,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"ASUNCION, A, L",29028,B,B,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"BELONIA, D, D",29048,B,B,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"BERBANO, B, M",28054,E,D,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"CANOY, R, N",29076,D,C,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"CARABIO, J, K",29077,G,E,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"DAET, X, G",29103,K,G,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"DELA VIÑA, L, G",29109,G,E,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"DUMALLEG, N, D",29118,A,A,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"GARING, K, M",29144,N,H,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"IBRAHIM, M, S",29161,G,E,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"LAYLAY, J, B",29176,I,F,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"LORENZO, J, S",29188,I,F,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"MANALOTO, L, C",29206,N,H,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"MERIDA, P, F",29221,K,G,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"MORALES, R, J",28238,K,G,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"MURILLO, D, J",29225,A,A,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"NOBELO, G, L",29230,K,G,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"OLIVAR, A, M",29236,J,F,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"OMOTONG, K, B",29238,B,A,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"SALGADO, A, N",29288,N,H,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"SAPIGAO, M, H",28311,L,F,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"SUNGA, L, A",29311,C,B,5.2000,1,0,0,0,-1.80,5.2
+3CL,PHY232,Physics with Military Application I,"GELLANG, C, J",29147,I,F,5.4000,1,0,0,0,-1.60,5.4
+3CL,PHY232,Physics with Military Application I,"BALANTA, J, C",28046,L,C,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"BONGOLAN, N, A",28361,L,A,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"POLLESCAS, L, L",29259,C,B,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"RAMOS, M, M",28288,O,G,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"RODRIGUEZ, R, S",29276,B,A,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"UNDANG, J, G",29332,M,G,5.5000,1,0,0,0,-1.50,5.5
+3CL,PHY232,Physics with Military Application I,"ACOP, P, C",28353,A,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"ALAVA, J, M",29008,E,D,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"ALIADO, J, M",29011,J,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"BAUTISTA, M, G",29044,J,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"BICO, C, G",29052,J,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"BORJA, J, S",29054,E,D,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"BRAGA, E, C",29057,G,E,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CABAUATAN, J, B",29064,D,C,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CAMAROTE, J, F",28076,O,F,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CASTILLO, L, M",29082,G,E,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CENTENO, J, C",29088,F,D,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CHIMMON, C, O",29092,B,B,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"CORDERO, S, B",29094,M,H,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"DOMALLIG, M, C",29114,A,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"FORONDA, T, E",29135,F,D,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GABUYA, Y, P",29137,B,B,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GARCIA, J, R",29142,A,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GEDACA, S, M",29146,N,H,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GILO, J, L",29151,A,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GUANZON, J, H",29155,K,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"LAGUNILLA, A, M",29173,N,H,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"LIMPIOSO, E, B",29179,D,C,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"LIWALIW, D, C",29183,N,H,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"NAMBONG, C, A",29227,B,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"OBCEMANE, J, G",29233,N,H,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"ORINE, V, G",29240,K,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"PICAR, C, M",29255,J,F,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"SADICON, J, O",29286,K,G,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"SANDOVAL, J, L",29296,C,B,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"SILVERIO, M, V",29305,B,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"SUMAOY, K, S",29309,B,A,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"VALENZUELA, A, D",29335,I,E,5.8000,1,0,0,0,-1.20,5.8
+3CL,PHY232,Physics with Military Application I,"GARCIA, J, M",29143,C,B,6.0000,1,0,0,0,-1.00,6.0
+3CL,PHY232,Physics with Military Application I,"HUMIWAT, S, B",29160,G,E,6.0000,1,0,0,0,-1.00,6.0
+3CL,PHY232,Physics with Military Application I,"ALAUYA, U, N",28014,L,A,6.1000,1,0,0,0,-0.90,6.1
+3CL,PHY232,Physics with Military Application I,"DELICA, V, P",29110,A,A,6.1000,1,0,0,0,-0.90,6.1
+3CL,PHY232,Physics with Military Application I,"DRIZ, A, M",29117,I,F,6.1000,1,0,0,0,-0.90,6.1
+3CL,PHY232,Physics with Military Application I,"PANAHON, A, F",28264,L,C,6.1000,1,0,0,0,-0.90,6.1
+3CL,PHY232,Physics with Military Application I,"RAMOGA, N, B",29266,E,C,6.1000,1,0,0,0,-0.90,6.1
+3CL,PHY232,Physics with Military Application I,"AGGABAO, J, O",29004,G,E,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"BORRES, J, C",29055,M,H,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"CATIMBANG, K, Y",29085,D,C,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"ESON, R, O",29126,F,D,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"ILUMIN, E, S",29162,G,E,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"IMPAS, L, L",29163,D,C,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"LUMIWES, Z, N",29193,C,B,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"MACALINTAL, V, L",29199,K,G,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"TORREFRANCA, M, Q",28334,D,B,6.4000,1,0,0,0,-0.60,6.4
+3CL,PHY232,Physics with Military Application I,"GEVERO, A, B",29149,D,C,6.6000,1,0,0,0,-0.40,6.6
+3CL,PHY232,Physics with Military Application I,"ALOP, A, D",28356,L,B,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"ALTAVANO, K, M",28019,M,H,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"BOWAKEN, L, P",28062,J,G,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"BUSALPA, M, V",29062,I,F,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CANADA, P, -",29074,J,G,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CARIAGA, E, S",28083,O,G,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CARSON, A, E",29080,E,D,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CASIPE, P, L",29081,F,D,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CAVADA, G, C",29087,J,G,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"ERGINA, K, H",29122,F,D,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"GALO, L, C",29139,A,A,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"LEBRILLA, R, P",28196,L,B,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"MACROHON, G, B",29200,F,D,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"MANGALILI, V, S",29209,C,B,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"MAPACPAC, H, D",28225,L,A,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"MARTINEZ, A, C",28229,O,G,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"PADRE, M, P",27180,O,D,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"PAGUIA, J, B",28259,O,C,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"SAN DIEGO, G, L",29292,N,H,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"VILORIA, R, C",29342,E,C,6.7000,1,0,0,0,-0.30,6.7
+3CL,PHY232,Physics with Military Application I,"CAMPOSANO, K, C",29073,M,H,6.8000,1,0,0,0,-0.20,6.8
+3CL,RM232,Resource Management,"IBRAHIM, M, S",29161,G,E,17.7500,4,0,0,0,-10.25,4.4375
+3CL,RM232,Resource Management,"POLLESCAS, L, L",29259,C,B,5.2900,2,0,0,0,-8.71,2.645
+3CL,RM232,Resource Management,"JUANICO, M, V",29165,G,E,20.8900,4,0,0,0,-7.11,5.2225
+3CL,RM232,Resource Management,"AGUILAR, L, E",29006,D,C,22.2500,4,0,0,0,-5.75,5.5625
+3CL,RM232,Resource Management,"ANGCON, J, T",29015,D,C,22.4900,4,0,0,0,-5.51,5.62250
+3CL,RM232,Resource Management,"LIMPIOSO, E, B",29179,D,C,22.5600,4,0,0,0,-5.44,5.64
+3CL,RM232,Resource Management,"MALAWANI, A, M",29203,H,E,15.6000,3,0,0,0,-5.40,5.2
+3CL,RM232,Resource Management,"LUNIZO, L, P",29194,K,G,22.7500,4,0,0,0,-5.25,5.6875
+3CL,RM232,Resource Management,"MANALOTO, L, C",29206,N,H,23.3800,4,0,0,0,-4.62,5.845
+3CL,RM232,Resource Management,"GORGOD, R, D",27119,L,C,23.6900,4,0,0,0,-4.31,5.92249
+3CL,RM232,Resource Management,"MOJICA, J, E",27165,O,A,23.8100,4,0,0,0,-4.19,5.9525
+3CL,RM232,Resource Management,"BALANTA, J, C",28046,L,C,23.9100,4,0,0,0,-4.09,5.9775
+3CL,RM232,Resource Management,"TUBERA, H, P",29327,H,E,17.0200,3,0,0,0,-3.98,5.67333
+3CL,RM232,Resource Management,"OBCEMANE, J, G",29233,N,H,24.2100,4,0,0,0,-3.79,6.0525
+3CL,RM232,Resource Management,"REYES, A, B",29272,K,G,24.3700,4,0,0,0,-3.63,6.0925
+3CL,RM232,Resource Management,"CARPIO, J, C",29079,M,H,10.6300,2,0,0,0,-3.37,5.315
+3CL,RM232,Resource Management,"JAVELOSA, R, C",28182,N,H,25.0600,4,0,0,0,-2.94,6.265
+3CL,RM232,Resource Management,"CORDERO, S, B",29094,M,H,18.3400,3,0,0,0,-2.66,6.11333
+3CL,RM232,Resource Management,"NADAL, L, P",29226,H,E,25.4800,4,0,0,0,-2.52,6.37
+3CL,RM232,Resource Management,"MUALLIL, H, F",28382,N,H,25.5300,4,0,0,0,-2.47,6.3825
+3CL,RM232,Resource Management,"FERRERAS, J, P",29132,D,C,18.6800,3,0,0,0,-2.32,6.22666
+3CL,RM232,Resource Management,"CATOLICO, W, J",29086,F,D,25.7200,4,0,0,0,-2.28,6.43
+3CL,RM232,Resource Management,"HINDAC, W, O",28175,I,F,18.9500,3,0,0,0,-2.05,6.31666
+3CL,RM232,Resource Management,"CASTILLO, L, M",29082,G,E,25.9900,4,0,0,0,-2.01,6.49750
+3CL,RM232,Resource Management,"IMPAS, L, L",29163,D,C,19.0200,3,0,0,0,-1.98,6.34
+3CL,RM232,Resource Management,"TIHOK, K, M",29321,D,B,26.1400,4,0,0,0,-1.86,6.535
+3CL,RM232,Resource Management,"VITAO, G, C",29343,G,D,26.2000,4,0,0,0,-1.80,6.55
+3CL,RM232,Resource Management,"LAGARTEJA, K, M",29172,D,C,26.2100,4,0,0,0,-1.79,6.5525
+3CL,RM232,Resource Management,"LUSAC, L, M",29195,H,E,19.2400,3,0,0,0,-1.76,6.41333
+3CL,RM232,Resource Management,"MORALES, R, J",28238,K,G,26.2900,4,0,0,0,-1.71,6.5725
+3CL,RM232,Resource Management,"TORREFRANCA, M, Q",28334,D,B,26.3300,4,0,0,0,-1.67,6.5825
+3CL,RM232,Resource Management,"MERIDA, P, F",29221,K,G,26.4000,4,0,0,0,-1.60,6.6
+3CL,RM232,Resource Management,"RUBIO, J, R",29280,K,G,26.4100,4,0,0,0,-1.59,6.6025
+3CL,RM232,Resource Management,"MARQUESES, R, E",29213,N,H,26.5800,4,0,0,0,-1.42,6.645
+3CL,RM232,Resource Management,"ORINE, V, G",29240,K,G,26.6200,4,0,0,0,-1.38,6.655
+3CL,RM232,Resource Management,"CERBO, J, P",29089,M,H,19.6600,3,0,0,0,-1.34,6.55333
+3CL,RM232,Resource Management,"DELA VIÑA, L, G",29109,G,E,19.6800,3,0,0,0,-1.32,6.56
+3CL,RM232,Resource Management,"UNDANG, J, G",29332,M,G,19.7300,3,0,0,0,-1.27,6.57666
+3CL,RM232,Resource Management,"RAMILLANO, E, D",29264,F,D,19.7500,3,0,0,0,-1.25,6.58333
+3CL,RM232,Resource Management,"CATIMBANG, K, Y",29085,D,C,12.8400,2,0,0,0,-1.16,6.42
+3CL,RM232,Resource Management,"CUÑADO, L, L",29100,M,H,19.8500,3,0,0,0,-1.15,6.61666
+3CL,RM232,Resource Management,"DELICA, V, P",29110,A,A,19.8500,3,0,0,0,-1.15,6.61666
+3CL,RM232,Resource Management,"NASAM, A, C",29228,H,E,26.9700,4,0,0,0,-1.03,6.7425
+3CL,RM232,Resource Management,"PAG-A, K, P",29243,C,B,27.1200,4,0,0,0,-0.88,6.78
+3CL,RM232,Resource Management,"DAET, X, G",29103,K,G,20.2200,3,0,0,0,-0.78,6.73999
+3CL,RM232,Resource Management,"EDURISE, K, N",29119,M,H,20.2200,3,0,0,0,-0.78,6.73999
+3CL,RM232,Resource Management,"SACLOLO, V, M",29285,K,G,27.2300,4,0,0,0,-0.77,6.8075
+3CL,RM232,Resource Management,"ABULENCIA, M, P",29003,M,H,13.3300,2,0,0,0,-0.67,6.665
+3CL,RM232,Resource Management,"CAGUIAT, V, C",29067,G,E,20.4500,3,0,0,0,-0.55,6.81666
+3CL,RM232,Resource Management,"CUARESMA, A, T",29098,M,H,20.8100,3,0,0,0,-0.19,6.93666
+3CL,RM232,Resource Management,"FRIAS, A, B",27098,G,E,27.8700,4,0,0,0,-0.13,6.9675
+3CL,RM232,Resource Management,"SALGADO, A, N",29288,N,H,27.9900,4,0,0,0,-0.01,6.99750
