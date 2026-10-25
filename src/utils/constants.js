@@ -15,19 +15,21 @@ export const TERM1_WEEK_CSV_FILES = {
   14: '/week14_deficiencies.csv',
 };
 
-export const TERM2_WEEKS = [3, 2, 1];
+export const TERM2_WEEKS = [4, 3, 2, 1];
 export const TERM2_WEEK_CSV_FILES = {
   1: '/term2_week1_deficiencies.csv',
   2: '/term2_week2_deficiencies.csv',
   3: '/term2_week3_deficiencies.csv',
+  4: '/term2_week4_deficiencies.csv',
 };
 
-export const TERM1_4CL_WEEKS = [9, 8, 7, 6];
+export const TERM1_4CL_WEEKS = [10, 9, 8, 7, 6];
 export const TERM1_4CL_WEEK_CSV_FILES = {
   6: '/week6_4cl_deficiencies.csv',
   7: '/week7_4cl_deficiencies.csv',
   8: '/week8_4cl_deficiencies.csv',
   9: '/week9_4cl_deficiencies.csv',
+  10: '/week10_4cl_deficiencies.csv',
 };
 
 export const COMPANY_NAMES = {
