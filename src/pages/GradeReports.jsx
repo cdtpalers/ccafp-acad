@@ -2,8 +2,8 @@ import { FileText, Info, Calendar, BookOpen, Lock, Eye, EyeOff } from 'lucide-re
 import { useState, useEffect } from 'react';
 
 const TERM1_WEEKS = [14, 13, 12, 11, 10, 8, 7, 6, 5, 4, 3, 2, 1];
-const TERM2_WEEKS = [4, 3, 2, 1];
-const TERM1_4CL_WEEKS = [10, 9, 8, 7, 6];
+const TERM2_WEEKS = [5, 4, 3, 2, 1];
+const TERM1_4CL_WEEKS = [11, 10, 9, 8, 7, 6];
 
 const TERM1_WEEK_REPORTS = {
   1: [
@@ -96,6 +96,11 @@ const TERM2_WEEK_REPORTS = {
     "1CL/CD432.pdf", "1CL/ED432.pdf", "1CL/HMA432.pdf", "1CL/LAW432.pdf", "1CL/RES432.pdf", "1CL/STSS432.pdf",
     "2CL/COM332.pdf", "2CL/IR332.pdf", "2CL/LCO332.pdf", "2CL/STAT332.pdf", "2CL/WIT332.pdf",
     "3CL/IT232.pdf", "3CL/PHY232.pdf", "3CL/PSY232.pdf", "3CL/RM232.pdf"
+  ],
+  5: [
+    "1CL/CD432.pdf", "1CL/ED432.pdf", "1CL/HMA432.pdf", "1CL/LAW432.pdf", "1CL/RES432.pdf", "1CL/STSS432.pdf",
+    "2CL/COM332.pdf", "2CL/IR332.pdf", "2CL/LCO332.pdf", "2CL/STAT332.pdf", "2CL/WIT332.pdf",
+    "3CL/IT232.pdf", "3CL/PHY232.pdf", "3CL/PSY232.pdf", "3CL/RM232.pdf"
   ]
 };
 const TERM1_4CL_WEEK_REPORTS = {
@@ -112,6 +117,9 @@ const TERM1_4CL_WEEK_REPORTS = {
     "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
   ],
   10: [
+    "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
+  ],
+  11: [
     "ECO132.pdf", "MAT132.pdf", "PHI132.pdf", "POM132.pdf", "STES132.pdf"
   ]
 };
