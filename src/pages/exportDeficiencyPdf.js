@@ -543,6 +543,37 @@ export function exportDeficiencyPdf({
           },
         });
         y = doc.lastAutoTable.finalY + 6;
+
+        // ── List of Cadets with multiple deficiencies ──
+        const multCadets = classData.multipleDefCadets;
+        if (multCadets && multCadets.length > 0) {
+          y = ensureSpace(y, 28);
+          tacticalLabel(`${cls} Cadets with Multiple Deficiencies (${multCadets.length})`, margin, y, { color: violet, size: 6.2 });
+          y += 2.5;
+
+          autoTable(doc, {
+            startY: y,
+            margin: { left: margin, right: margin },
+            head: [['Cadet Name', 'Company', 'Count', 'Deficient Subjects']],
+            body: multCadets.map(c => [
+              c.name,
+              `Company ${c.company}`,
+              `${c.count} subjects`,
+              (c.subjects || []).join(', ')
+            ]),
+            headStyles: { fillColor: panel, textColor: white, fontSize: 7, fontStyle: 'bold', halign: 'center', font: SANS },
+            bodyStyles: { fontSize: 7, halign: 'left', font: SANS },
+            columnStyles: {
+              0: { cellWidth: 50, fontStyle: 'bold' },
+              1: { cellWidth: 26, halign: 'center' },
+              2: { cellWidth: 24, halign: 'center', font: MONO },
+              3: { cellWidth: 'auto' }
+            },
+            theme: 'grid',
+            styles: { lineColor: midGray, lineWidth: 0.15, cellPadding: 1.4 },
+          });
+          y = doc.lastAutoTable.finalY + 6;
+        }
       }
 
       // ── Week-over-week comparison for this class ──

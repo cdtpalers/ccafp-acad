@@ -53,6 +53,8 @@ export default function Deficiencies() {
   const [isDataChartsCollapsed, setIsDataChartsCollapsed] = useState(false);
   const [isSpecialConcernCollapsed, setIsSpecialConcernCollapsed] = useState(false);
   const [isComparisonChartsCollapsed, setIsComparisonChartsCollapsed] = useState(false);
+  const [expandedMultDefs, setExpandedMultDefs] = useState({});
+  const [multDefFilter, setMultDefFilter] = useState({});
   
   // Interactive Legend State for Trend Chart
   const [activeLines, setActiveLines] = useState({ totalDeficiencies: true, uniqueCadets: true, avgGrade: false });
@@ -329,8 +331,14 @@ export default function Deficiencies() {
         if (!companies.includes(coy)) return;
         const cadet = def.cadet;
         if (!cadet) return;
-        if (!cadetDefs[cadet]) cadetDefs[cadet] = { count: 0, company: coy };
+        if (!cadetDefs[cadet]) {
+          cadetDefs[cadet] = { count: 0, company: coy, subjects: [] };
+        }
         cadetDefs[cadet].count++;
+        const crs = def.course || def.course_name;
+        if (crs && !cadetDefs[cadet].subjects.includes(crs)) {
+          cadetDefs[cadet].subjects.push(crs);
+        }
       });
 
       const multDefs = {
@@ -343,7 +351,9 @@ export default function Deficiencies() {
         companies.forEach(c => multDefs[row][c] = 0);
       });
 
-      Object.values(cadetDefs).forEach(({ count, company }) => {
+      const multipleDefCadets = [];
+
+      Object.entries(cadetDefs).forEach(([name, { count, company, subjects }]) => {
         if (count < 2) return; // Only monitor multiple deficiencies
         let rowKey = count;
         if (count >= 4) rowKey = '4+';
@@ -353,8 +363,17 @@ export default function Deficiencies() {
           multDefs.TOTAL[company]++;
           multDefs.TOTAL.TOTAL++;
         }
+        multipleDefCadets.push({
+          name,
+          company,
+          count,
+          subjects
+        });
       });
-      dataByClass[cls] = { subjects, multDefs };
+
+      multipleDefCadets.sort((a, b) => b.count - a.count || a.company.localeCompare(b.company) || a.name.localeCompare(b.name));
+
+      dataByClass[cls] = { subjects, multDefs, multipleDefCadets };
     });
     return dataByClass;
   }, [deficiencies, selectedClassFilter]);
@@ -1586,8 +1605,18 @@ export default function Deficiencies() {
           {/* ── Row 4: Academic Performance Summary (Per Class) ── */}
           {Object.entries(performanceDataByClass).sort(([a], [b]) => a.localeCompare(b)).map(([cls, classData]) => {
             if (!classData) return null;
-            const { subjects, multDefs } = classData;
+            const { subjects, multDefs, multipleDefCadets = [] } = classData;
             const compData = performanceComparisonByClass?.[cls];
+            const isMultExpanded = !!expandedMultDefs[cls];
+            const activeFilter = multDefFilter[cls];
+
+            const filteredCadets = multipleDefCadets.filter(cadet => {
+              if (!activeFilter) return true;
+              const matchesCoy = activeFilter.coy === 'TOTAL' || cadet.company === activeFilter.coy;
+              const cadetRowKey = cadet.count >= 4 ? '4+' : cadet.count;
+              const matchesRow = activeFilter.row === 'TOTAL' || cadetRowKey === activeFilter.row;
+              return matchesCoy && matchesRow;
+            });
             return (
               <div key={cls} className="glass-panel animate-fade-in-up" style={{ padding: '1.5rem', marginBottom: '1.5rem' }}>
                 <h3 style={{ margin: 0, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem' }}>
@@ -1640,22 +1669,258 @@ export default function Deficiencies() {
                           </tr>
                         </thead>
                         <tbody>
-                          {[2, 3, '4+', 'TOTAL'].map((row, idx) => (
+                          {[2, 3, '4+', 'TOTAL'].map((row) => (
                             <tr key={row}>
                               <td style={{ fontWeight: 'bold', backgroundColor: 'var(--surface-overlay)', borderRight: '1px solid var(--surface-border)' }}>{row === '4+' ? '4' : row}</td>
-                              {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => (
-                                <td key={c} style={{ backgroundColor: COMPANY_COLORS[c], color: c === 'B' || c === 'G' ? '#000' : '#fff' }}>
-                                  {multDefs[row]?.[c] || ''}
-                                </td>
-                              ))}
-                              <td style={{ fontWeight: 'bold', backgroundColor: '#4b5563', color: '#fff' }}>
-                                {multDefs[row]?.TOTAL || ''}
-                              </td>
+                              {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map(c => {
+                                const val = multDefs[row]?.[c] || 0;
+                                const isSelected = activeFilter && activeFilter.row === row && activeFilter.coy === c;
+                                return (
+                                  <td
+                                    key={c}
+                                    onClick={() => {
+                                      if (val > 0) {
+                                        setExpandedMultDefs(prev => ({ ...prev, [cls]: true }));
+                                        setMultDefFilter(prev => {
+                                          const curr = prev[cls];
+                                          if (curr && curr.row === row && curr.coy === c) {
+                                            const copy = { ...prev };
+                                            delete copy[cls];
+                                            return copy;
+                                          }
+                                          return { ...prev, [cls]: { row, coy: c } };
+                                        });
+                                      }
+                                    }}
+                                    style={{
+                                      backgroundColor: COMPANY_COLORS[c],
+                                      color: c === 'B' || c === 'G' ? '#000' : '#fff',
+                                      cursor: val > 0 ? 'pointer' : 'default',
+                                      fontWeight: val > 0 ? 'bold' : 'normal',
+                                      outline: isSelected ? '2px solid #fff' : 'none',
+                                      outlineOffset: '-2px',
+                                      userSelect: 'none',
+                                      transition: 'box-shadow 0.15s ease'
+                                    }}
+                                    title={val > 0 ? `Click to inspect ${val} cadet(s) with ${row} deficiencies in Company ${c}` : undefined}
+                                  >
+                                    {val || ''}
+                                  </td>
+                                );
+                              })}
+                              {(() => {
+                                const totalVal = multDefs[row]?.TOTAL || 0;
+                                const isTotalSelected = activeFilter && activeFilter.row === row && activeFilter.coy === 'TOTAL';
+                                return (
+                                  <td
+                                    onClick={() => {
+                                      if (totalVal > 0) {
+                                        setExpandedMultDefs(prev => ({ ...prev, [cls]: true }));
+                                        setMultDefFilter(prev => {
+                                          const curr = prev[cls];
+                                          if (curr && curr.row === row && curr.coy === 'TOTAL') {
+                                            const copy = { ...prev };
+                                            delete copy[cls];
+                                            return copy;
+                                          }
+                                          return { ...prev, [cls]: { row, coy: 'TOTAL' } };
+                                        });
+                                      }
+                                    }}
+                                    style={{
+                                      fontWeight: 'bold',
+                                      backgroundColor: '#4b5563',
+                                      color: '#fff',
+                                      cursor: totalVal > 0 ? 'pointer' : 'default',
+                                      outline: isTotalSelected ? '2px solid #a855f7' : 'none',
+                                      outlineOffset: '-2px',
+                                      userSelect: 'none'
+                                    }}
+                                    title={totalVal > 0 ? `Click to inspect ${totalVal} cadet(s) with ${row} deficiencies` : undefined}
+                                  >
+                                    {totalVal || ''}
+                                  </td>
+                                );
+                              })()}
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
+
+                    {/* Cadets with multiple deficiencies toggle & list */}
+                    {multipleDefCadets.length > 0 && (
+                      <div style={{ marginTop: '0.65rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => setExpandedMultDefs(prev => ({ ...prev, [cls]: !prev[cls] }))}
+                          className="btn"
+                          style={{
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '0.55rem 0.9rem',
+                            borderRadius: '6px',
+                            background: isMultExpanded ? 'rgba(168, 85, 247, 0.15)' : 'rgba(168, 85, 247, 0.08)',
+                            border: '1px solid rgba(168, 85, 247, 0.4)',
+                            color: 'var(--text-primary)',
+                            fontSize: '0.82rem',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+                            <Users size={15} style={{ color: '#a855f7' }} />
+                            <span>{isMultExpanded ? 'Hide Cadet Names & Companies' : 'Show Cadet Names & Respective Companies'}</span>
+                            <span
+                              style={{
+                                fontSize: '0.72rem',
+                                padding: '1px 7px',
+                                borderRadius: '10px',
+                                background: '#a855f7',
+                                color: '#fff',
+                                fontWeight: 'bold'
+                              }}
+                            >
+                              {multipleDefCadets.length}
+                            </span>
+                          </span>
+                          <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', color: '#a855f7', fontSize: '0.75rem' }}>
+                            {isMultExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                          </span>
+                        </button>
+
+                        {/* Collapsible Cadet Roster Table */}
+                        {isMultExpanded && (
+                          <div
+                            className="animate-fade-in"
+                            style={{
+                              marginTop: '0.6rem',
+                              border: '1px solid var(--surface-border)',
+                              borderRadius: '8px',
+                              overflow: 'hidden',
+                              backgroundColor: 'var(--surface-overlay)'
+                            }}
+                          >
+                            <div
+                              style={{
+                                padding: '0.6rem 0.9rem',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                                borderBottom: '1px solid var(--surface-border)',
+                                flexWrap: 'wrap',
+                                gap: '0.5rem'
+                              }}
+                            >
+                              <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                                {cls} Cadets with Multiple Deficiencies ({filteredCadets.length})
+                              </div>
+                              {activeFilter && (
+                                <button
+                                  type="button"
+                                  onClick={() => setMultDefFilter(prev => {
+                                    const copy = { ...prev };
+                                    delete copy[cls];
+                                    return copy;
+                                  })}
+                                  style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '4px',
+                                    padding: '2px 8px',
+                                    borderRadius: '4px',
+                                    background: 'var(--surface-background)',
+                                    border: '1px solid var(--surface-border)',
+                                    color: 'var(--text-secondary)',
+                                    fontSize: '0.72rem',
+                                    cursor: 'pointer'
+                                  }}
+                                  title="Reset filter"
+                                >
+                                  <span>
+                                    Filtered: {activeFilter.coy !== 'TOTAL' ? `Coy ${activeFilter.coy}` : 'All Coys'} • {activeFilter.row !== 'TOTAL' ? `${activeFilter.row} Subj` : 'All'}
+                                  </span>
+                                  <X size={12} />
+                                </button>
+                              )}
+                            </div>
+
+                            {filteredCadets.length === 0 ? (
+                              <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                                No cadets found matching the selection.
+                              </div>
+                            ) : (
+                              <div style={{ maxHeight: '260px', overflowY: 'auto' }}>
+                                <table className="data-table" style={{ fontSize: '0.8rem', width: '100%', margin: 0 }}>
+                                  <thead>
+                                    <tr>
+                                      <th style={{ textAlign: 'left', padding: '0.4rem 0.75rem', backgroundColor: 'var(--surface-overlay)' }}>Cadet Name</th>
+                                      <th style={{ textAlign: 'center', padding: '0.4rem 0.5rem', width: '65px', backgroundColor: 'var(--surface-overlay)' }}>Coy</th>
+                                      <th style={{ textAlign: 'center', padding: '0.4rem 0.5rem', width: '90px', backgroundColor: 'var(--surface-overlay)' }}>Deficiencies</th>
+                                      <th style={{ textAlign: 'left', padding: '0.4rem 0.75rem', backgroundColor: 'var(--surface-overlay)' }}>Subjects Deficient</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {filteredCadets.map((cadet, cIdx) => (
+                                      <tr key={cIdx}>
+                                        <td style={{ fontWeight: 600, textAlign: 'left', padding: '0.45rem 0.75rem' }}>
+                                          {cadet.name}
+                                        </td>
+                                        <td style={{ textAlign: 'center', padding: '0.45rem 0.5rem' }}>
+                                          <span
+                                            style={{
+                                              display: 'inline-block',
+                                              padding: '1px 7px',
+                                              borderRadius: '4px',
+                                              fontWeight: 'bold',
+                                              fontSize: '0.72rem',
+                                              backgroundColor: COMPANY_COLORS[cadet.company] || '#6b7280',
+                                              color: cadet.company === 'B' || cadet.company === 'G' ? '#000' : '#fff'
+                                            }}
+                                          >
+                                            {cadet.company}
+                                          </span>
+                                        </td>
+                                        <td style={{ textAlign: 'center', padding: '0.45rem 0.5rem' }}>
+                                          <span
+                                            className={cadet.count >= 4 ? 'badge badge-urgent' : cadet.count === 3 ? 'badge badge-warning' : 'badge'}
+                                            style={{ fontSize: '0.72rem', fontWeight: 600 }}
+                                          >
+                                            {cadet.count} subjects
+                                          </span>
+                                        </td>
+                                        <td style={{ textAlign: 'left', padding: '0.45rem 0.75rem' }}>
+                                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '3px' }}>
+                                            {cadet.subjects.map((sub, sIdx) => (
+                                              <span
+                                                key={sIdx}
+                                                style={{
+                                                  fontSize: '0.7rem',
+                                                  padding: '1px 5px',
+                                                  borderRadius: '3px',
+                                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                                  border: '1px solid var(--surface-border)',
+                                                  color: 'var(--text-secondary)'
+                                                }}
+                                              >
+                                                {sub}
+                                              </span>
+                                            ))}
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
 
                   {/* Right Column: Graphs and Text Area */}
